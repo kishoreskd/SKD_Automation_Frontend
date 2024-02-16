@@ -1,0 +1,21 @@
+<mat-toolbar>
+  <button mat-button (click)="opened=!opened">
+    <img src="assets/icon/pgt.ico" />
+  </button>
+  <span class="logo-text">Automation</span>
+  
+  <mat-sidenav-container>
+    <mat-sidenav [(opened)]="opened" [fixedInViewport]="true" [fixedTopGap]="40" mode="side">
+      <div class="side-nav-items">
+        <mat-list>
+          <mat-list-item routerLink="project/home" class="side-menu-item">Plugin</mat-list-item>
+        </mat-list>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="main-content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

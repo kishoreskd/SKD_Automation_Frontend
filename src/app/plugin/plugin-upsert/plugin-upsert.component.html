@@ -1,0 +1,45 @@
+<div mat-dialog-title>
+  <h1>Plugin</h1>
+  <hr />
+</div>
+
+<form [formGroup]="_pluginFrm" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-content class="content">
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Plugin Name</mat-label>
+        <input matInput type="text" placeholder="Ex. " formControlName="pluginName">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Manual Minutes</mat-label>
+        <input matInput placeholder="Ex. " formControlName="manualMinutes">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Automated Minutes</mat-label>
+        <input matInput placeholder="Ex. " formControlName="automatedMinutes">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput type="text" placeholder="Ex. " formControlName="description">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Department Name</mat-label>
+        <input matInput placeholder="Ex. " formControlName="departmentName">
+      </mat-form-field>
+    </div>
+
+
+    <div mat-dialog-actions class="action">
+      <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+      <button mat-raised-button color="primary" type="submit">{{'Save'}}</button>
+    </div>
+
+  </div>
+</form>

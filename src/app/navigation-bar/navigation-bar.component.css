@@ -1,0 +1,44 @@
+mat-sidenav-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 40px;
+}
+
+mat-sidenav {
+    width: 200px;
+    background-color: #eee;
+}
+
+.main-content {
+    margin: 20px;
+}
+
+.side-nav-items {
+    display: flexbox;
+    flex-direction: column;
+}
+
+.side-menu-item {
+    top: 10px;
+    color: black;
+    font-weight: 900;
+}
+
+
+mat-toolbar {
+    height: 40px;
+    background: white;
+    border-radius: 10px;
+}
+
+.logo-text {
+    font-size: .875rem;
+    color: rgba(0,120,212,1);
+}
+
+img {
+    margin-top: 11px;
+    height: 30px;
+}
