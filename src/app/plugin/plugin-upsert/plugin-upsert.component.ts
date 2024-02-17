@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidator } from '../../application/Validator/CustomValidator.component';
-import { PluginService } from '../../services/plugin.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PluginService } from '../../services/plugin-services/plugin.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Plugin } from '../../domain/model/plugin-log.model';
+import { Department } from '../../domain/model/department';
 
 @Component({
   selector: 'app-plugin-upsert',
@@ -14,8 +15,18 @@ export class PluginUpsertComponent implements OnInit {
 
   _pluginModel: Plugin;
   _pluginFrm: FormGroup;
+  _department: Array<Department> = [
+    { departmentId: 1, departmentName: "STEEL" },
+    { departmentId: 2, departmentName: "CONCRETE" },
+    { departmentId: 3, departmentName: "REVIT" },
+    { departmentId: 4, departmentName: "AUTO CAD" },
+    { departmentId: 5, departmentName: "SDS2" }
+  ];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public _data: Plugin, private _fb: FormBuilder, private _service: PluginService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public _data: Plugin,
+    private _pluginFrmDialog: MatDialogRef<PluginUpsertComponent>,
+    private _fb: FormBuilder,
+    private _service: PluginService) {
     this._pluginModel = new Plugin();
   }
 
@@ -57,18 +68,17 @@ export class PluginUpsertComponent implements OnInit {
   //#endregion
 
   onFormSubmit() {
-
-
     if (this._pluginFrm.valid) {
-      this.mapProject();
-      this._service.add(this._pluginModel).subscribe({
-        next: (val: Plugin) => {
-          alert('Plugin added!')
-        },
-        error: (err: any) => {
-          console.log(err);
-        }
-      })
+      this._pluginFrmDialog.close({ msg: "Loaded", isValid: true });
+      // this.mapProject();
+      // this._service.add(this._pluginModel).subscribe({
+      //   next: (val: Plugin) => {
+      //     alert('Plugin added!')
+      //   },
+      //   error: (err: any) => {
+      //     console.log(err);
+      //   }
+      // })
     }
   }
 

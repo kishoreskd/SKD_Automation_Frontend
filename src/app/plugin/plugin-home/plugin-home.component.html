@@ -1,68 +1,72 @@
-<mat-grid-list cols="2">
-  <button (click)="onOpenPrjAddDialog()" mat-button color="primary">Add New</button>
+<div class="example-button-row">
+  <button (click)="onOpenPrjAddDialog()" mat-fab extended color="primary">
+    <mat-icon>add</mat-icon>
+    Add New Plugin 
+  </button>
   <hr />
 
-  <div>
-    <table mat-table [dataSource]="dataSource">
+  <mat-grid-list cols="2">
+    <div>
+      <table mat-table [dataSource]="dataSource">
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="pluginId" mat-sort-header>
-        <th mat-header-cell *matHeaderCellDef> Plugin Id </th>
-        <td mat-cell *matCellDef="let element"> {{element.pluginId}} </td>
-      </ng-container>
-
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="pluginName" mat-sort-header>
-        <th mat-header-cell *matHeaderCellDef> Plugin Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.pluginName}}
-        </td>
-      </ng-container>
-
-      <!-- Weight Column -->
-      <ng-container matColumnDef="manualMinutes" mat-sort-header>
-        <th mat-header-cell *matHeaderCellDef> Manual Minutes </th>
-        <td mat-cell *matCellDef="let element"> {{element.manualMinutes}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="automatedMinutes" mat-sort-header>
-        <th mat-header-cell *matHeaderCellDef> Automated Minutes </th>
-        <td mat-cell *matCellDef="let element"> {{element.automatedMinutes}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="description" mat-sort-header>
-        <th mat-header-cell *matHeaderCellDef> Description </th>
-        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="departmentName" mat-sort-header>
-        <th mat-header-cell *matHeaderCellDef> Department Name</th>
-        <td mat-cell *matCellDef="let element"> {{element.departmentName }} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="primary" (click)="onEditPrjDialog(element)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
-    </mat-paginator>
-  </div>
+        <!-- Name Column -->
+        <ng-container matColumnDef="pluginId" mat-sort-header>
+          <th mat-header-cell *matHeaderCellDef> Plugin Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.pluginId}} </td>
+        </ng-container>
 
 
-</mat-grid-list>
+        <!-- Name Column -->
+        <ng-container matColumnDef="pluginName" mat-sort-header>
+          <th mat-header-cell *matHeaderCellDef> Plugin Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.pluginName}}
+          </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="manualMinutes" mat-sort-header>
+          <th mat-header-cell *matHeaderCellDef> Manual Minutes </th>
+          <td mat-cell *matCellDef="let element"> {{element.manualMinutes}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="automatedMinutes" mat-sort-header>
+          <th mat-header-cell *matHeaderCellDef> Automated Minutes </th>
+          <td mat-cell *matCellDef="let element"> {{element.automatedMinutes}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="description" mat-sort-header>
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="departmentName" mat-sort-header>
+          <th mat-header-cell *matHeaderCellDef> Department Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.departmentName }} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="onEditPrjDialog(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+
+
+  </mat-grid-list>

@@ -3,18 +3,28 @@
     <img src="assets/icon/pgt.ico" />
   </button>
   <span class="logo-text">Automation</span>
-  
+
   <mat-sidenav-container>
     <mat-sidenav [(opened)]="opened" [fixedInViewport]="true" [fixedTopGap]="40" mode="side">
       <div class="side-nav-items">
         <mat-list>
-          <mat-list-item routerLink="project/home" class="side-menu-item">Plugin</mat-list-item>
+          <mat-list-item routerLink="project/home" class="side-menu-item">
+            Plugin
+          </mat-list-item>
         </mat-list>
       </div>
     </mat-sidenav>
 
     <mat-sidenav-content>
       <div class="main-content">
+        <div class="loading-indicator">
+
+
+          <!-- <mat-spinner *ngIf="showLoadingIndicator"></mat-spinner> -->
+          <!-- <mat-label class="primary" *ngIf="showLoadingIndicator">Please Wait...</mat-label> -->
+
+        </div>
+        <mat-progress-bar mode="indeterminate" *ngIf="_loaderService.loaderVisible | async"></mat-progress-bar>
         <router-outlet></router-outlet>
       </div>
     </mat-sidenav-content>

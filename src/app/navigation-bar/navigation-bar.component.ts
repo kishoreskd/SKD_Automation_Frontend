@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationStart, NavigationEnd, Event } from '@angular/router';
+import { LoaderService } from '../services/common/loader.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -7,10 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationBarComponent implements OnInit {
   opened = true;
-  
-  constructor() { }
+  // showLoadingIndicator = true;
+
+
+  constructor(private _router: Router, public _loaderService: LoaderService) {
+
+    // this._router.events.subscribe((routerEvent: Event) => {
+
+    //   if (routerEvent instanceof NavigationStart) {
+    //     this.showLoadingIndicator = true;
+    //   }
+
+    //   if (routerEvent instanceof NavigationEnd) {
+    //     this.showLoadingIndicator = false;
+    //   }
+    // })
+
+  }
 
   ngOnInit() {
+    console.log(this._loaderService.loaderVisible);
   }
 
 }

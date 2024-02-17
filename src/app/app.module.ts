@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 //Declarations
@@ -32,9 +33,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { PluginService } from './services/plugin.service';
+import { PluginService } from './services/plugin-services/plugin.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatBadgeModule } from '@angular/material/badge';
+import { PluginUpsertCanDeactivateGuardService } from './plugin/plugin-upsert/plugin-upsert-canDeactivate-guard.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpInterceptorService } from './services/interceptor/http-interceptor.service';
 
 @NgModule({
     declarations:
@@ -70,11 +76,16 @@ import { MatBadgeModule } from '@angular/material/badge';
             MatRadioModule,
             MatSelectModule,
             HttpClientModule,
-            MatBadgeModule
+            MatBadgeModule,
+            MatProgressSpinnerModule,
+            MatProgressBarModule,
+            FlexLayoutModule
         ],
     providers:
         [
-            PluginService
+            PluginService,
+            PluginUpsertCanDeactivateGuardService,
+            { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
         ],
     bootstrap: [AppComponent],
     exports: [],
