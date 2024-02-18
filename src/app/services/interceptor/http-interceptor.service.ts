@@ -1,6 +1,6 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, delay, finalize } from 'rxjs';
+import { Observable, delay, finalize, tap } from 'rxjs';
 import { LoaderService } from '../common/loader.service';
 
 @Injectable({
@@ -13,10 +13,13 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this._loader.loaderVisible.next(true);
-    console.log("Interceptor", req);
-    const newReq = req.clone({ url: "http://localhost:45300/" + req.url })
+    console.log("Interceptor Started", req);
+    const newReq = req.clone({ url: "http://localhost:45300/" + req.url, headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
 
     return next.handle(newReq).pipe(
+      tap({
+        error: (_error) => console.log(_error)
+      }),
       finalize(() => {
         this._loader.loaderVisible.next(false);
 
@@ -56,4 +59,4 @@ export class HttpInterceptorService implements HttpInterceptor {
 //         })
 //       );
 //   }
-}
+// }

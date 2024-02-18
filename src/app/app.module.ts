@@ -41,6 +41,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpInterceptorService } from './services/interceptor/http-interceptor.service';
+import { PluginLogHomeComponent } from './plugin-log/plugin-log-home/plugin-log-home.component';
+import { PluginLogUpsertComponent } from './plugin-log/plugin-log-upsert/plugin-log-upsert.component';
 
 @NgModule({
     declarations:
@@ -48,7 +50,9 @@ import { HttpInterceptorService } from './services/interceptor/http-interceptor.
             AppComponent,
             NavigationBarComponent,
             PluginHomeComponent,
-            PluginUpsertComponent
+            PluginUpsertComponent,
+            PluginLogHomeComponent,
+            PluginLogUpsertComponent
         ],
     imports:
         [

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-import { Plugin } from '../../domain/model/plugin-log.model';
 import { Observable, catchError, of } from 'rxjs';
 import { PluginService } from '../../services/plugin-services/plugin.service';
+import { Plugin } from '../../domain/model/plugin.model';
 
 @Injectable({
   providedIn: 'root'

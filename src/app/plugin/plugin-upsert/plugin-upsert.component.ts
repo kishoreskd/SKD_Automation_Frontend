@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { CustomValidator } from '../../application/Validator/CustomValidator.component';
 import { PluginService } from '../../services/plugin-services/plugin.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Plugin } from '../../domain/model/plugin-log.model';
+import { Plugin } from '../../domain/model/plugin.model';
 import { Department } from '../../domain/model/department';
 
 @Component({
@@ -15,6 +15,9 @@ export class PluginUpsertComponent implements OnInit {
 
   _pluginModel: Plugin;
   _pluginFrm: FormGroup;
+  _action: string = "Save";
+  _pluginId: number;
+
   _department: Array<Department> = [
     { departmentId: 1, departmentName: "STEEL" },
     { departmentId: 2, departmentName: "CONCRETE" },
@@ -23,7 +26,8 @@ export class PluginUpsertComponent implements OnInit {
     { departmentId: 5, departmentName: "SDS2" }
   ];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public _data: Plugin,
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public _editData: Plugin,
     private _pluginFrmDialog: MatDialogRef<PluginUpsertComponent>,
     private _fb: FormBuilder,
     private _service: PluginService) {
@@ -32,7 +36,7 @@ export class PluginUpsertComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this._pluginFrm.patchValue(this._data)
+    this.patchObj();
   }
 
   createForm() {
@@ -67,27 +71,57 @@ export class PluginUpsertComponent implements OnInit {
   }
   //#endregion
 
-  onFormSubmit() {
-    if (this._pluginFrm.valid) {
-      this._pluginFrmDialog.close({ msg: "Loaded", isValid: true });
-      // this.mapProject();
-      // this._service.add(this._pluginModel).subscribe({
-      //   next: (val: Plugin) => {
-      //     alert('Plugin added!')
-      //   },
-      //   error: (err: any) => {
-      //     console.log(err);
-      //   }
-      // })
+  patchObj() {
+    if (this._editData) {
+      this._action = "Update"
+      this._pluginFrm.patchValue(this._editData);
+      this.departmentName.setValue(this._editData.departmentId);
+      this._pluginId = this._editData.pluginId;
     }
   }
 
+  onFormSubmit() {
+
+    if (this._pluginFrm.valid) {
+
+      this._pluginFrmDialog.close({ msg: "Loaded", isValid: true });
+
+      this.mapProject();
+
+      if (!this._editData) {
+        this.add();
+      } else {
+        this.update();
+      }
+    }
+  }
+
+  add() {
+    this._pluginModel.createdEmployeeId = 2701;
+
+    this._service.add(this._pluginModel).subscribe({
+      next: (val: Plugin) => {
+        alert('Plugin added!')
+      }
+    })
+  }
+
+  update() {
+    this._pluginModel.pluginId = this._editData.pluginId;
+    this._service.update(this._editData.pluginId, this._pluginModel).subscribe({
+      next: (val: Plugin) => {
+        alert('Updated!')
+      }
+    })
+  }
+
   mapProject(): void {
+
     this._pluginModel.pluginName = this.pluginName.value;
     this._pluginModel.manualMinutes = this.manualMinutes.value;
     this._pluginModel.automatedMinutes = this.automatedMinutes.value;
     this._pluginModel.description = this.description.value;
-    this._pluginModel.departmentName = this.departmentName.value;
-    this._pluginModel.departmentId = 2;
+    this._pluginModel.departmentName = "";
+    this._pluginModel.departmentId = this.departmentName.value;
   }
 }

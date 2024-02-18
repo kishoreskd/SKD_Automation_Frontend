@@ -4,6 +4,8 @@ import { PluginHomeComponent } from './plugin/plugin-home/plugin-home.component'
 import { PluginUpsertComponent } from './plugin/plugin-upsert/plugin-upsert.component';
 import { PluginHomeResolverService } from './plugin/plugin-home/plugin-home-resolver.service';
 import { PluginUpsertCanDeactivateGuardService } from './plugin/plugin-upsert/plugin-upsert-canDeactivate-guard.service';
+import { PluginLogHomeComponent } from './plugin-log/plugin-log-home/plugin-log-home.component';
+import { PluginLogHomeResolverService } from './plugin-log/plugin-log-home/plugin-log-home-resolver.service';
 
 
 
@@ -23,6 +25,11 @@ const routes: Routes = [
         component: PluginUpsertComponent,
         canDeactivate: [PluginUpsertCanDeactivateGuardService]
     },
+    {
+        path: "plugin-log/:id",
+        component: PluginLogHomeComponent,
+        resolve: { pluginLogCol: PluginLogHomeResolverService }
+    }
 ]
 
 

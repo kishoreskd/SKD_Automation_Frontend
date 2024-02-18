@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator'
 import { MatSort } from '@angular/material/sort'
 import { MatDialog } from '@angular/material/dialog';
 import { PluginUpsertComponent } from '../plugin-upsert/plugin-upsert.component';
-import { Plugin } from '../../domain/model/plugin-log.model';
+import { Plugin } from '../../domain/model/plugin.model';
 import { PluginService } from '../../services/plugin-services/plugin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -14,18 +14,18 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./plugin-home.component.css']
 })
 export class PluginHomeComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) _paginator: MatPaginator;
+  @ViewChild(MatSort) _sort: MatSort;
 
   _pluginCol: Array<Plugin>;
-  displayedColumns: string[];
-  dataSource: MatTableDataSource<Plugin>;
+  _displayedColumns: string[];
+  _dataSource: MatTableDataSource<Plugin>;
 
   constructor(private _matDialog: MatDialog,
     private _service: PluginService,
     private _router: Router,
     private _activetedRoute: ActivatedRoute) {
-    this.displayedColumns = ['pluginId', 'pluginName', 'manualMinutes', 'automatedMinutes', 'description', 'departmentName', "action"];
+    this._displayedColumns = ['pluginId', 'pluginName', 'manualMinutes', 'automatedMinutes', 'description', 'departmentName', "action"];
     this._pluginCol = new Array<Plugin>();
   }
 
@@ -34,49 +34,62 @@ export class PluginHomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // Initialize paginator and sort after the view has been initialized
-
+    // Initializepaginator and sort after the view has been initialized
+    this._dataSource.paginator = this._paginator;
+    this._dataSource.sort = this._sort;
   }
 
-  onOpenPrjAddDialog() {
+  public onOpenPrjAddDialog() {
     const dialogRef = this._matDialog.open(PluginUpsertComponent);
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
-          console.log(val);
-          console.log("Actived");
           this.refreshPlugins();
         }
       }
     })
   }
 
-  onEditPrjDialog(data: Plugin) {
-    this._matDialog.open(PluginUpsertComponent, { data })
+  public onEditPrjDialog(data: Plugin) {
+    const dialogRef = this._matDialog.open(PluginUpsertComponent, { width: "50%", data })
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+          this.refreshPlugins();
+        }
+      }
+    })
   }
 
-  public refreshPlugins() {
+  public onRemovePlugin(id: number) {
+    alert("Are u sure want to remove?");
+    this._service.remove(id).subscribe({
+      next: (val) => {
+        console.log("Removed successfully!");
+        this.refreshPlugins();
+      }
+    });
+  }
+
+  private refreshPlugins() {
     this._service.getAll().subscribe((data: Plugin[]) => {
       this._pluginCol = data;
-      this.dataSource = new MatTableDataSource<Plugin>(this._pluginCol);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this._dataSource = new MatTableDataSource<Plugin>(this._pluginCol);
+      this._dataSource.paginator = this._paginator;
+      this._dataSource.sort = this._sort;
     })
   }
 
-  public getAllPlugins() {
-    console.log("Actived");
-    // this._service.getAll().subscribe((data: Plugin[]) => {
-    //   this.dataSource = new MatTableDataSource<Plugin>(data);
-    //   this.dataSource.paginator = this.paginator;
-    //   this.dataSource.sort = this.sort;
-    // }, (error) => console.log(error));
+  private getAllPlugins() {
     this._activetedRoute.data.subscribe((data: Plugin[]) => {
       this._pluginCol = data['pluginCol'];
-      this.dataSource = new MatTableDataSource<Plugin>(this._pluginCol);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this._dataSource = new MatTableDataSource<Plugin>(this._pluginCol);
     })
+  }
+
+  public onNavigatePluginLog(id: number) {
+    console.log(id);
+    this._router.navigate(['/plugin-log', id])
   }
 
 }
