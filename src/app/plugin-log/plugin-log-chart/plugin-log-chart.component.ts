@@ -20,13 +20,22 @@ export class PluginLogChartComponent implements OnInit {
   }
 
   RenderChart() {
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    const data = this.groupDatesByMonths();
+    // const months = Object.keys(data);
+    const count = Object.values(data);
+
     new Chart("myChart", {
       type: 'bar',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: months,
         datasets: [{
           label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          data: count,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -47,37 +56,93 @@ export class PluginLogChartComponent implements OnInit {
         }]
       },
       options: {
+        // indexAxis: 'y',
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            title: {
+              display: false,
+              text: 'Count'
+            }
           },
           x: {
-            time: {
-              unit: 'day',
-            },
+            title: {
+              display: false,
+              text: 'Month'
+            }
           }
+        },
+        plugins: {
+          legend: {
+            display: true
+          },
+          tooltip: {
+
+          },
         }
-      }
+      },
+      plugins: [this.todayLine, this.assignedTasks]
     });
+
   }
 
-  config = {
-    options: {
-      layout: {
-        scales: {
-          x: {
-            position: 'top',
-            type: 'time',
-            time: {
-              unit: 'day',
-            },
-            min: '',
-            max: '',
-          },
-        }
-      }
+  todayLine = {
+    id: 'todayLine',
+    afterDatasetsDraw(chart, args, pluginOptions) {
+      const { ctx, data, chartArea: { top, bottom, left, right }, scales: { x, y } } = chart;
+      ctx.save();
+      ctx.beginPath();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = 'rgba(255, 26, 104, 1)';
+      ctx.setLineDash([6, 6])
+      ctx.moveTo(x.getPixelForValue(new Date()), top);
+      ctx.lineTo(x.getPixelForValue(new Date()), bottom);
+      ctx.stroke();
     }
   }
 
+  assignedTasks = {
+    id: 'assignedTasks',
+    afterDatasetsDraw(chart, args, pluginOptions) {
+      const { ctx, data, chartArea: { top, bottom, left, right }, scales: { x, y } } = chart;
+      ctx.font = 'bolder 12px sans-serif';
+      ctx.fillStyle = 'black';
+      ctx.textBaseline = 'middle';
+      // console.log(ctx);
+      // data.datasets[0].data.forEach((datapoint, index) => { ctx.fillText(datapoint.name, 10, y.getPixelForValue(index));})
+
+      // @* data.designation.forEach((data, index) => {
+      //   ctx.fillText(`(${data.split('')[0]})`, 10, y.getPixelForValue(index));
+      // });* @
+
+      //   @* data.label.forEach((data, index) => {
+      //     ctx.fillText(data, 10, y.getPixelForValue(index));
+      //   });* @
+    }
+  }
+
+  groupDatesByMonths() {
+
+    const groupedDates: { [key: string]: number } = {};
+
+    for (let month = 1; month <= 12; month++) {
+      groupedDates[`2024-${month.toString().padStart(2, '0')}`] = 0;
+    }
+    this._pluginLogCol.forEach(e => {
+
+      const date = new Date(e.createdDate);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+
+      const key = `${year}-${month.toString().padStart(2, '0')}`
+      // if (!groupedDates[key]) {
+      //   groupedDates[key] = 0;
+      // }
+
+      groupedDates[key]++;
+    });
+
+    return groupedDates;
+  }
 }
 
