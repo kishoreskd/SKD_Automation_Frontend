@@ -9,7 +9,9 @@ export class Plugin {
     departmentId: number;
     departmentName: string;
     pluginLogs?: Array<PluginLog>;
-    createdEmployeeId: number;
-    lastModifiedEmployeeId: number;
+
+    createdBy: number;
     createdDate: Date;
+    lastModifiedBy: number;
+    lastModifiedDate: Date;
 }

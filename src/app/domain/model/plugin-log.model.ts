@@ -3,6 +3,9 @@ export class PluginLog {
     pluginId: number;
     jobName: string;
     activity: string;
-    createdEmployeeId: number;
+
+    createdBy: number;
     createdDate: Date;
+    lastModifiedBy: number;
+    lastModifiedDate: Date;
 } 

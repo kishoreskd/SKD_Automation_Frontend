@@ -15,9 +15,8 @@ export class PluginLogHomeResolverService implements Resolve<PluginLog[]> {
   }
   resolve(route: ActivatedRouteSnapshot): Observable<PluginLog[]> {
     const id = +route.params['id'];
-    console.log(route.params['id']);
     return this._service.getSelected(id).pipe(catchError(error => {
-      this._router.navigate(['/error-page']); //not yet implemented!
+      this._router.navigate(['/']); 
       console.log(error);
       return of(null);
     }))

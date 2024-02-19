@@ -7,6 +7,7 @@ import { PluginUpsertComponent } from '../plugin-upsert/plugin-upsert.component'
 import { Plugin } from '../../domain/model/plugin.model';
 import { PluginService } from '../../services/plugin-services/plugin.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertifyService } from '../../services/common/alertify.service';
 
 @Component({
   selector: 'app-plugin-home',
@@ -14,23 +15,37 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./plugin-home.component.css']
 })
 export class PluginHomeComponent implements OnInit, AfterViewInit {
+
   @ViewChild(MatPaginator) _paginator: MatPaginator;
   @ViewChild(MatSort) _sort: MatSort;
 
   _pluginCol: Array<Plugin>;
   _displayedColumns: string[];
   _dataSource: MatTableDataSource<Plugin>;
+  _filterSource: Array<any>;
+  _filterText: string;
+  _filterType: string;
 
-  constructor(private _matDialog: MatDialog,
+  constructor(
+    private _matDialog: MatDialog,
     private _service: PluginService,
     private _router: Router,
-    private _activetedRoute: ActivatedRoute) {
-    this._displayedColumns = ['pluginId', 'pluginName', 'manualMinutes', 'automatedMinutes', 'description', 'departmentName', "action"];
+    private _activetedRoute: ActivatedRoute,
+    private _alertify: AlertifyService) {
+
+    this._displayedColumns = ['pluginId', 'index', 'pluginName', 'manualMinutes', 'automatedMinutes', 'description', 'departmentName', 'createdBy', 'createdDate', "action"];
+    this._filterSource = [
+      { key: "pluginName", val: "Plugin Name" },
+      { key: "description", val: "Description" },
+      { key: "departmentName", val: "Department Name" },
+      { key: "createdEmployeeId", val: "Created By" }
+    ];
     this._pluginCol = new Array<Plugin>();
   }
 
   ngOnInit() {
     this.getAllPlugins();
+    this._filterType = this._displayedColumns[2];
   }
 
   ngAfterViewInit(): void {
@@ -39,8 +54,11 @@ export class PluginHomeComponent implements OnInit, AfterViewInit {
     this._dataSource.sort = this._sort;
   }
 
+
+
+
   public onOpenPrjAddDialog() {
-    const dialogRef = this._matDialog.open(PluginUpsertComponent);
+    const dialogRef = this._matDialog.open(PluginUpsertComponent, { width: "50%" });
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
@@ -62,13 +80,16 @@ export class PluginHomeComponent implements OnInit, AfterViewInit {
   }
 
   public onRemovePlugin(id: number) {
-    alert("Are u sure want to remove?");
+    const isConfirm = this._alertify.alertQA("Are you sure want to remove the selected?")
+    if (!isConfirm) return;
+
     this._service.remove(id).subscribe({
       next: (val) => {
-        console.log("Removed successfully!");
+        this._alertify.alert("Plugin has been removed!");
         this.refreshPlugins();
       }
     });
+
   }
 
   private refreshPlugins() {
@@ -80,6 +101,8 @@ export class PluginHomeComponent implements OnInit, AfterViewInit {
     })
   }
 
+
+  //Resolver
   private getAllPlugins() {
     this._activetedRoute.data.subscribe((data: Plugin[]) => {
       this._pluginCol = data['pluginCol'];
@@ -88,8 +111,24 @@ export class PluginHomeComponent implements OnInit, AfterViewInit {
   }
 
   public onNavigatePluginLog(id: number) {
-    console.log(id);
     this._router.navigate(['/plugin-log', id])
   }
 
+  public applyFilter() {
+
+    const filterValue = this._filterText.toLowerCase();
+
+    this._dataSource.filterPredicate = (data: Plugin, filter: string) => {
+
+      if (Object.hasOwn(data, this._filterType)) {
+        const columnValue = data[this._filterType].toLowerCase();
+        return columnValue.includes(filter);
+      }
+      else return true;
+    }
+
+    this._dataSource.filter = filterValue;
+
+    if (this._dataSource._pageData) this._dataSource.paginator.firstPage();
+  }
 }

@@ -2,23 +2,28 @@ import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } fro
 import { Injectable } from '@angular/core';
 import { Observable, delay, finalize, tap } from 'rxjs';
 import { LoaderService } from '../common/loader.service';
+import { AlertifyService } from '../common/alertify.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpInterceptorService implements HttpInterceptor {
 
-  constructor(private _loader: LoaderService) {
+  constructor(private _loader: LoaderService, private _alertify: AlertifyService) {
 
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this._loader.loaderVisible.next(true);
-    console.log("Interceptor Started", req);
+    // console.log("Interceptor Started", req);
     const newReq = req.clone({ url: "http://localhost:45300/" + req.url, headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
 
     return next.handle(newReq).pipe(
       tap({
-        error: (_error) => console.log(_error)
+        error: (_error) => {
+          const val = _error.error.ErrorCode + "/" + _error.error.ErrorMessage;
+          this._alertify.error(val);
+          console.log(_error)
+        }
       }),
       finalize(() => {
         this._loader.loaderVisible.next(false);

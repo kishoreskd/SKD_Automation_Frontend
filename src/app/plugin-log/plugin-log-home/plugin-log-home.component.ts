@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PluginLogService } from '../../services/plugin-services/plugin-log.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-plugin-log-home',
@@ -24,7 +24,7 @@ export class PluginLogHomeComponent implements OnInit, AfterViewInit {
   constructor(private _matDialog: MatDialog,
     private _service: PluginLogService,
     private _activateRoute: ActivatedRoute) {
-    this._displayedColumns = ['pluginLogId', 'pluginId', 'jobName', 'activity', 'createdEmployeeId', 'createdDate','action'];
+    this._displayedColumns = ['pluginLogId', 'pluginId', 'jobName', 'activity', 'createdBy', 'createdDate', 'action'];
     this._pluginLogCol = new Array<PluginLog>();
   }
 

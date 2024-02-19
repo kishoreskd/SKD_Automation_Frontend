@@ -5,6 +5,8 @@ import { PluginService } from '../../services/plugin-services/plugin.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Plugin } from '../../domain/model/plugin.model';
 import { Department } from '../../domain/model/department';
+import { DepartmentService } from '../../services/department/department.service';
+import { AlertifyService } from '../../services/common/alertify.service';
 
 @Component({
   selector: 'app-plugin-upsert',
@@ -17,26 +19,22 @@ export class PluginUpsertComponent implements OnInit {
   _pluginFrm: FormGroup;
   _action: string = "Save";
   _pluginId: number;
-
-  _department: Array<Department> = [
-    { departmentId: 1, departmentName: "STEEL" },
-    { departmentId: 2, departmentName: "CONCRETE" },
-    { departmentId: 3, departmentName: "REVIT" },
-    { departmentId: 4, departmentName: "AUTO CAD" },
-    { departmentId: 5, departmentName: "SDS2" }
-  ];
+  _department: Array<Department>;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public _editData: Plugin,
     private _pluginFrmDialog: MatDialogRef<PluginUpsertComponent>,
     private _fb: FormBuilder,
-    private _service: PluginService) {
+    private _service: PluginService,
+    private _depService: DepartmentService,
+    private _alertify: AlertifyService) {
     this._pluginModel = new Plugin();
   }
 
   ngOnInit() {
     this.createForm();
     this.patchObj();
+    this.loadDepartment();
   }
 
   createForm() {
@@ -65,11 +63,17 @@ export class PluginUpsertComponent implements OnInit {
   get departmentName(): FormControl {
     return this.getControl("departmentName");
   }
-
   getControl(field: string): FormControl {
     return this._pluginFrm.get(field) as FormControl;
   }
   //#endregion
+
+
+  loadDepartment(): void {
+    this._depService.getAll().subscribe((data: Department[]) => {
+      this._department = data;
+    })
+  }
 
   patchObj() {
     if (this._editData) {
@@ -97,20 +101,23 @@ export class PluginUpsertComponent implements OnInit {
   }
 
   add() {
-    this._pluginModel.createdEmployeeId = 2701;
 
+    this._pluginModel.createdBy = 2701;
     this._service.add(this._pluginModel).subscribe({
       next: (val: Plugin) => {
-        alert('Plugin added!')
+        this._alertify.alert("Plugin added successfully!");
       }
     })
   }
 
   update() {
+
     this._pluginModel.pluginId = this._editData.pluginId;
+    this._pluginModel.lastModifiedBy = 2701;
+
     this._service.update(this._editData.pluginId, this._pluginModel).subscribe({
       next: (val: Plugin) => {
-        alert('Updated!')
+        this._alertify.alert("Plugin updated successfully!");
       }
     })
   }

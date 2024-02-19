@@ -43,6 +43,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpInterceptorService } from './services/interceptor/http-interceptor.service';
 import { PluginLogHomeComponent } from './plugin-log/plugin-log-home/plugin-log-home.component';
 import { PluginLogUpsertComponent } from './plugin-log/plugin-log-upsert/plugin-log-upsert.component';
+import { MatSortModule } from '@angular/material/sort';
+import { PluginHomePipe } from './application/pipes/plugin-home.pipe';
 
 @NgModule({
     declarations:
@@ -52,7 +54,8 @@ import { PluginLogUpsertComponent } from './plugin-log/plugin-log-upsert/plugin-
             PluginHomeComponent,
             PluginUpsertComponent,
             PluginLogHomeComponent,
-            PluginLogUpsertComponent
+            PluginLogUpsertComponent,
+            PluginHomePipe
         ],
     imports:
         [
@@ -83,7 +86,8 @@ import { PluginLogUpsertComponent } from './plugin-log/plugin-log-upsert/plugin-
             MatBadgeModule,
             MatProgressSpinnerModule,
             MatProgressBarModule,
-            FlexLayoutModule
+            FlexLayoutModule, 
+            MatSortModule,
         ],
     providers:
         [
