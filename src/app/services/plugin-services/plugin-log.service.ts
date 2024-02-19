@@ -26,7 +26,7 @@ export class PluginLogService {
     return this._http.put("PluginLog/update_pluginlog/" + id, data);
   }
 
-  remove(id: number, data: PluginLog): Observable<any> {
+  remove(id: number): Observable<any> {
     return this._http.delete("PluginLog/remove/" + id);
   }
 }

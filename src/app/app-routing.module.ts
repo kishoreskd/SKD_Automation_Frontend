@@ -6,6 +6,8 @@ import { PluginHomeResolverService } from './plugin/plugin-home/plugin-home-reso
 import { PluginUpsertCanDeactivateGuardService } from './plugin/plugin-upsert/plugin-upsert-canDeactivate-guard.service';
 import { PluginLogHomeComponent } from './plugin-log/plugin-log-home/plugin-log-home.component';
 import { PluginLogHomeResolverService } from './plugin-log/plugin-log-home/plugin-log-home-resolver.service';
+import { PluginLogChartComponent } from './plugin-log/plugin-log-chart/plugin-log-chart.component';
+import { PluginChartComponent } from './plugin/plugin-chart/plugin-chart.component';
 
 
 
@@ -18,7 +20,7 @@ const routes: Routes = [
     {
         path: "plugin/home",
         component: PluginHomeComponent,
-        resolve: { pluginCol: PluginHomeResolverService }
+        // resolve: { pluginCol: PluginHomeResolverService }
     },
     {
         path: "plugin/upsert",
@@ -28,7 +30,17 @@ const routes: Routes = [
     {
         path: "plugin-log/:id",
         component: PluginLogHomeComponent,
-        resolve: { pluginLogCol: PluginLogHomeResolverService }
+        // resolve: { pluginLogCol: PluginLogHomeResolverService }
+    },
+    {
+        path: "plugin-chart/:id",
+        component: PluginChartComponent,
+        // resolve: { pluginLogCol: PluginLogHomeResolverService }
+    },
+    {
+        path: "plugin-log-chart/:id",
+        component: PluginLogChartComponent,
+        // resolve: { pluginLogCol: PluginLogHomeResolverService }
     }
 ]
 

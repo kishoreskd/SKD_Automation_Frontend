@@ -1,4 +1,6 @@
 export class PluginLog {
+
+
     pluginLogId: number;
     pluginId: number;
     jobName: string;

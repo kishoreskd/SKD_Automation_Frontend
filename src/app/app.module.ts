@@ -45,6 +45,9 @@ import { PluginLogHomeComponent } from './plugin-log/plugin-log-home/plugin-log-
 import { PluginLogUpsertComponent } from './plugin-log/plugin-log-upsert/plugin-log-upsert.component';
 import { MatSortModule } from '@angular/material/sort';
 import { PluginHomePipe } from './application/pipes/plugin-home.pipe';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { PluginLogChartComponent } from './plugin-log/plugin-log-chart/plugin-log-chart.component';
+import { PluginChartComponent } from './plugin/plugin-chart/plugin-chart.component';
 
 @NgModule({
     declarations:
@@ -55,7 +58,9 @@ import { PluginHomePipe } from './application/pipes/plugin-home.pipe';
             PluginUpsertComponent,
             PluginLogHomeComponent,
             PluginLogUpsertComponent,
-            PluginHomePipe
+            PluginChartComponent,
+            PluginLogChartComponent,
+            PluginHomePipe,
         ],
     imports:
         [
@@ -88,6 +93,7 @@ import { PluginHomePipe } from './application/pipes/plugin-home.pipe';
             MatProgressBarModule,
             FlexLayoutModule, 
             MatSortModule,
+            MatExpansionModule
         ],
     providers:
         [

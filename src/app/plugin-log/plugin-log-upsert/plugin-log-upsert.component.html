@@ -1,3 +1,31 @@
-<p>
-  plugin-log-upsert works!
-</p>
+<div mat-dialog-title>
+  <h1>Plugin</h1>
+  <hr />
+</div>
+
+<form [formGroup]="_pluginLogFrm" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-content class="content">
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Job Name</mat-label>
+        <input matInput type="text" placeholder="Ex. " formControlName="jobName">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Activity</mat-label>
+        <!-- <input matInput type="text" placeholder="Ex. " formControlName="description"> -->
+        <textarea matInput formControlName="activity"></textarea>
+      </mat-form-field>
+    </div>
+
+
+    <div mat-dialog-actions class="action">
+      <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+      <button mat-raised-button color="primary" type="submit">{{_action}}</button>
+    </div>
+
+  </div>
+</form>

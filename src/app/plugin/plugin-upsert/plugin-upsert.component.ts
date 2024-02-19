@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidator } from '../../application/Validator/CustomValidator.component';
 import { PluginService } from '../../services/plugin-services/plugin.service';
@@ -31,20 +31,11 @@ export class PluginUpsertComponent implements OnInit {
     this._pluginModel = new Plugin();
   }
 
+
   ngOnInit() {
     this.createForm();
     this.patchObj();
     this.loadDepartment();
-  }
-
-  createForm() {
-    this._pluginFrm = this._fb.group({
-      pluginName: [null, Validators.required],
-      manualMinutes: [null, [Validators.required, CustomValidator.numeric]],
-      automatedMinutes: [null, [Validators.required, CustomValidator.numeric]],
-      description: [null, [Validators.required]],
-      departmentName: [null, [Validators.required,]]
-    });
   }
 
   //#region Get Form Control
@@ -68,6 +59,15 @@ export class PluginUpsertComponent implements OnInit {
   }
   //#endregion
 
+  createForm() {
+    this._pluginFrm = this._fb.group({
+      pluginName: [null, Validators.required],
+      manualMinutes: [null, [Validators.required, CustomValidator.numeric]],
+      automatedMinutes: [null, [Validators.required, CustomValidator.numeric]],
+      description: [null, [Validators.required]],
+      departmentName: [null, [Validators.required,]]
+    });
+  }
 
   loadDepartment(): void {
     this._depService.getAll().subscribe((data: Department[]) => {
@@ -88,8 +88,6 @@ export class PluginUpsertComponent implements OnInit {
 
     if (this._pluginFrm.valid) {
 
-      this._pluginFrmDialog.close({ msg: "Loaded", isValid: true });
-
       this.mapProject();
 
       if (!this._editData) {
@@ -97,6 +95,8 @@ export class PluginUpsertComponent implements OnInit {
       } else {
         this.update();
       }
+
+      this._pluginFrmDialog.close({ msg: "Loaded", isValid: true });
     }
   }
 
@@ -128,7 +128,7 @@ export class PluginUpsertComponent implements OnInit {
     this._pluginModel.manualMinutes = this.manualMinutes.value;
     this._pluginModel.automatedMinutes = this.automatedMinutes.value;
     this._pluginModel.description = this.description.value;
-    this._pluginModel.departmentName = "";
+    // this._pluginModel.departmentName = "";
     this._pluginModel.departmentId = this.departmentName.value;
   }
 }

@@ -24,6 +24,7 @@
     "alertifyjs": "^1.13.1",
     "automapper-js": "^1.0.15",
     "bootstrap": "^5.3.2",
+    "chart.js": "^4.4.1",
     "json-server": "^1.0.0-alpha.23",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { PluginLogUpsertComponent } from './plugin-log-upsert.component';
+import { PluginChartComponent } from './plugin-chart.component';
 
-describe('PluginLogUpsertComponent', () => {
-  let component: PluginLogUpsertComponent;
-  let fixture: ComponentFixture<PluginLogUpsertComponent>;
+describe('PluginChartComponent', () => {
+  let component: PluginChartComponent;
+  let fixture: ComponentFixture<PluginChartComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PluginLogUpsertComponent ]
+      declarations: [ PluginChartComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PluginLogUpsertComponent);
+    fixture = TestBed.createComponent(PluginChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

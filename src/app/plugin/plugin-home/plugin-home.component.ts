@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator'
 import { MatSort } from '@angular/material/sort'
@@ -12,9 +12,9 @@ import { AlertifyService } from '../../services/common/alertify.service';
 @Component({
   selector: 'app-plugin-home',
   templateUrl: './plugin-home.component.html',
-  styleUrls: ['./plugin-home.component.css']
+  styleUrls: ['./plugin-home.component.css'],
 })
-export class PluginHomeComponent implements OnInit, AfterViewInit {
+export class PluginHomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   @ViewChild(MatPaginator) _paginator: MatPaginator;
   @ViewChild(MatSort) _sort: MatSort;
@@ -31,7 +31,8 @@ export class PluginHomeComponent implements OnInit, AfterViewInit {
     private _service: PluginService,
     private _router: Router,
     private _activetedRoute: ActivatedRoute,
-    private _alertify: AlertifyService) {
+    private _alertify: AlertifyService,
+    private readonly changeDetectorRef: ChangeDetectorRef) {
 
     this._displayedColumns = ['pluginId', 'index', 'pluginName', 'manualMinutes', 'automatedMinutes', 'description', 'departmentName', 'createdBy', 'createdDate', "action"];
     this._filterSource = [
@@ -43,8 +44,12 @@ export class PluginHomeComponent implements OnInit, AfterViewInit {
     this._pluginCol = new Array<Plugin>();
   }
 
+  ngAfterViewChecked(): void {
+    this.changeDetectorRef.detectChanges();
+  }
+
   ngOnInit() {
-    this.getAllPlugins();
+    this.refreshPlugins();
     this._filterType = this._displayedColumns[2];
   }
 
@@ -54,10 +59,7 @@ export class PluginHomeComponent implements OnInit, AfterViewInit {
     this._dataSource.sort = this._sort;
   }
 
-
-
-
-  public onOpenPrjAddDialog() {
+  public onOpenPluginAddDialog() {
     const dialogRef = this._matDialog.open(PluginUpsertComponent, { width: "50%" });
     dialogRef.afterClosed().subscribe({
       next: (val) => {
@@ -68,7 +70,7 @@ export class PluginHomeComponent implements OnInit, AfterViewInit {
     })
   }
 
-  public onEditPrjDialog(data: Plugin) {
+  public onEditPluginDialog(data: Plugin) {
     const dialogRef = this._matDialog.open(PluginUpsertComponent, { width: "50%", data })
     dialogRef.afterClosed().subscribe({
       next: (val) => {
@@ -101,7 +103,6 @@ export class PluginHomeComponent implements OnInit, AfterViewInit {
     })
   }
 
-
   //Resolver
   private getAllPlugins() {
     this._activetedRoute.data.subscribe((data: Plugin[]) => {
@@ -112,6 +113,10 @@ export class PluginHomeComponent implements OnInit, AfterViewInit {
 
   public onNavigatePluginLog(id: number) {
     this._router.navigate(['/plugin-log', id])
+  }
+
+  public onNavigatePluginLogChart(id: number) {
+    this._router.navigate(['/plugin-log-chart', id])
   }
 
   public applyFilter() {
