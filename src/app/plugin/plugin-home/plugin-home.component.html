@@ -1,6 +1,7 @@
 <div fxLayout="row wrap" fxLayoutAlign="center center">
   <div class="menudiv" fxFlex="100%" fxFlex.xs="100%" fxLayoutAlign="center">
     <!-- left -->
+
     <div>
       <mat-form-field appearance="outline">
         <mat-label>Filter By</mat-label>
@@ -12,12 +13,13 @@
       </mat-form-field>
     </div>
 
-    <div style="font-size: 12px;">
-      <mat-form-field style="width: 350px;">
-        <mat-label>Filter</mat-label>
-        <input matInput type="text" placeholder="Ex." [(ngModel)]='_filterText' (input)="applyFilter()">
-      </mat-form-field>
-    </div>
+    <mat-form-field class="search-form-field">
+      <input matInput type="text" [(ngModel)]='_filterText' placeholder="Search" autocomplete="off"
+        (input)="applyFilter()">
+      <button matSuffix mat-icon-button aria-label="Clear">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
 
     <div class="b-red" fxFlex></div>
 
@@ -31,8 +33,9 @@
     </div>
   </div>
 </div>
-
 <hr />
+
+
 
 <table mat-table [dataSource]="_dataSource" matSort>
 
@@ -111,8 +114,17 @@
     </td>
   </ng-container>
 
+
+  <ng-container matColumnDef="noData">
+    <mat-footer-cell *matFooterCellDef colspan="6">
+      No data.
+    </mat-footer-cell>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="_displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: _displayedColumns;"></tr>
+  <mat-footer-row *matFooterRowDef="['noData']"
+    [ngClass]="{'hide': _pluginCol != null && _pluginCol.length > 0}"></mat-footer-row>
 </table>
 
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">

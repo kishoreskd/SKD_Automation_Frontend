@@ -2,6 +2,11 @@
   <div class="menudiv" fxFlex="100%" fxFlex.xs="100%" fxLayoutAlign="center">
     <!-- left -->
     <div>
+      <app-month-picker (dateTimeSelected) = "onSelectedMonth($event)"></app-month-picker>
+    </div>
+
+
+    <div>
       <mat-form-field appearance="outline">
         <mat-label>Filter By</mat-label>
         <mat-select [(ngModel)]="_filterType">
@@ -89,7 +94,7 @@
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
 </mat-paginator>
 
-<div *ngIf="_pluginLogCol.length > 0">
+<!-- <div *ngIf="_pluginLogCol.length > 0">
   <app-plugin-log-chart [_pluginLogCol]="_pluginLogCol"></app-plugin-log-chart>
 
-</div>
+</div> -->

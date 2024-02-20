@@ -30,7 +30,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { PluginService } from './services/plugin-services/plugin.service';
@@ -45,9 +45,14 @@ import { PluginLogHomeComponent } from './plugin-log/plugin-log-home/plugin-log-
 import { PluginLogUpsertComponent } from './plugin-log/plugin-log-upsert/plugin-log-upsert.component';
 import { MatSortModule } from '@angular/material/sort';
 import { PluginHomePipe } from './application/pipes/plugin-home.pipe';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { PluginLogChartComponent } from './plugin-log/plugin-log-chart/plugin-log-chart.component';
 import { PluginChartComponent } from './plugin/plugin-chart/plugin-chart.component';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MonthPickerComponent } from './common/month-picker/month-picker.component';
+import { DashbordComponent } from './dashbord/dashbord.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { YearPickerComponent } from './common/year-picker/year-picker.component';
 
 @NgModule({
     declarations:
@@ -61,6 +66,9 @@ import { PluginChartComponent } from './plugin/plugin-chart/plugin-chart.compone
             PluginChartComponent,
             PluginLogChartComponent,
             PluginHomePipe,
+            MonthPickerComponent,
+            YearPickerComponent,
+            DashbordComponent
         ],
     imports:
         [
@@ -91,15 +99,17 @@ import { PluginChartComponent } from './plugin/plugin-chart/plugin-chart.compone
             MatBadgeModule,
             MatProgressSpinnerModule,
             MatProgressBarModule,
-            FlexLayoutModule, 
+            FlexLayoutModule,
             MatSortModule,
-            MatExpansionModule
+            MatExpansionModule,
+            MatMenuModule
         ],
     providers:
         [
             PluginService,
             PluginUpsertCanDeactivateGuardService,
-            { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
+            { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
+            { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
         ],
     bootstrap: [AppComponent],
     exports: [],

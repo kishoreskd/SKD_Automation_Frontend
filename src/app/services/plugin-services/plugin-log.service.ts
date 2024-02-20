@@ -18,6 +18,15 @@ export class PluginLogService {
     return this._http.get<PluginLog[]>("PluginLog/get_all");
   }
 
+  getSelectedMonthYear(pluginId: number, month: number, year: number): Observable<PluginLog[]> {
+    return this._http.get<PluginLog[]>(`PluginLog/get_all/pluginId=${pluginId}&month=${month}&year=${year}`);
+  }
+
+  getSelectedYear(pluginId: number, year: number): Observable<PluginLog[]> {
+    return this._http.get<PluginLog[]>(`PluginLog/get_all/pluginId=${pluginId}&year=${year}`);
+  }
+
+
   add(data: PluginLog): Observable<any> {
     return this._http.post("Pluginlog/add_pluginlog", data)
   }

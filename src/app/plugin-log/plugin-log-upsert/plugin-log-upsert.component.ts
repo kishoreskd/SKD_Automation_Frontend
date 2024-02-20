@@ -83,7 +83,7 @@ export class PluginLogUpsertComponent implements OnInit {
 
     this._service.add(this._pluginLogModel).subscribe({
       next: (val: PluginLog) => {
-        this._alertify.alert("Log added successfully!");
+        this._alertify.success("Log added successfully!");
       }
     })
   }
@@ -95,7 +95,7 @@ export class PluginLogUpsertComponent implements OnInit {
 
     this._service.update(this._dialogData.pluginLogId, this._pluginLogModel).subscribe({
       next: (val: PluginLog) => {
-        this._alertify.alert("Log updated successfully!");
+        this._alertify.success("Log updated successfully!");
       }
     })
   }

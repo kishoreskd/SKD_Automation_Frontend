@@ -26,6 +26,7 @@ export class PluginHomeComponent implements OnInit, AfterViewInit, AfterViewChec
   _filterText: string;
   _filterType: string;
 
+
   constructor(
     private _matDialog: MatDialog,
     private _service: PluginService,
@@ -41,8 +42,10 @@ export class PluginHomeComponent implements OnInit, AfterViewInit, AfterViewChec
       { key: "departmentName", val: "Department Name" },
       { key: "createdEmployeeId", val: "Created By" }
     ];
-    this._pluginCol = new Array<Plugin>();
+    this._pluginCol = new Array<Plugin>();   
   }
+
+
 
   ngAfterViewChecked(): void {
     this.changeDetectorRef.detectChanges();

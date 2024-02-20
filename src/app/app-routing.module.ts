@@ -8,18 +8,20 @@ import { PluginLogHomeComponent } from './plugin-log/plugin-log-home/plugin-log-
 import { PluginLogHomeResolverService } from './plugin-log/plugin-log-home/plugin-log-home-resolver.service';
 import { PluginLogChartComponent } from './plugin-log/plugin-log-chart/plugin-log-chart.component';
 import { PluginChartComponent } from './plugin/plugin-chart/plugin-chart.component';
+import { DashbordComponent } from './dashbord/dashbord.component';
 
 
 
 const routes: Routes = [
     {
         path: "",
-        component: PluginHomeComponent,
-        resolve: { pluginCol: PluginHomeResolverService }
+        component: DashbordComponent,
     },
     {
         path: "plugin/home",
         component: PluginHomeComponent,
+        resolve: { pluginCol: PluginHomeResolverService }
+
         // resolve: { pluginCol: PluginHomeResolverService }
     },
     {
@@ -40,6 +42,11 @@ const routes: Routes = [
     {
         path: "plugin-log-chart/:id",
         component: PluginLogChartComponent,
+        // resolve: { pluginLogCol: PluginLogHomeResolverService }
+    },
+    {
+        path: "dashbord",
+        component: DashbordComponent,
         // resolve: { pluginLogCol: PluginLogHomeResolverService }
     }
 ]

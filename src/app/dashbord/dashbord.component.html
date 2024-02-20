@@ -1,0 +1,107 @@
+<!-- <div class="grid-container">
+  <h1 class="mat-h1">Dashboard</h1>
+  <mat-grid-list cols="2" rowHeight="350px">
+    @for (card of cards | async; track card) {
+    <mat-grid-tile [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{card.title}}
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>Card Content Here</div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    }
+  </mat-grid-list>
+</div> -->
+
+
+<div class="grid-container">
+  <h1 class="mat-h1">
+  </h1>
+
+  <mat-grid-list cols="2" rowHeight="550">
+
+    <mat-grid-tile colspan="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Plugin
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+
+    <mat-grid-tile rowspan="1" colspan="1">
+      
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            <div style="color: skyblue; font-weight: 900;">
+              Plugin Utilizing Analyzis
+            </div>
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+
+        </mat-card-header>
+        <hr />
+
+        <mat-card-content class="dashboard-card-content">
+          <div fxLayout="row wrap" fxLayoutAlign="">
+            <div class="menudiv" fxLayoutAlign="space-around center">
+              <div>
+                <mat-form-field appearance="outline" style="font-size: 10px;">
+                  <mat-label>Filter By</mat-label>
+                  <mat-select [(ngModel)]="_pluginId" (selectionChange)="onPuginSelectionChange($event)">
+                    <mat-option *ngFor="let val of _pluginsCol" [value]="val.pluginId">
+                      {{val.pluginName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div>
+                <app-year-picker (dateTimeSelected)="onSelectedMonthPluginLog($event)"></app-year-picker>
+              </div>
+            </div>
+          </div>
+
+          <!-- Plugin Log Chart -->
+          <div>
+            <!-- <div *ngIf="_pluginLogCol.length > 0"> -->
+            <app-plugin-log-chart [_pluginLogCol]="_pluginLogCol" *ngIf="_pluginLogCol"></app-plugin-log-chart>
+            <!-- </div> -->
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+</div>

@@ -1,48 +1,59 @@
-import { Component, ContentChild, Input, OnInit, ViewChild, input } from '@angular/core';
+import { Component, ContentChild, Input, OnChanges, OnInit, SimpleChanges, ViewChild, input } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { PluginLog } from '../../domain/model/plugin-log.model';
 Chart.register(...registerables);
+
+const MONTHS = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
+
 
 @Component({
   selector: 'app-plugin-log-chart',
   templateUrl: './plugin-log-chart.component.html',
   styleUrls: ['./plugin-log-chart.component.css']
 })
-export class PluginLogChartComponent implements OnInit {
+export class PluginLogChartComponent implements OnInit, OnChanges {
 
   @Input() _pluginLogCol: PluginLog[];
 
-  constructor() { }
+  _chart: Chart;
+  _data: Array<any> = new Array<any>();
+  _count: Array<any> = new Array<any>();
+
+  constructor() {
+  }
+
+
 
   ngOnInit() {
-    console.log(this._pluginLogCol);
     this.RenderChart();
   }
 
   RenderChart() {
-    const months = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
 
-    const data = this.groupDatesByMonths();
-    // const months = Object.keys(data);
-    const count = Object.values(data);
-
-    new Chart("myChart", {
+    this._chart = new Chart("myChart", {
       type: 'bar',
       data: {
-        labels: months,
+        labels: MONTHS,
         datasets: [{
-          label: '# of Votes',
-          data: count,
+          label: 'Utlized',
+          data: this._count,
           backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 99, 132, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
             'rgba(255, 206, 86, 0.2)',
             'rgba(75, 192, 192, 0.2)',
             'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 342, 64, 0.2)',
+            'rgba(255, 235, 64, 0.2)',
+            'rgba(255, 555, 64, 0.2)',
+            'rgba(255, 777, 64, 0.2)',
+            'rgba(255, 999, 64, 0.2)',
+            'rgba(255, 444, 64, 0.2)',
+
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
@@ -50,9 +61,19 @@ export class PluginLogChartComponent implements OnInit {
             'rgba(255, 206, 86, 1)',
             'rgba(75, 192, 192, 1)',
             'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 342, 64, 0.2)',
+            'rgba(255, 235, 64, 0.2)',
+            'rgba(255, 555, 64, 0.2)',
+            'rgba(255, 777, 64, 0.2)',
+            'rgba(255, 999, 64, 0.2)',
+            'rgba(255, 444, 64, 0.2)',
           ],
-          borderWidth: 1
+          borderWidth: 3,
+          borderSkipped: false,
+          borderRadius: 10,
+          barPercentage: 1,
+          hoverBorderColor: "#000",
         }]
       },
       options: {
@@ -62,7 +83,10 @@ export class PluginLogChartComponent implements OnInit {
             beginAtZero: true,
             title: {
               display: false,
-              text: 'Count'
+              text: 'Count',
+            },
+            ticks: {
+              precision: 0 // Ensure integers are displayed without decimal points
             }
           },
           x: {
@@ -74,16 +98,29 @@ export class PluginLogChartComponent implements OnInit {
         },
         plugins: {
           legend: {
-            display: true
+            display: false
           },
           tooltip: {
 
           },
         }
       },
-      plugins: [this.todayLine, this.assignedTasks]
+      plugins: [this.assignedTasks]
     });
 
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (changes) {
+      const data = this.groupDatesByMonths();
+      this._count = Object.values(data);
+
+      if (this._chart) {
+        this._chart.config.data.datasets[0].data = this._count;
+        this._chart.update();
+      }
+    }
   }
 
   todayLine = {
@@ -105,7 +142,7 @@ export class PluginLogChartComponent implements OnInit {
     id: 'assignedTasks',
     afterDatasetsDraw(chart, args, pluginOptions) {
       const { ctx, data, chartArea: { top, bottom, left, right }, scales: { x, y } } = chart;
-      ctx.font = 'bolder 12px sans-serif';
+      ctx.font = 'bolder 14px sans-serif';
       ctx.fillStyle = 'black';
       ctx.textBaseline = 'middle';
       // console.log(ctx);

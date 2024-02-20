@@ -27,6 +27,9 @@ export class PluginLogHomeComponent implements OnInit {
   _filterText: string;
   _filterType: string;
   _pluginId: number;
+  
+  _selectedMonth: number;
+  _selectedYear: number;
 
   constructor(private _matDialog: MatDialog,
     private _service: PluginLogService,
@@ -42,15 +45,26 @@ export class PluginLogHomeComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    const today = new Date();
+    this._selectedMonth = today.getMonth() + 1;
+    this._selectedYear = today.getFullYear();
+
     this._pluginId = +this._activateRoute.snapshot.params['id'];
     this.refreshPluginLog();
   }
 
   ngAfterViewInit(): void {
-    this._dataSource.paginator = this._paginator;
-    this._dataSource.sort = this._sort;
+    // this._dataSource.paginator = this._paginator;
+    // this._dataSource.sort = this._sort;
   }
 
+  onSelectedMonth(date: Date) {
+    this._selectedMonth = date.getMonth() + 1;
+    this._selectedYear = date.getFullYear();
+ 
+    this.refreshPluginLog();
+  }
 
   public onOpenPrjAddDialog() {
 
@@ -95,13 +109,13 @@ export class PluginLogHomeComponent implements OnInit {
 
   private refreshPluginLog() {
 
-    this._service.getSelected(this._pluginId).subscribe((data: PluginLog[]) => {
-      this._pluginLogCol = data;
-      this._dataSource = new MatTableDataSource<PluginLog>(this._pluginLogCol);
-      this._dataSource.paginator = this._paginator;
-      this._dataSource.sort = this._sort;
-    })
-
+    this._service.getSelectedMonthYear(this._pluginId, this._selectedMonth, this._selectedYear)
+      .subscribe((data: PluginLog[]) => {
+        this._pluginLogCol = data;
+        this._dataSource = new MatTableDataSource<PluginLog>(this._pluginLogCol);
+        this._dataSource.paginator = this._paginator;
+        this._dataSource.sort = this._sort;
+      })
   }
 
   private getAllPluginLog() {

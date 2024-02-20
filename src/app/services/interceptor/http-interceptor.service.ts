@@ -16,7 +16,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     this._loader.loaderVisible.next(true);
     // console.log("Interceptor Started", req);
     const newReq = req.clone({ url: "http://localhost:45300/" + req.url, headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
-
+    console.log(newReq);
     return next.handle(newReq).pipe(
       tap({
         error: (_error) => {

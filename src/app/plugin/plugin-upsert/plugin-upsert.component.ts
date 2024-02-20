@@ -105,7 +105,7 @@ export class PluginUpsertComponent implements OnInit {
     this._pluginModel.createdBy = 2701;
     this._service.add(this._pluginModel).subscribe({
       next: (val: Plugin) => {
-        this._alertify.alert("Plugin added successfully!");
+        this._alertify.success("Plugin added successfully!");
       }
     })
   }
@@ -117,7 +117,7 @@ export class PluginUpsertComponent implements OnInit {
 
     this._service.update(this._editData.pluginId, this._pluginModel).subscribe({
       next: (val: Plugin) => {
-        this._alertify.alert("Plugin updated successfully!");
+        this._alertify.success("Plugin updated successfully!");
       }
     })
   }
