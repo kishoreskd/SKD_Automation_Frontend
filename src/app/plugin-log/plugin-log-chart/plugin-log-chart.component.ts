@@ -103,7 +103,8 @@ export class PluginLogChartComponent implements OnInit, OnChanges {
           tooltip: {
 
           },
-        }
+        } 
+        
       },
       plugins: [this.assignedTasks]
     });

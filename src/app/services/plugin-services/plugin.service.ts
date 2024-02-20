@@ -16,7 +16,14 @@ export class PluginService {
 
   getAll(): Observable<Plugin[]> {
     return this._http.get<Plugin[]>("Plugin/get_all").pipe(delay(0));
+  }
 
+  getAllForYear(year: number): Observable<Plugin[]> {
+    return this._http.get<Plugin[]>(`Plugin/get_all_with_log/year=${year}`);
+  }
+
+  getAllForMonth(month: number): Observable<Plugin[]> {
+    return this._http.get<Plugin[]>(`Plugin/get_all_with_log/month=${month}`);
   }
 
   add(data: Plugin): Observable<any> {
@@ -34,4 +41,6 @@ export class PluginService {
   remove(id: number): Observable<any> {
     return this._http.delete("Plugin/remove/" + id);
   }
+
+
 }
