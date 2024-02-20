@@ -13,7 +13,7 @@
       </mat-form-field>
     </div>
 
-    <mat-form-field class="search-form-field">
+    <mat-form-field class="search-form-field"  appearance="outline">
       <input matInput type="text" [(ngModel)]='_filterText' placeholder="Search" autocomplete="off"
         (input)="applyFilter()">
       <button matSuffix mat-icon-button aria-label="Clear">

@@ -16,13 +16,13 @@ export class HttpInterceptorService implements HttpInterceptor {
     this._loader.loaderVisible.next(true);
     // console.log("Interceptor Started", req);
     const newReq = req.clone({ url: "http://localhost:45300/" + req.url, headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
-    console.log(newReq);
+    // console.log(newReq);
     return next.handle(newReq).pipe(
       tap({
         error: (_error) => {
           const val = _error.error.ErrorCode + "/" + _error.error.ErrorMessage;
           this._alertify.error(val);
-          console.log(_error)
+          // console.log(_error)
         }
       }),
       finalize(() => {
