@@ -33,7 +33,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { PluginService } from './services/plugin-services/plugin.service';
+import { PluginService } from './services/plugin-services/plugin-base.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatBadgeModule } from '@angular/material/badge';
 import { PluginUpsertCanDeactivateGuardService } from './plugin/plugin-upsert/plugin-upsert-canDeactivate-guard.service';
@@ -46,13 +46,15 @@ import { PluginLogUpsertComponent } from './plugin-log/plugin-log-upsert/plugin-
 import { MatSortModule } from '@angular/material/sort';
 import { PluginHomePipe } from './application/pipes/plugin-home.pipe';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { PluginLogChartComponent } from './plugin-log/plugin-log-chart/plugin-log-chart.component';
-import { PluginChartComponent } from './plugin/plugin-chart/plugin-chart.component';
+import { PluginLogChartComponent } from './dashbord/plugin-log-chart/plugin-log-chart.component';
+import { PluginChartComponent } from './dashbord/plugin-chart/plugin-chart.component';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MonthPickerComponent } from './common/month-picker/month-picker.component';
 import { DashbordComponent } from './dashbord/dashbord.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { YearPickerComponent } from './common/year-picker/year-picker.component';
+import { MatDivider } from '@angular/material/divider';
+import { MinutesToHoursPipe } from './application/pipes/minutesToHours.pipe';
 
 @NgModule({
     declarations:
@@ -68,7 +70,8 @@ import { YearPickerComponent } from './common/year-picker/year-picker.component'
             PluginHomePipe,
             MonthPickerComponent,
             YearPickerComponent,
-            DashbordComponent
+            DashbordComponent,
+            MinutesToHoursPipe
         ],
     imports:
         [
@@ -102,7 +105,8 @@ import { YearPickerComponent } from './common/year-picker/year-picker.component'
             FlexLayoutModule,
             MatSortModule,
             MatExpansionModule,
-            MatMenuModule
+            MatMenuModule,
+            MatDivider
         ],
     providers:
         [

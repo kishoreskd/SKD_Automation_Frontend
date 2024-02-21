@@ -3,7 +3,7 @@ import { PluginLog } from '../../domain/model/plugin-log.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AlertifyService } from '../../services/common/alertify.service';
-import { PluginService } from '../../services/plugin-services/plugin.service';
+import { PluginService } from '../../services/plugin-services/plugin-base.service';
 import { PluginLogService } from '../../services/plugin-services/plugin-log.service';
 import { ActivatedRoute } from '@angular/router';
 

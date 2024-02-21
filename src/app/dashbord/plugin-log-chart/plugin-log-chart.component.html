@@ -1,0 +1,25 @@
+
+
+<div fxLayout="row wrap" fxLayoutAlign="">
+  <div class="menudiv" fxLayoutAlign="space-around center">
+    <div>
+      <mat-form-field appearance="outline" style="font-size: 10px;">
+        <mat-label>Filter By</mat-label>
+        <mat-select [(ngModel)]="_pluginId" (selectionChange)="onPuginSelectionChange($event)">
+          <mat-option *ngFor="let val of _pluginsCol" [value]="val.pluginId">
+            {{val.pluginName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <app-year-picker (dateTimeSelected)="onSelectedMonthPluginLog($event)"></app-year-picker>
+    </div>
+  </div>
+</div>
+
+<div style="width: 100%; height: 100%;">
+  <canvas id="myChart"  id="myChart"></canvas>
+</div>
+
+<!-- width="700" height="500" -->

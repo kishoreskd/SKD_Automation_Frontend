@@ -18,12 +18,16 @@ export class PluginService {
     return this._http.get<Plugin[]>("Plugin/get_all").pipe(delay(0));
   }
 
-  getAllForYear(year: number): Observable<Plugin[]> {
-    return this._http.get<Plugin[]>(`Plugin/get_all_with_log/year=${year}`);
+  getWithLog(pluginId: number): Observable<Plugin> {
+    return this._http.get<Plugin>(`Plugin/get_with_log/pluginId=${pluginId}`);
   }
 
-  getAllForMonth(month: number): Observable<Plugin[]> {
-    return this._http.get<Plugin[]>(`Plugin/get_all_with_log/month=${month}`);
+  getAllForYearWithLog(year: number): Observable<Plugin[]> {
+    return this._http.get<Plugin[]>(`Plugin/get_all_with_log_by_year/year=${year}`);
+  }
+
+  getAllForMonthWithLog(month: number): Observable<Plugin[]> {
+    return this._http.get<Plugin[]>(`Plugin/get_all_with_log_month/month=${month}`);
   }
 
   add(data: Plugin): Observable<any> {

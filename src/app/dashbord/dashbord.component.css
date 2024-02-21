@@ -29,5 +29,14 @@
 }
 
 
+.card-title {
+  color: black;
+  font-size: 15px;
+  /* font-weight: 900; */
+}
 
 
+
+/* mat-card-header{
+  padding-bottom: 10px;
+} */

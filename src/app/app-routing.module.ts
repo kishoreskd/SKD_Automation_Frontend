@@ -6,8 +6,8 @@ import { PluginHomeResolverService } from './plugin/plugin-home/plugin-home-reso
 import { PluginUpsertCanDeactivateGuardService } from './plugin/plugin-upsert/plugin-upsert-canDeactivate-guard.service';
 import { PluginLogHomeComponent } from './plugin-log/plugin-log-home/plugin-log-home.component';
 import { PluginLogHomeResolverService } from './plugin-log/plugin-log-home/plugin-log-home-resolver.service';
-import { PluginLogChartComponent } from './plugin-log/plugin-log-chart/plugin-log-chart.component';
-import { PluginChartComponent } from './plugin/plugin-chart/plugin-chart.component';
+import { PluginLogChartComponent } from './dashbord/plugin-log-chart/plugin-log-chart.component';
+import { PluginChartComponent } from './dashbord/plugin-chart/plugin-chart.component';
 import { DashbordComponent } from './dashbord/dashbord.component';
 
 

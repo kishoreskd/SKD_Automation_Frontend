@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable, catchError, of } from 'rxjs';
-import { PluginService } from '../../services/plugin-services/plugin.service';
+import { PluginService } from '../../services/plugin-services/plugin-base.service';
 import { Plugin } from '../../domain/model/plugin.model';
 
 @Injectable({

@@ -9,6 +9,7 @@ import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { AlertifyService } from '../../services/common/alertify.service';
 import { PluginLogUpsertComponent } from '../plugin-log-upsert/plugin-log-upsert.component';
 import { Plugin } from '../../domain/model/plugin.model';
+import { PluginService } from '../../services/plugin-services/plugin-base.service';
 
 @Component({
   selector: 'app-plugin-log-home',
@@ -20,6 +21,7 @@ export class PluginLogHomeComponent implements OnInit {
   @ViewChild(MatPaginator) _paginator: MatPaginator;
   @ViewChild(MatSort) _sort: MatSort;
 
+  _plugin: Plugin;
   _pluginLogCol: Array<PluginLog>;
   _displayedColumns: string[];
   _dataSource: MatTableDataSource<PluginLog>;
@@ -27,14 +29,17 @@ export class PluginLogHomeComponent implements OnInit {
   _filterText: string;
   _filterType: string;
   _pluginId: number;
-  
+  _manualMinutes: number = 0;
+  _automatedMinutes: number = 0;
+
   _selectedMonth: number;
   _selectedYear: number;
 
   constructor(private _matDialog: MatDialog,
     private _service: PluginLogService,
     private _activateRoute: ActivatedRoute,
-    private _alertify: AlertifyService) {
+    private _alertify: AlertifyService,
+    private _pluginService: PluginService) {
     this._displayedColumns = ['pluginLogId', 'pluginId', 'jobName', 'activity', 'createdBy', 'createdDate', 'action'];
     this._filterSource = [
       { key: "jobName", val: "Job Name" },
@@ -62,7 +67,7 @@ export class PluginLogHomeComponent implements OnInit {
   onSelectedMonth(date: Date) {
     this._selectedMonth = date.getMonth() + 1;
     this._selectedYear = date.getFullYear();
- 
+
     this.refreshPluginLog();
   }
 
@@ -72,7 +77,7 @@ export class PluginLogHomeComponent implements OnInit {
     data.pluginLogId = 0;
     data.pluginId = this._pluginId;
 
-    const dialogRef = this._matDialog.open(PluginLogUpsertComponent, { width: "50%", data });
+    const dialogRef = this._matDialog.open(PluginLogUpsertComponent, { width: "30%", data });
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
@@ -84,7 +89,7 @@ export class PluginLogHomeComponent implements OnInit {
 
   public onEditPrjDialog(data: PluginLog) {
 
-    const dialogRef = this._matDialog.open(PluginLogUpsertComponent, { width: "50%", data })
+    const dialogRef = this._matDialog.open(PluginLogUpsertComponent, { width: "30%", data })
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
@@ -115,7 +120,15 @@ export class PluginLogHomeComponent implements OnInit {
         this._dataSource = new MatTableDataSource<PluginLog>(this._pluginLogCol);
         this._dataSource.paginator = this._paginator;
         this._dataSource.sort = this._sort;
+        this.getPlugin();
       })
+  }
+
+  private getPlugin() {
+    this._pluginService.getWithLog(this._pluginId).subscribe((data: Plugin) => {
+      this._automatedMinutes = (data.automatedMinutes * this._pluginLogCol.length);
+      this._manualMinutes = (data.manualMinutes * this._pluginLogCol.length);
+    })
   }
 
   private getAllPluginLog() {
@@ -124,6 +137,7 @@ export class PluginLogHomeComponent implements OnInit {
       this._dataSource = new MatTableDataSource<PluginLog>(this._pluginLogCol);
     })
   }
+
 
   public applyFilter() {
 

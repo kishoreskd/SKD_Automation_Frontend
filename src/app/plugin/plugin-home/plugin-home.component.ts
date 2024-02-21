@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort'
 import { MatDialog } from '@angular/material/dialog';
 import { PluginUpsertComponent } from '../plugin-upsert/plugin-upsert.component';
 import { Plugin } from '../../domain/model/plugin.model';
-import { PluginService } from '../../services/plugin-services/plugin.service';
+import { PluginService } from '../../services/plugin-services/plugin-base.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertifyService } from '../../services/common/alertify.service';
 
@@ -42,7 +42,7 @@ export class PluginHomeComponent implements OnInit, AfterViewInit, AfterViewChec
       { key: "departmentName", val: "Department Name" },
       { key: "createdEmployeeId", val: "Created By" }
     ];
-    this._pluginCol = new Array<Plugin>();   
+    this._pluginCol = new Array<Plugin>();
   }
 
 
@@ -63,7 +63,7 @@ export class PluginHomeComponent implements OnInit, AfterViewInit, AfterViewChec
   }
 
   public onOpenPluginAddDialog() {
-    const dialogRef = this._matDialog.open(PluginUpsertComponent, { width: "50%" });
+    const dialogRef = this._matDialog.open(PluginUpsertComponent, {});
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
@@ -74,7 +74,7 @@ export class PluginHomeComponent implements OnInit, AfterViewInit, AfterViewChec
   }
 
   public onEditPluginDialog(data: Plugin) {
-    const dialogRef = this._matDialog.open(PluginUpsertComponent, { width: "50%", data })
+    const dialogRef = this._matDialog.open(PluginUpsertComponent, { data })
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {

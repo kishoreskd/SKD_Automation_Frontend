@@ -10,22 +10,9 @@ export class PluginLogService {
 
   constructor(private _http: HttpClient) { }
 
-  getSelected(pluginId: number): Observable<PluginLog[]> {
-    return this._http.get<PluginLog[]>("PluginLog/get_all/" + pluginId);
-  }
-
   getAll(): Observable<PluginLog[]> {
     return this._http.get<PluginLog[]>("PluginLog/get_all");
   }
-
-  getSelectedMonthYear(pluginId: number, month: number, year: number): Observable<PluginLog[]> {
-    return this._http.get<PluginLog[]>(`PluginLog/get_all/pluginId=${pluginId}&month=${month}&year=${year}`);
-  }
-
-  getSelectedYear(pluginId: number, year: number): Observable<PluginLog[]> {
-    return this._http.get<PluginLog[]>(`PluginLog/get_all/pluginId=${pluginId}&year=${year}`);
-  }
-
 
   add(data: PluginLog): Observable<any> {
     return this._http.post("Pluginlog/add_pluginlog", data)
@@ -37,5 +24,18 @@ export class PluginLogService {
 
   remove(id: number): Observable<any> {
     return this._http.delete("PluginLog/remove/" + id);
+  }
+
+
+  getSelectedMonthYear(pluginId: number, month: number, year: number): Observable<PluginLog[]> {
+    return this._http.get<PluginLog[]>(`PluginLog/get_all_by_month/pluginId=${pluginId}&month=${month}&year=${year}`);
+  }
+
+  getSelectedYear(pluginId: number, year: number): Observable<PluginLog[]> {
+    return this._http.get<PluginLog[]>(`PluginLog/get_all_by_year/pluginId=${pluginId}&year=${year}`);
+  }
+
+  getSelected(pluginId: number): Observable<PluginLog[]> {
+    return this._http.get<PluginLog[]>("PluginLog/get_all_by_plugin/" + pluginId);
   }
 }

@@ -20,9 +20,15 @@ export class HttpInterceptorService implements HttpInterceptor {
     return next.handle(newReq).pipe(
       tap({
         error: (_error) => {
-          const val = _error.error.ErrorCode + "/" + _error.error.ErrorMessage;
+          let val = "";
+          console.log(_error)
+          if (_error.error.ErrorCode) {
+            val = _error.error.ErrorCode + "/" + _error.error.ErrorMessage;
+          } else {
+            val = _error.error.status + "/" + _error.error.title;
+          }
+
           this._alertify.error(val);
-          // console.log(_error)
         }
       }),
       finalize(() => {

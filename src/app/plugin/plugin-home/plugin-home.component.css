@@ -3,58 +3,32 @@ table {
   background-color: white;
 }
 
-.mat-mdc-row .mat-mdc-cell {
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
-  cursor: pointer;
-}
-
-.mat-mdc-row:hover .mat-mdc-cell {
-  border-color: #eee;
-  color: rgba(0, 120, 212, 1);
-  font-weight: bold;
-}
-
-.demo-row-is-clicked {
-  font-weight: bold;
-}
-
-th.mat-sort-header-sorted {
-  color: black;
-}
-
 .menudiv {
   /* background-color: rgb(255, 255, 255); */
-  height: 50px;
+  height: 38px;
 }
 
-.b-red {
-  /* border: 1px solid red; */
-}
-
-
-
-
-.mat-column-pluginId {
-  /* word-wrap: break-word !important;
-  white-space: unset !important;
-  flex: 0 0 28% !important; */
-  width: 5% !important;
-  /* overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  word-break: break-word;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto; */
-}
-
-::ng-deep .mat-mdc-text-field-wrapper {
+/* ::ng-deep .mat-mdc-text-field-wrapper {
   height: 40px !important;
 }
 
 ::ng-deep .mat-mdc-form-field-flex {
   margin-top: -7px !important;
+}
+   */
+
+
+
+.one {
+  background-color: red;
+}
+
+.two {
+  background-color: green;
+
+}
+
+.three {
+  background-color: blue;
+
 }

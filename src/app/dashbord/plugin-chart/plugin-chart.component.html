@@ -1,0 +1,14 @@
+<div fxLayout="row wrap" fxLayoutAlign="">
+  <div class="menudiv" fxLayoutAlign="space-around center">
+    <div>
+      <app-year-picker (dateTimeSelected)="onSelectedMonthPluginLog($event)"></app-year-picker>
+    </div>
+  </div>
+</div>
+
+
+<div style="width: 100%; height: 100%;">
+  <canvas id="plugin_chart"></canvas>
+</div>
+
+<!-- width="700" height="500" -->

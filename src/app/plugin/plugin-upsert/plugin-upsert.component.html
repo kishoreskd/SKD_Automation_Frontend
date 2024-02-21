@@ -1,6 +1,5 @@
 <div mat-dialog-title>
   <h1>Plugin</h1>
-  <hr />
 </div>
 
 <form [formGroup]="_pluginFrm" (ngSubmit)="onFormSubmit()">
@@ -26,7 +25,7 @@
 
     <div class="row">
       <mat-form-field appearance="outline">
-        <mat-label>departmentName</mat-label>
+        <mat-label>Department Name</mat-label>
         <mat-select formControlName="departmentName">
           <mat-option *ngFor="let val of _department" [value]="val.departmentId">
             {{val.departmentName}}

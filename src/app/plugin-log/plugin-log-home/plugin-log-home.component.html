@@ -1,41 +1,43 @@
-<div fxLayout="row wrap" fxLayoutAlign="center center">
-  <div class="menudiv" fxFlex="100%" fxFlex.xs="100%" fxLayoutAlign="center">
-    <!-- left -->
-    <div>
-      <app-month-picker (dateTimeSelected) = "onSelectedMonth($event)"></app-month-picker>
-    </div>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a routerLink="/plugin/home">Plugins</a></li>
+  <li class="breadcrumb-item active">Logs</li>
+</ol>
 
+<div class="card border-1">
+  <div id="cardbody" class="card-body">
 
-    <div>
-      <mat-form-field appearance="outline">
-        <mat-label>Filter By</mat-label>
-        <mat-select [(ngModel)]="_filterType">
-          <mat-option *ngFor="let val of _filterSource" [value]="val.key">
+    <div fxLayout="row" fxLayoutGap="5">
+      <div>
+        <app-month-picker (dateTimeSelected)="onSelectedMonth($event)"></app-month-picker>
+      </div>
+
+      <div>
+        <select class="form-select" [(ngModel)]="_filterType">
+          <option *ngFor="let val of _filterSource" [value]="val.key">
             {{val.val}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+          </option>
+        </select>
+      </div>
+
+      <div fxFlex>
+        <input class="form-control" matInput type="text" [(ngModel)]='_filterText' placeholder="Search"
+          autocomplete="off" (input)="applyFilter()">
+      </div>
+
+
+      <div fxLayoutAlign="end start">
+        <button (click)="onOpenPrjAddDialog()" mat-flat-button extended color="primary">
+          <mat-icon>add</mat-icon>
+          Add Plugin Log
+        </button>
+      </div>
+
     </div>
 
-    <div style="font-size: 12px;">
-      <mat-form-field style="width: 350px;">
-        <mat-label>Filter</mat-label>
-        <input matInput type="text" placeholder="Ex." [(ngModel)]='_filterText' (input)="applyFilter()">
-      </mat-form-field>
-    </div>
-
-    <div class="b-red" fxFlex></div>
-
-    <!-- right -->
-
-    <div fxLayoutAlign="end start">
-      <button (click)="onOpenPrjAddDialog()" mat-fab extended color="primary">
-        <mat-icon>add</mat-icon>
-        Add Plugin Log
-      </button>
-    </div>
   </div>
 </div>
+
+<div class="w-100 pt-2"></div>
 
 
 <table mat-table matSort [dataSource]="_dataSource">
@@ -98,3 +100,19 @@
   <app-plugin-log-chart [_pluginLogCol]="_pluginLogCol"></app-plugin-log-chart>
 
 </div> -->
+
+<div class="w-100 pt-2"></div>
+
+<div class="card border-1">
+  <div id="cardbody" class="card-body">
+
+    <div fxLayout="row-reverse" fxLayoutGap="10">
+      <span >Manual Time Taken: <span class="badge rounded-pill bg-primary"> {{_manualMinutes | minutesToHours}}</span></span>
+      <span >Automation Time Taken: <span class="badge rounded-pill bg-success">{{_automatedMinutes | minutesToHours}}</span> </span>
+    </div>
+
+    <div class="text-left f-l pb-3 pl-1">
+    </div>
+
+  </div>
+</div>

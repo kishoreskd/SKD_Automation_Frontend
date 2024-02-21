@@ -9,6 +9,7 @@
 </mat-toolbar>
 
 
+
 <mat-sidenav-container autosize>
   <mat-sidenav #sidenav opened="true" mode="side" [fixedInViewport]="true" [fixedTopGap]="45">
 
@@ -17,13 +18,16 @@
         <mat-icon mat-list-icon class="chevron-button" [ngClass]="{ rotated: opened }">chevron_right</mat-icon>
       </mat-list-item>
 
+      <mat-divider></mat-divider>
+
+
       <mat-list-item routerLink="/">
         <mat-icon mat-list-icon class="">home</mat-icon>
         <span *ngIf="opened" class="menu-item">Dashbord</span>
       </mat-list-item>
 
 
-      <mat-list-item routerLink="/plugin/home"> 
+      <mat-list-item routerLink="/plugin/home">
         <mat-icon mat-list-icon class="">
           important_devices
         </mat-icon>

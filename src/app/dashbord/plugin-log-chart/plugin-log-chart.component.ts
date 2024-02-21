@@ -1,6 +1,9 @@
 import { Component, ContentChild, Input, OnChanges, OnInit, SimpleChanges, ViewChild, input } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { PluginLog } from '../../domain/model/plugin-log.model';
+import { PluginLogService } from '../../services/plugin-services/plugin-log.service';
+import { Plugin } from '../../domain/model/plugin.model';
+import { PluginService } from '../../services/plugin-services/plugin-base.service';
 Chart.register(...registerables);
 
 const MONTHS = [
@@ -16,19 +19,73 @@ const MONTHS = [
 })
 export class PluginLogChartComponent implements OnInit, OnChanges {
 
-  @Input() _pluginLogCol: PluginLog[];
-
+  _pluginId: number;
   _chart: Chart;
   _data: Array<any> = new Array<any>();
   _count: Array<any> = new Array<any>();
+  _pluginLogCol: Array<PluginLog>;
+  _pluginsCol: Array<Plugin>;
+  _selectedMonthPlugingLog: number;
+  _selectedYearPluginLog: number;
 
-  constructor() {
+  constructor(private _pluginService: PluginService, private _pluginLogService: PluginLogService) {
+    this._pluginsCol = new Array<Plugin>();
+    this._pluginLogCol = new Array<PluginLog>();
   }
 
-
+  onPuginSelectionChange(event: any) {
+    this._pluginId = event.value;
+    this.refreshPluginLog();
+  }
 
   ngOnInit() {
+    const today = new Date();
+    this._selectedMonthPlugingLog = today.getMonth() + 1;
+    this._selectedYearPluginLog = today.getFullYear();
+    this.refreshPlugin();
     this.RenderChart();
+  }
+
+  onSelectedMonthPluginLog(date: Date) {
+
+    this._data = new Array<any>();
+    this._count = new Array<any>();
+    this._selectedMonthPlugingLog = date.getMonth() + 1;
+    this._selectedYearPluginLog = date.getFullYear();
+    this.refreshPluginLog();
+  }
+
+  refreshPluginLog() {
+
+    this._pluginLogService.getSelectedYear(this._pluginId, this._selectedYearPluginLog)
+      .subscribe((data: PluginLog[]) => {
+
+        this._pluginLogCol = data;
+        this.refreshChart();
+
+      })
+  }
+
+  refreshPlugin() {
+    this._pluginService.getAll()
+      .subscribe((data: Plugin[]) => {
+
+        this._pluginsCol = data;
+        this._pluginId = this._pluginsCol[0].pluginId;
+        this.refreshPluginLog();
+
+      });
+  }
+
+  refreshChart() {
+    const data = this.groupDatesByMonths();
+    this._count = Object.values(data);
+
+    if (this._chart) {
+      this._chart.clear();
+      this._chart.config.data.datasets[0].data = this._count;
+      this._chart.update();
+    }
   }
 
   RenderChart() {
@@ -87,13 +144,17 @@ export class PluginLogChartComponent implements OnInit, OnChanges {
             },
             ticks: {
               precision: 0 // Ensure integers are displayed without decimal points
+            },
+            grid: {
+              display: false
             }
           },
           x: {
             title: {
               display: false,
               text: 'Month'
-            }
+            },
+
           }
         },
         plugins: {
@@ -103,8 +164,8 @@ export class PluginLogChartComponent implements OnInit, OnChanges {
           tooltip: {
 
           },
-        } 
-        
+        }
+
       },
       plugins: [this.assignedTasks]
     });
@@ -113,15 +174,15 @@ export class PluginLogChartComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    if (changes) {
-      const data = this.groupDatesByMonths();
-      this._count = Object.values(data);
+    // if (changes) {
+    //   const data = this.groupDatesByMonths();
+    //   this._count = Object.values(data);
 
-      if (this._chart) {
-        this._chart.config.data.datasets[0].data = this._count;
-        this._chart.update();
-      }
-    }
+    //   if (this._chart) {
+    //     this._chart.config.data.datasets[0].data = this._count;
+    //     this._chart.update();
+    //   }
+    // }
   }
 
   todayLine = {
@@ -161,6 +222,7 @@ export class PluginLogChartComponent implements OnInit, OnChanges {
 
   groupDatesByMonths() {
 
+    
     const groupedDates: { [key: string]: number } = {};
 
     for (let month = 1; month <= 12; month++) {
