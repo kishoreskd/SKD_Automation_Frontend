@@ -100,6 +100,7 @@ export class PluginHomeComponent implements OnInit, AfterViewInit, AfterViewChec
   private refreshPlugins() {
     this._service.getAll().subscribe((data: Plugin[]) => {
       this._pluginCol = data;
+      console.log(this._pluginCol);
       this._dataSource = new MatTableDataSource<Plugin>(this._pluginCol);
       this._dataSource.paginator = this._paginator;
       this._dataSource.sort = this._sort;

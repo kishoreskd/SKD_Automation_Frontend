@@ -114,7 +114,7 @@ export class PluginLogHomeComponent implements OnInit {
 
   private refreshPluginLog() {
 
-    this._service.getSelectedMonthYear(this._pluginId, this._selectedMonth, this._selectedYear)
+    this._service.getByMonthYear(this._pluginId, this._selectedMonth, this._selectedYear)
       .subscribe((data: PluginLog[]) => {
         this._pluginLogCol = data;
         this._dataSource = new MatTableDataSource<PluginLog>(this._pluginLogCol);

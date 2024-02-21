@@ -27,15 +27,15 @@ export class PluginLogService {
   }
 
 
-  getSelectedMonthYear(pluginId: number, month: number, year: number): Observable<PluginLog[]> {
-    return this._http.get<PluginLog[]>(`PluginLog/get_all_by_month/pluginId=${pluginId}&month=${month}&year=${year}`);
+  getByMonthYear(pluginId: number, month: number, year: number): Observable<PluginLog[]> {
+    return this._http.get<PluginLog[]>(`PluginLog/get_by_monthandyear/pluginId=${pluginId}&month=${month}&year=${year}`);
   }
 
-  getSelectedYear(pluginId: number, year: number): Observable<PluginLog[]> {
-    return this._http.get<PluginLog[]>(`PluginLog/get_all_by_year/pluginId=${pluginId}&year=${year}`);
+  getByYear(pluginId: number, year: number): Observable<PluginLog[]> {
+    return this._http.get<PluginLog[]>(`PluginLog/get_by_year/pluginId=${pluginId}&year=${year}`);
   }
 
-  getSelected(pluginId: number): Observable<PluginLog[]> {
-    return this._http.get<PluginLog[]>("PluginLog/get_all_by_plugin/" + pluginId);
+  getByPlugin(pluginId: number): Observable<PluginLog[]> {
+    return this._http.get<PluginLog[]>("PluginLog/get_by_plugin/" + pluginId);
   }
 }

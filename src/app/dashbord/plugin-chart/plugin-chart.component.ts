@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, input } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { Plugin } from '../../domain/model/plugin.model';
 import { PluginService } from '../../services/plugin-services/plugin-base.service';
@@ -13,76 +13,64 @@ Chart.register(...registerables);
 })
 export class PluginChartComponent implements OnInit {
 
-  _chart: any;
-  _labelChart: Array<string> = new Array<string>();
-  _dataChart: Array<number> = new Array<number>();
-  _pluginsCol: Array<Plugin>;
-  _selectedMonth: number;
-  _selectedYear: number;
+  @Input() pluginCol: Array<Plugin>;
 
-  constructor(private _pluginService: PluginService) { }
+  chart: any;
+  labelChart: Array<string> = new Array<string>();
+  dataChart: Array<number> = new Array<number>();
+
+  constructor() { }
 
   ngOnInit() {
-    const today = new Date();
-    this._selectedMonth = today.getMonth() + 1;
-    this._selectedYear = today.getFullYear();
-    this.refreshPlugin();
     this.RenderChart();
+    this.refreshChart();
   }
 
-  onSelectedMonthPluginLog(date: Date) {
-    this._selectedMonth = date.getMonth() + 1;
-    this._selectedYear = date.getFullYear();
-    this.refreshPlugin();
-  }
-
-  refreshPlugin() {
-    this._pluginService.getAllForYearWithLog(this._selectedYear)
-      .subscribe((data: Plugin[]) => {
-        this._pluginsCol = data;
-        this.refreshChart();
-      });
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.pluginCol);
+    if (this.chart) {
+      this.refreshChart();
+    }
   }
 
   refreshChart() {
 
     this.groupedData();
 
-    if (this._chart) {
-      this._chart.config.data.labels = this._labelChart;
-      this._chart.config.data.datasets[0].data = this._dataChart;
-      this._chart.update();
+    if (this.chart) {
+      this.chart.config.data.labels = this.labelChart;
+      this.chart.config.data.datasets[0].data = this.dataChart;
+      this.chart.update();
     }
   }
 
   groupedData() {
 
-    this._labelChart = new Array<string>();
-    this._dataChart = new Array<number>();
+    this.labelChart = new Array<string>();
+    this.dataChart = new Array<number>();
 
-    this._pluginsCol.forEach(e => {
+    this.pluginCol.forEach(e => {
 
-      this._labelChart.push(e.pluginName);
+      this.labelChart.push(e.pluginName);
 
       if (e.pluginLogs !== null && e.pluginLogs.length > 0) {
-        this._dataChart.push(e.pluginLogs.length);
+        this.dataChart.push(e.pluginLogs.length);
       }
       else {
-        this._dataChart.push(0);
+        this.dataChart.push(0);
       }
     });
-
   }
 
   RenderChart() {
 
-    this._chart = new Chart("plugin_chart", {
+    this.chart = new Chart("pluginchart", {
       type: 'line',
       data: {
-        labels: this._labelChart,
+        labels: this.labelChart,
         datasets: [{
           label: 'Utlized',
-          data: this._dataChart,
+          data: this.dataChart,
           backgroundColor: [
             'rgba(255, 99, 132, 0.5)',
             'rgba(54, 162, 235, 0.5)',
@@ -150,9 +138,7 @@ export class PluginChartComponent implements OnInit {
 
           },
         }
-
       },
     });
   }
-
 }

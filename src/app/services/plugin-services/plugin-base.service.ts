@@ -18,18 +18,6 @@ export class PluginService {
     return this._http.get<Plugin[]>("Plugin/get_all").pipe(delay(0));
   }
 
-  getWithLog(pluginId: number): Observable<Plugin> {
-    return this._http.get<Plugin>(`Plugin/get_with_log/pluginId=${pluginId}`);
-  }
-
-  getAllForYearWithLog(year: number): Observable<Plugin[]> {
-    return this._http.get<Plugin[]>(`Plugin/get_all_with_log_by_year/year=${year}`);
-  }
-
-  getAllForMonthWithLog(month: number): Observable<Plugin[]> {
-    return this._http.get<Plugin[]>(`Plugin/get_all_with_log_month/month=${month}`);
-  }
-
   add(data: Plugin): Observable<any> {
     return this._http.post("Plugin/add_plugin", data, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -47,4 +35,22 @@ export class PluginService {
   }
 
 
+  // [HttpGet("get_withlog/pluginId={pluginId}")]
+  // [HttpGet("get_withlog_by_monthandyear/departmentid={departmentid}&month={month}&year={year}")]
+  // [HttpGet("get_withlog_by_year/departmentid={departmentid}&year={year}")]
+
+  getWithLog(pluginId: number): Observable<Plugin> {
+    return this._http.get<Plugin>(`Plugin/get_withlog/pluginId=${pluginId}`);
+  }
+
+  getWithLogByMonthAndYear(departmentid: number, month: number, year: number): Observable<Plugin[]> {
+
+    // Plugin/get_withlog_by_monthandyear/departmentid=1&month=2&year=2024
+
+    return this._http.get<Plugin[]>(`Plugin/get_withlog_by_monthandyear/departmentid=${departmentid}&month=${month}&year=${year}`);
+  }
+
+  getWithLogByYear(departmentid: number, number, year: number) {
+    return this._http.get<Plugin[]>(`Plugin/get_withlog_by_monthandyear/departmentid=${departmentid}&year=${year}`);
+  }
 }

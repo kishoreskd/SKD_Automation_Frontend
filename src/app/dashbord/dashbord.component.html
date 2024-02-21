@@ -5,7 +5,9 @@
     <div class="card  rounded-4" style="height: 120px;">
       <div class="card-body">
         <div class="card-title">
+          Count
         </div>
+        <h1>{{totalPCount}} Plugins</h1>
       </div>
     </div>
   </div>
@@ -13,7 +15,9 @@
     <div class="card  rounded-4" style="height: 120px;">
       <div class="card-body">
         <div class="card-title">
+          Productivity By Manual
         </div>
+        <h1>{{totalMminute | minutesToHours}}</h1>
       </div>
     </div>
   </div>
@@ -21,7 +25,9 @@
     <div class="card  rounded-4" style="height: 120px;">
       <div class=" card-body">
         <div class="card-title">
+          Productivity By Automate
         </div>
+        <h1>{{totalAminute | minutesToHours}}</h1>
       </div>
     </div>
   </div>
@@ -31,73 +37,77 @@
 <div class="w-100 pt-lg-5"></div>
 <!-- Counter Card -->
 
+<!-- Menu Bar -->
 
+<div class="flex-row row">
+  <div class="col-md-3">
+  </div>
 
+  <div class="col-md-6">
+    <div class="card shadow-lg rounded-4">
+      <div class="card-body d-flex">
+
+        <div class="flex-grow-1 mx-1">
+          <input class="form-control" />
+        </div>
+
+        <div class="flex-grow-1 mx-1">
+          <input class="form-control" />
+        </div>
+
+        <div class="flex-grow-1 mx-1">
+          <input class="form-control" />
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+  </div>
+</div>
+
+<div class="w-100 pt-2"></div>
+<!-- Menu Bar -->
 
 
 <div class="card border-0">
   <div class="card-body">
-    <!-- Menu Bar -->
 
+    <div class="flex-row row ">
+      <div class="col-md-6">
+        <div class="card shadow-lg rounded-4">
+          <div class="card-header">
+            Plugin Utilizing Analyzis
+          </div>
 
-
-    <div class="flex-row row">
-      <div class="col-md-4">
-      </div>
-      <div class="col-md-4">
-        <div class="card shadow-lg rounded-4" style="height: 60px;">
           <div class="card-body">
             <div class="card-title">
             </div>
+            <!--  -->
+            <app-plugin-log-chart [pluginLogCol]="pLogCol" *ngIf="pLogCol"></app-plugin-log-chart>
+            <!--  -->
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-      </div>
-    </div>
 
-    <div class="w-100 pt-2"></div>
-    <!-- Menu Bar -->
-
-    <div class="flex-row row ">
-      <div class="flex-row row ">
-        <div class="col-md-6">
-          <div class="card shadow-lg rounded-4">
-            <div class="card-header">
-              Plugin Utilizing Analyzis
-            </div>
-
-            <div class="card-body">
-              <div class="card-title">
-              </div>
-
-              <!--  -->
-              <app-plugin-log-chart></app-plugin-log-chart>
-              <!--  -->
-
-            </div>
+      <div class="col-md-6">
+        <div class="card shadow-lg rounded-4">
+          <div class="card-header">
+            Plugin Utilizing Analyzis
           </div>
-        </div>
 
-        <div class="col-md-6">
-          <div class="card shadow-lg rounded-4">
-            <div class="card-header">
-              Plugin Utilizing Analyzis
+          <div class="card-body">
+            <div class="card-title">
             </div>
 
-            <div class="card-body">
-              <div class="card-title">
-              </div>
+            <!--  -->
+            <app-plugin-chart [pluginCol]="pCol" *ngIf="pCol"></app-plugin-chart>
+            <!--  -->
 
-              <!--  -->
-              <app-plugin-chart></app-plugin-chart>
-              <!--  -->
-
-            </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>

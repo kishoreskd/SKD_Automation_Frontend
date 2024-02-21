@@ -15,7 +15,7 @@ export class PluginLogHomeResolverService implements Resolve<PluginLog[]> {
   }
   resolve(route: ActivatedRouteSnapshot): Observable<PluginLog[]> {
     const id = +route.params['id'];
-    return this._service.getSelected(id).pipe(catchError(error => {
+    return this._service.getByPlugin(id).pipe(catchError(error => {
       this._router.navigate(['/']); 
       console.log(error);
       return of(null);

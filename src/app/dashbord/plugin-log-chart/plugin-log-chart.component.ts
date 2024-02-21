@@ -19,84 +19,43 @@ const MONTHS = [
 })
 export class PluginLogChartComponent implements OnInit, OnChanges {
 
-  _pluginId: number;
-  _chart: Chart;
-  _data: Array<any> = new Array<any>();
-  _count: Array<any> = new Array<any>();
-  _pluginLogCol: Array<PluginLog>;
-  _pluginsCol: Array<Plugin>;
-  _selectedMonthPlugingLog: number;
-  _selectedYearPluginLog: number;
+  @Input() pluginLogCol: Array<PluginLog> = new Array<PluginLog>;
+  chart: Chart;
+  dataSet: Array<any> = new Array<any>();
+  countSet: Array<any> = new Array<any>();
 
-  constructor(private _pluginService: PluginService, private _pluginLogService: PluginLogService) {
-    this._pluginsCol = new Array<Plugin>();
-    this._pluginLogCol = new Array<PluginLog>();
-  }
-
-  onPuginSelectionChange(event: any) {
-    this._pluginId = event.value;
-    this.refreshPluginLog();
-  }
+  constructor() { }
 
   ngOnInit() {
-    const today = new Date();
-    this._selectedMonthPlugingLog = today.getMonth() + 1;
-    this._selectedYearPluginLog = today.getFullYear();
-    this.refreshPlugin();
     this.RenderChart();
   }
 
-  onSelectedMonthPluginLog(date: Date) {
-
-    this._data = new Array<any>();
-    this._count = new Array<any>();
-    this._selectedMonthPlugingLog = date.getMonth() + 1;
-    this._selectedYearPluginLog = date.getFullYear();
-    this.refreshPluginLog();
-  }
-
-  refreshPluginLog() {
-
-    this._pluginLogService.getSelectedYear(this._pluginId, this._selectedYearPluginLog)
-      .subscribe((data: PluginLog[]) => {
-
-        this._pluginLogCol = data;
-        this.refreshChart();
-
-      })
-  }
-
-  refreshPlugin() {
-    this._pluginService.getAll()
-      .subscribe((data: Plugin[]) => {
-
-        this._pluginsCol = data;
-        this._pluginId = this._pluginsCol[0].pluginId;
-        this.refreshPluginLog();
-
-      });
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.chart) {
+      this.refreshChart();
+    }
   }
 
   refreshChart() {
     const data = this.groupDatesByMonths();
-    this._count = Object.values(data);
+    this.countSet = Object.values(data);
 
-    if (this._chart) {
-      this._chart.clear();
-      this._chart.config.data.datasets[0].data = this._count;
-      this._chart.update();
+    if (this.chart) {
+      this.chart.clear();
+      this.chart.config.data.datasets[0].data = this.countSet;
+      this.chart.update();
     }
   }
 
   RenderChart() {
 
-    this._chart = new Chart("myChart", {
+    this.chart = new Chart("myChart", {
       type: 'bar',
       data: {
         labels: MONTHS,
         datasets: [{
           label: 'Utlized',
-          data: this._count,
+          data: this.countSet,
           backgroundColor: [
             'rgba(255, 99, 132, 0.5)',
             'rgba(54, 162, 235, 0.5)',
@@ -167,81 +126,26 @@ export class PluginLogChartComponent implements OnInit, OnChanges {
         }
 
       },
-      plugins: [this.assignedTasks]
     });
-
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-
-    // if (changes) {
-    //   const data = this.groupDatesByMonths();
-    //   this._count = Object.values(data);
-
-    //   if (this._chart) {
-    //     this._chart.config.data.datasets[0].data = this._count;
-    //     this._chart.update();
-    //   }
-    // }
-  }
-
-  todayLine = {
-    id: 'todayLine',
-    afterDatasetsDraw(chart, args, pluginOptions) {
-      const { ctx, data, chartArea: { top, bottom, left, right }, scales: { x, y } } = chart;
-      ctx.save();
-      ctx.beginPath();
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = 'rgba(255, 26, 104, 1)';
-      ctx.setLineDash([6, 6])
-      ctx.moveTo(x.getPixelForValue(new Date()), top);
-      ctx.lineTo(x.getPixelForValue(new Date()), bottom);
-      ctx.stroke();
-    }
-  }
-
-  assignedTasks = {
-    id: 'assignedTasks',
-    afterDatasetsDraw(chart, args, pluginOptions) {
-      const { ctx, data, chartArea: { top, bottom, left, right }, scales: { x, y } } = chart;
-      ctx.font = 'bolder 14px sans-serif';
-      ctx.fillStyle = 'black';
-      ctx.textBaseline = 'middle';
-      // console.log(ctx);
-      // data.datasets[0].data.forEach((datapoint, index) => { ctx.fillText(datapoint.name, 10, y.getPixelForValue(index));})
-
-      // @* data.designation.forEach((data, index) => {
-      //   ctx.fillText(`(${data.split('')[0]})`, 10, y.getPixelForValue(index));
-      // });* @
-
-      //   @* data.label.forEach((data, index) => {
-      //     ctx.fillText(data, 10, y.getPixelForValue(index));
-      //   });* @
-    }
-  }
 
   groupDatesByMonths() {
 
-    
     const groupedDates: { [key: string]: number } = {};
-
     for (let month = 1; month <= 12; month++) {
       groupedDates[`2024-${month.toString().padStart(2, '0')}`] = 0;
     }
-    this._pluginLogCol.forEach(e => {
+
+    this.pluginLogCol.forEach(e => {
 
       const date = new Date(e.createdDate);
       const year = date.getFullYear();
       const month = date.getMonth() + 1;
 
       const key = `${year}-${month.toString().padStart(2, '0')}`
-      // if (!groupedDates[key]) {
-      //   groupedDates[key] = 0;
-      // }
-
       groupedDates[key]++;
     });
-
     return groupedDates;
   }
 }
