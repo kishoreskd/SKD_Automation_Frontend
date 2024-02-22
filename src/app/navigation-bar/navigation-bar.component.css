@@ -19,7 +19,12 @@ mat-nav-list {
     color: white;
 }
 
-
+.loader-container{
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+   
+  }
 
 .menu-item {
     margin-left: 30px;

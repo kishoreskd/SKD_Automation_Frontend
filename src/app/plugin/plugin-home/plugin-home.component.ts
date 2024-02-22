@@ -15,7 +15,7 @@ import { AlertifyService } from '../../services/common/alertify.service';
   templateUrl: './plugin-home.component.html',
   styleUrls: ['./plugin-home.component.css'],
 })
-export class PluginHomeComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class PluginHomeComponent implements OnInit {
 
   @ViewChild(MatPaginator) _paginator: MatPaginator;
   @ViewChild(MatSort) _sort: MatSort;
@@ -51,13 +51,6 @@ export class PluginHomeComponent implements OnInit, AfterViewInit, AfterViewChec
     this.filterType = this.displayedColumns[1];
   }
 
-  
-
-  ngAfterViewInit(): void {
-    // Initializepaginator and sort after the view has been initialized
-    this.dataSource.paginator = this._paginator;
-    this.dataSource.sort = this._sort;
-  }
 
   public onOpenPluginAddDialog() {
     const dialogRef = this._matDialog.open(PluginUpsertComponent, {});

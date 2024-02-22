@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, Event } from '@angular/router';
 import { LoaderService } from '../services/common/loader.service';
 import { DepartmentService } from '../services/department/department.service';
 import { Department } from '../domain/model/department';
 import { LocalStorageService } from '../services/common/local-storage.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['./navigation-bar.component.css']
 })
-export class NavigationBarComponent implements OnInit {
-  opened = true;
+export class NavigationBarComponent implements OnInit, AfterViewInit {
+  opened = false;
+  loaderVisible: boolean = false;
   // showLoadingIndicator = true;
   departmentId: number;
   depSelections: Array<Department> = new Array<Department>();
@@ -19,7 +21,8 @@ export class NavigationBarComponent implements OnInit {
   constructor(private _router: Router,
     public _loaderService: LoaderService,
     private readonly _departmentService: DepartmentService,
-    private readonly _localStorageService: LocalStorageService) {
+    private readonly _localStorageService: LocalStorageService,
+    private _cdr: ChangeDetectorRef) {
 
     // this._router.events.subscribe((routerEvent: Event) => {
 
@@ -32,8 +35,18 @@ export class NavigationBarComponent implements OnInit {
     //   }
     // })
   }
+  ngAfterViewInit(): void {
+
+  }
 
   ngOnInit() {
+    // this.loaderVisible = this._loaderService.loaderVisible;
+
+    this._loaderService.getLoaderVisibility().subscribe((isLoading: boolean) => {
+      this.loaderVisible = isLoading;
+      this._cdr.detectChanges();
+    })
+
     this.loadDepartmentSelections();
   }
 

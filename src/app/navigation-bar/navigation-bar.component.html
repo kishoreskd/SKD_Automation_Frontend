@@ -19,6 +19,8 @@
 
 
   <a mat-button>Logout</a>
+
+
 </mat-toolbar>
 
 
@@ -61,17 +63,13 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
+
+    <div class="loader-container">
+      <mat-progress-bar mode="indeterminate" *ngIf="loaderVisible"></mat-progress-bar>
+    </div>
+
     <div class="main-content">
-      <!-- <div class="loading-indicator"> -->
-
-
-      <!-- <mat-spinner *ngIf="showLoadingIndicator"></mat-spinner> -->
-      <!-- <mat-label class="primary" *ngIf="showLoadingIndicator">Please Wait...</mat-label> -->
-
-      <!-- </div> -->
-      <mat-progress-bar mode="indeterminate" *ngIf="_loaderService.loaderVisible | async"></mat-progress-bar>
       <router-outlet *ngIf="departmentId"></router-outlet>
-
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
