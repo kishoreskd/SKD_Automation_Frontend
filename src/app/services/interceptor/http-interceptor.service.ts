@@ -1,4 +1,4 @@
-import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpEventType, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponseBase, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, delay, finalize, tap } from 'rxjs';
 import { LoaderService } from '../common/loader.service';
@@ -40,6 +40,8 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 
 }
+
+
 
 // import { finalize, tap } from 'rxjs';
 // import { MessageService } from '../message.service';

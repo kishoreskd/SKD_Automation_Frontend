@@ -19,7 +19,8 @@ const MONTHS = [
 })
 export class PluginLogChartComponent implements OnInit, OnChanges {
 
-  @Input() pluginLogCol: Array<PluginLog> = new Array<PluginLog>;
+  @Input() plugin: Plugin;
+
   chart: Chart;
   dataSet: Array<any> = new Array<any>();
   countSet: Array<any> = new Array<any>();
@@ -32,16 +33,16 @@ export class PluginLogChartComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.chart) {
+      this.chart.clear();
       this.refreshChart();
     }
   }
 
   refreshChart() {
-    const data = this.groupDatesByMonths();
+    const data = this.getChartData();
     this.countSet = Object.values(data);
 
     if (this.chart) {
-      this.chart.clear();
       this.chart.config.data.datasets[0].data = this.countSet;
       this.chart.update();
     }
@@ -130,14 +131,16 @@ export class PluginLogChartComponent implements OnInit, OnChanges {
   }
 
 
-  groupDatesByMonths() {
+  getChartData() {
+
 
     const groupedDates: { [key: string]: number } = {};
     for (let month = 1; month <= 12; month++) {
       groupedDates[`2024-${month.toString().padStart(2, '0')}`] = 0;
     }
 
-    this.pluginLogCol.forEach(e => {
+
+    this.plugin.pluginLogs?.forEach(e => {
 
       const date = new Date(e.createdDate);
       const year = date.getFullYear();
@@ -146,6 +149,7 @@ export class PluginLogChartComponent implements OnInit, OnChanges {
       const key = `${year}-${month.toString().padStart(2, '0')}`
       groupedDates[key]++;
     });
+
     return groupedDates;
   }
 }

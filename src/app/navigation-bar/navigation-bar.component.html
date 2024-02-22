@@ -2,10 +2,23 @@
 <!--  -->
 
 <mat-toolbar>
-  <button mat-button (click)="opened=!opened">
-    <img src="assets/icon/pgt.ico" />
-  </button>
+  <!-- <button  (click)="opened=!opened"> -->
+  <img src="assets/icon/pgt.ico" />
+  <!-- </button> -->
   <span class="logo-text">Automation</span>
+
+  <div class="spacer"></div>
+  <i class="bi bi-building"></i>
+  <div>
+    <select class="form-select border-0" [(ngModel)]="departmentId" (change)="selectionChange()">
+      <option *ngFor="let val of depSelections" [value]="val.departmentId">
+        {{val.departmentName}}
+      </option>
+    </select>
+  </div>
+
+
+  <a mat-button>Logout</a>
 </mat-toolbar>
 
 
@@ -14,6 +27,7 @@
   <mat-sidenav #sidenav opened="true" mode="side" [fixedInViewport]="true" [fixedTopGap]="45">
 
     <mat-nav-list>
+
       <mat-list-item (click)="opened = !opened">
         <mat-icon mat-list-icon class="chevron-button" [ngClass]="{ rotated: opened }">chevron_right</mat-icon>
       </mat-list-item>
@@ -22,14 +36,14 @@
 
 
       <mat-list-item routerLink="/">
-        <mat-icon mat-list-icon class="">home</mat-icon>
+        <mat-icon mat-list-icon class="nav-icon">home</mat-icon>
         <span *ngIf="opened" class="menu-item">Dashbord</span>
       </mat-list-item>
 
 
       <mat-list-item routerLink="/plugin/home">
         <mat-icon mat-list-icon class="">
-          important_devices
+          auto_stories
         </mat-icon>
         <span *ngIf="opened" class="menu-item">Logging</span>
       </mat-list-item>
@@ -56,7 +70,7 @@
 
       <!-- </div> -->
       <mat-progress-bar mode="indeterminate" *ngIf="_loaderService.loaderVisible | async"></mat-progress-bar>
-      <router-outlet></router-outlet>
+      <router-outlet *ngIf="departmentId"></router-outlet>
 
     </div>
   </mat-sidenav-content>

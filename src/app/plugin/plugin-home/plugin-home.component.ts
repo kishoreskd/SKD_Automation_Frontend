@@ -9,6 +9,7 @@ import { PluginService } from '../../services/plugin-services/plugin-base.servic
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertifyService } from '../../services/common/alertify.service';
 
+
 @Component({
   selector: 'app-plugin-home',
   templateUrl: './plugin-home.component.html',
@@ -19,13 +20,16 @@ export class PluginHomeComponent implements OnInit, AfterViewInit, AfterViewChec
   @ViewChild(MatPaginator) _paginator: MatPaginator;
   @ViewChild(MatSort) _sort: MatSort;
 
-  _pluginCol: Array<Plugin>;
-  _displayedColumns: string[];
-  _dataSource: MatTableDataSource<Plugin>;
-  _filterSource: Array<any>;
-  _filterText: string;
-  _filterType: string;
-
+  pluginCol: Array<Plugin> = new Array<Plugin>();
+  displayedColumns: string[] = ['index', 'pluginName', 'manualMinutes', 'automatedMinutes', 'description', 'createdBy', 'createdDate', "action"];
+  dataSource: MatTableDataSource<Plugin>;
+  filterText: string;
+  filterType: string;
+  filterSource: Array<any> = [
+    { key: "pluginName", val: "Plugin Name" },
+    { key: "description", val: "Description" },
+    { key: "createdEmployeeId", val: "Created By" }
+  ];
 
   constructor(
     private _matDialog: MatDialog,
@@ -35,17 +39,8 @@ export class PluginHomeComponent implements OnInit, AfterViewInit, AfterViewChec
     private _alertify: AlertifyService,
     private readonly changeDetectorRef: ChangeDetectorRef) {
 
-    this._displayedColumns = ['pluginId', 'index', 'pluginName', 'manualMinutes', 'automatedMinutes', 'description', 'departmentName', 'createdBy', 'createdDate', "action"];
-    this._filterSource = [
-      { key: "pluginName", val: "Plugin Name" },
-      { key: "description", val: "Description" },
-      { key: "departmentName", val: "Department Name" },
-      { key: "createdEmployeeId", val: "Created By" }
-    ];
-    this._pluginCol = new Array<Plugin>();
+    // this.displayedColumns = ['pluginId', 'index', 'pluginName', 'manualMinutes', 'automatedMinutes', 'description', 'departmentName', 'createdBy', 'createdDate', "action"];
   }
-
-
 
   ngAfterViewChecked(): void {
     this.changeDetectorRef.detectChanges();
@@ -53,13 +48,15 @@ export class PluginHomeComponent implements OnInit, AfterViewInit, AfterViewChec
 
   ngOnInit() {
     this.refreshPlugins();
-    this._filterType = this._displayedColumns[2];
+    this.filterType = this.displayedColumns[1];
   }
+
+  
 
   ngAfterViewInit(): void {
     // Initializepaginator and sort after the view has been initialized
-    this._dataSource.paginator = this._paginator;
-    this._dataSource.sort = this._sort;
+    this.dataSource.paginator = this._paginator;
+    this.dataSource.sort = this._sort;
   }
 
   public onOpenPluginAddDialog() {
@@ -98,20 +95,19 @@ export class PluginHomeComponent implements OnInit, AfterViewInit, AfterViewChec
   }
 
   private refreshPlugins() {
-    this._service.getAll().subscribe((data: Plugin[]) => {
-      this._pluginCol = data;
-      console.log(this._pluginCol);
-      this._dataSource = new MatTableDataSource<Plugin>(this._pluginCol);
-      this._dataSource.paginator = this._paginator;
-      this._dataSource.sort = this._sort;
+    this._service.getByDepartment().subscribe((data: Plugin[]) => {
+      this.pluginCol = data;
+      this.dataSource = new MatTableDataSource<Plugin>(this.pluginCol);
+      this.dataSource.paginator = this._paginator;
+      this.dataSource.sort = this._sort;
     })
   }
 
   //Resolver
   private getAllPlugins() {
     this._activetedRoute.data.subscribe((data: Plugin[]) => {
-      this._pluginCol = data['pluginCol'];
-      this._dataSource = new MatTableDataSource<Plugin>(this._pluginCol);
+      this.pluginCol = data['pluginCol'];
+      this.dataSource = new MatTableDataSource<Plugin>(this.pluginCol);
     })
   }
 
@@ -125,19 +121,19 @@ export class PluginHomeComponent implements OnInit, AfterViewInit, AfterViewChec
 
   public applyFilter() {
 
-    const filterValue = this._filterText.toLowerCase();
+    const filterValue = this.filterText.toLowerCase();
 
-    this._dataSource.filterPredicate = (data: Plugin, filter: string) => {
+    this.dataSource.filterPredicate = (data: Plugin, filter: string) => {
 
-      if (Object.hasOwn(data, this._filterType)) {
-        const columnValue = data[this._filterType].toLowerCase();
+      if (Object.hasOwn(data, this.filterType)) {
+        const columnValue = data[this.filterType].toLowerCase();
         return columnValue.includes(filter);
       }
       else return true;
     }
 
-    this._dataSource.filter = filterValue;
+    this.dataSource.filter = filterValue;
 
-    if (this._dataSource._pageData) this._dataSource.paginator.firstPage();
+    if (this.dataSource._pageData) this.dataSource.paginator.firstPage();
   }
 }

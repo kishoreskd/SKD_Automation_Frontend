@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges, input } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, SimpleChanges, input } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { Plugin } from '../../domain/model/plugin.model';
 import { PluginService } from '../../services/plugin-services/plugin-base.service';
@@ -16,20 +16,31 @@ export class PluginChartComponent implements OnInit {
   @Input() pluginCol: Array<Plugin>;
 
   chart: any;
+  canvasId: string;
   labelChart: Array<string> = new Array<string>();
   dataChart: Array<number> = new Array<number>();
 
-  constructor() { }
+  constructor(private elementRef: ElementRef) { }
 
   ngOnInit() {
-    this.RenderChart();
+    this.canvasId = 'canvas-' + Math.random().toString(36).substring(7);
+    this.RenderChart(this.canvasId);
     this.refreshChart();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.pluginCol);
+    // console.log(this.pluginCol);
+
     if (this.chart) {
+      this.chart.clear();
       this.refreshChart();
+    }
+  }
+
+  ngOnDestroy() {
+    // console.log("Destoryed!");
+    if (this.chart) {
+      this.chart.destroy();
     }
   }
 
@@ -62,9 +73,9 @@ export class PluginChartComponent implements OnInit {
     });
   }
 
-  RenderChart() {
+  RenderChart(id: string) {
 
-    this.chart = new Chart("pluginchart", {
+    this.chart = new Chart(this.elementRef.nativeElement.querySelector('canvas'), {
       type: 'line',
       data: {
         labels: this.labelChart,

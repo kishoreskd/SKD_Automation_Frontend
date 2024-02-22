@@ -40,7 +40,9 @@ export class PluginLogHomeComponent implements OnInit {
     private _activateRoute: ActivatedRoute,
     private _alertify: AlertifyService,
     private _pluginService: PluginService) {
-    this._displayedColumns = ['pluginLogId', 'pluginId', 'jobName', 'activity', 'createdBy', 'createdDate', 'action'];
+    // this._displayedColumns = ['pluginLogId', 'pluginId', 'jobName', 'activity', 'createdBy', 'createdDate', 'action'];
+    this._displayedColumns = ['index', 'jobName', 'activity', 'createdBy', 'createdDate', 'action'];
+
     this._filterSource = [
       { key: "jobName", val: "Job Name" },
       { key: "activity", val: "Activity" },
@@ -54,9 +56,10 @@ export class PluginLogHomeComponent implements OnInit {
     const today = new Date();
     this._selectedMonth = today.getMonth() + 1;
     this._selectedYear = today.getFullYear();
-
     this._pluginId = +this._activateRoute.snapshot.params['id'];
     this.refreshPluginLog();
+
+    this._filterType = this._displayedColumns[1];
   }
 
   ngAfterViewInit(): void {
@@ -65,6 +68,8 @@ export class PluginLogHomeComponent implements OnInit {
   }
 
   onSelectedMonth(date: Date) {
+
+    this._dataSource = null;
     this._selectedMonth = date.getMonth() + 1;
     this._selectedYear = date.getFullYear();
 

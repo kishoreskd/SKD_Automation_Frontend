@@ -13,11 +13,11 @@ export class MinutesToHoursPipe implements PipeTransform {
     // }
 
     let hours = Math.floor(value / 60);
-    console.log("hours " + hours + " - " + (value / 60));
+    // console.log("hours " + hours + " - " + (value / 60));
     let minutes = Math.floor(value % 60);
-    console.log("minutes " + minutes + " - " + (value % 60));
+    // console.log("minutes " + minutes + " - " + (value % 60));
 
 
-    return `${hours} hrs : ${minutes} mins`
+    return `${hours}h : ${minutes}m`
   }
 }

@@ -55,6 +55,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { YearPickerComponent } from './common/year-picker/year-picker.component';
 import { MatDivider } from '@angular/material/divider';
 import { MinutesToHoursPipe } from './application/pipes/minutesToHours.pipe';
+import { ProductivityChartComponent } from './dashbord/productivity-chart/productivity-chart.component';
 
 @NgModule({
     declarations:
@@ -71,7 +72,8 @@ import { MinutesToHoursPipe } from './application/pipes/minutesToHours.pipe';
             MonthPickerComponent,
             YearPickerComponent,
             DashbordComponent,
-            MinutesToHoursPipe
+            MinutesToHoursPipe,
+            ProductivityChartComponent
         ],
     imports:
         [

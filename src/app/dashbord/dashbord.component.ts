@@ -9,6 +9,8 @@ import { Plugin } from '../domain/model/plugin.model';
 import { PluginService } from '../services/plugin-services/plugin-base.service';
 import { DashbordService } from '../services/plugin-services/dashbord.service';
 import { Dashbord } from '../domain/model/dashbord';
+import { DepartmentService } from '../services/department/department.service';
+import { Department } from '../domain/model/department';
 
 @Component({
   selector: 'app-dashbord',
@@ -17,50 +19,108 @@ import { Dashbord } from '../domain/model/dashbord';
 })
 export class DashbordComponent implements OnInit {
 
-  pId: number = 1;
-  month: number = 2;
-  year: number = 2024;
-  departmentId: number = 1;
 
-  pCol: Plugin[] = new Array<Plugin>();
-  pLogCol: PluginLog[] = new Array<PluginLog>();
+  pId: number;
+  selectedMonth: number;
+  selectedYear: number;
+
+  pluginChartData: Plugin[] = new Array<Plugin>();
+  productivityChartData: Plugin = new Plugin();
+  pluginLogChartData: Plugin = new Plugin();
+  
+  pluginSelections: Plugin[] = new Array<Plugin>();
 
   totalPCount: number = 0;
   totalMminute: number = 0;
   totalAminute: number = 0;
 
   constructor(
-    private readonly _pService: PluginService,
-    private readonly _pLogLogService: PluginLogService,
-    private readonly _dService: DashbordService) {
+    private readonly _pluginService: PluginService,
+    private readonly _logService: PluginLogService,
+    private readonly _dashbordService: DashbordService,
+    private readonly _depService: DepartmentService) {
   }
 
   ngOnInit(): void {
-    this.getP();
-    this.getPLog();
-    this.getD();
+
+    this.loadPluginSelections();
+    this.setDefault();
+    this.getCounterCardData();
   }
 
-
-  getP() {
-    this._pService.getWithLogByMonthAndYear(this.departmentId, this.month, this.year).subscribe((data: Plugin[]) => {
-      this.pCol = data;
-
-    });
+  setDefault() {
+    const today = new Date();
+    this.selectedMonth = today.getMonth() + 1;
+    this.selectedYear = today.getFullYear();
   }
 
-  getPLog() {
-    this._pLogLogService.getByMonthYear(this.pId, this.month, this.year).subscribe((data: PluginLog[]) => {
-      this.pLogCol = data;
+  resetChartData() {
+  }
+
+  onSelectedMonth(date: Date) {
+
+    this.productivityChartData = new Plugin();
+    this.pluginLogChartData = new Plugin();
+
+    // console.log(this.pluginChartData);
+
+    this.selectedMonth = date.getMonth() + 1;
+    this.selectedYear = date.getFullYear();
+
+    if (this.pId > 0) {
+      this.getPluginChartData();
+      this.getProductivityChartData();
+      this.getPluginLogChartData();
+    }
+  }
+
+  onPluginSelectionChange() {
+    if (this.pId > 0) {
+
+      this.resetChartData();
+      this.getProductivityChartData();
+      this.getPluginLogChartData();
+    }
+  }
+
+  loadPluginSelections() {
+    this._pluginService.getByDepartment().subscribe((data: Plugin[]) => {
+      this.pluginSelections = data;
+      this.pId = data[0].pluginId;
+
+      this.getPluginChartData();
+      this.getProductivityChartData();
+      this.getPluginLogChartData();
     })
   }
 
-  getD() {
-    this._dService.getAll().subscribe((data: Dashbord) => {
+  getProductivityChartData() {
+    this._pluginService.getWithLogByMonthAndYear(this.pId, this.selectedMonth, this.selectedYear).subscribe((data: Plugin) => {
+      this.productivityChartData = data;
+    });
+  }
+
+  getPluginChartData() {
+    this._pluginService.getAllWithLogByMonthAndYear(this.selectedMonth, this.selectedYear).subscribe((data: Plugin[]) => {
+      this.pluginChartData = data;
+    });
+  }
+
+  getPluginLogChartData() {
+    this._pluginService.getWithLogByYear(this.pId, this.selectedYear).subscribe((data: Plugin) => {
+      this.pluginLogChartData = data;
+    }, error=>{
+      console.log(error);
+    })
+  }
+
+
+
+  getCounterCardData() {
+    this._dashbordService.getAll().subscribe((data: Dashbord) => {
       this.totalPCount = data.totalPlugins;
       this.totalMminute = data.totalManualMiniutes;
       this.totalAminute = data.totalAutomatedMinutes;
     })
   }
-
 }
