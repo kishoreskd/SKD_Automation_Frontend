@@ -21,66 +21,66 @@ export class PluginLogHomeComponent implements OnInit {
   @ViewChild(MatPaginator) _paginator: MatPaginator;
   @ViewChild(MatSort) _sort: MatSort;
 
-  _plugin: Plugin;
-  _pluginLogCol: Array<PluginLog>;
-  _displayedColumns: string[];
-  _dataSource: MatTableDataSource<PluginLog>;
-  _filterSource: Array<any>;
-  _filterText: string;
-  _filterType: string;
-  _pluginId: number;
-  _manualMinutes: number = 0;
-  _automatedMinutes: number = 0;
+  plugin: Plugin;
+  pluginLogCol: Array<PluginLog>;
+  displayedColumns: string[];
+  dataSource: MatTableDataSource<PluginLog>;
+  filterSource: Array<any>;
+  filterText: string;
+  filterType: string;
+  pluginId: number;
+  pluginName: string;
+  manualMinutes: number = 0;
+  automatedMinutes: number = 0;
 
-  _selectedMonth: number;
-  _selectedYear: number;
+  selectedMonth: number;
+  selectedYear: number;
 
   constructor(private _matDialog: MatDialog,
     private _service: PluginLogService,
     private _activateRoute: ActivatedRoute,
     private _alertify: AlertifyService,
     private _pluginService: PluginService) {
-    // this._displayedColumns = ['pluginLogId', 'pluginId', 'jobName', 'activity', 'createdBy', 'createdDate', 'action'];
-    this._displayedColumns = ['index', 'jobName', 'activity', 'createdBy', 'createdDate', 'action'];
+    // this.displayedColumns = ['pluginLogId', 'pluginId', 'jobName', 'activity', 'createdBy', 'createdDate', 'action'];
+    this.displayedColumns = ['index', 'jobName', 'activity', 'createdBy', 'createdDate', 'action'];
 
-    this._filterSource = [
+    this.filterSource = [
       { key: "jobName", val: "Job Name" },
       { key: "activity", val: "Activity" },
       { key: "createdBy", val: "Created By" },
     ];
-    this._pluginLogCol = new Array<PluginLog>();
+    this.pluginLogCol = new Array<PluginLog>();
   }
 
   ngOnInit() {
 
     const today = new Date();
-    this._selectedMonth = today.getMonth() + 1;
-    this._selectedYear = today.getFullYear();
-    this._pluginId = +this._activateRoute.snapshot.params['id'];
+    this.selectedMonth = today.getMonth() + 1;
+    this.selectedYear = today.getFullYear();
+    this.pluginId = +this._activateRoute.snapshot.params['id'];
     this.refreshPluginLog();
 
-    this._filterType = this._displayedColumns[1];
+    this.filterType = this.displayedColumns[1];
   }
 
   ngAfterViewInit(): void {
-    // this._dataSource.paginator = this._paginator;
-    // this._dataSource.sort = this._sort;
+    // this.dataSource.paginator = this._paginator;
+    // this.dataSource.sort = this._sort;
   }
 
   onSelectedMonth(date: Date) {
 
-    this._dataSource = null;
-    this._selectedMonth = date.getMonth() + 1;
-    this._selectedYear = date.getFullYear();
+    this.dataSource = null;
+    this.selectedMonth = date.getMonth() + 1;
+    this.selectedYear = date.getFullYear();
 
     this.refreshPluginLog();
   }
 
   public onOpenPrjAddDialog() {
-
     const data = new PluginLog();
     data.pluginLogId = 0;
-    data.pluginId = this._pluginId;
+    data.pluginId = this.pluginId;
 
     const dialogRef = this._matDialog.open(PluginLogUpsertComponent, { width: "30%", data });
     dialogRef.afterClosed().subscribe({
@@ -105,60 +105,58 @@ export class PluginLogHomeComponent implements OnInit {
   }
 
   public onRemovePrjLog(id: number) {
-    const isConfirm = this._alertify.alertQA("Are you sure want to remove the selected?")
-    if (!isConfirm) return;
 
-    this._service.remove(id).subscribe({
-      next: (val) => {
-        this._alertify.alert("Plugin has been removed!");
+    const isConfirm = this._alertify.confirm("Are you sure want to remove ?", () => {
+      this._service.remove(id).subscribe(data => {
         this.refreshPluginLog();
-      }
-    });
-
+        this._alertify.success("Log has been removed!");
+      });
+    })
   }
 
   private refreshPluginLog() {
+    this._pluginService.getWithLogByMonthAndYear(this.pluginId, this.selectedMonth, this.selectedYear).subscribe((data) => {
+      this.automatedMinutes = (data.automatedMinutes * data.pluginLogs?.length);
+      this.manualMinutes = (data.manualMinutes * data.pluginLogs?.length);
 
-    this._service.getByMonthYear(this._pluginId, this._selectedMonth, this._selectedYear)
-      .subscribe((data: PluginLog[]) => {
-        this._pluginLogCol = data;
-        this._dataSource = new MatTableDataSource<PluginLog>(this._pluginLogCol);
-        this._dataSource.paginator = this._paginator;
-        this._dataSource.sort = this._sort;
-        this.getPlugin();
-      })
-  }
+      this.pluginLogCol = data.pluginLogs;
+      this.dataSource = new MatTableDataSource<PluginLog>(this.pluginLogCol);
+      this.dataSource.paginator = this._paginator;
+      this.dataSource.sort = this._sort;
+      this.pluginName = data.pluginName;
 
-  private getPlugin() {
-    this._pluginService.getWithLog(this._pluginId).subscribe((data: Plugin) => {
-      this._automatedMinutes = (data.automatedMinutes * this._pluginLogCol.length);
-      this._manualMinutes = (data.manualMinutes * this._pluginLogCol.length);
     })
   }
-
-  private getAllPluginLog() {
-    this._activateRoute.data.subscribe((data) => {
-      this._pluginLogCol = data['pluginLogCol'];
-      this._dataSource = new MatTableDataSource<PluginLog>(this._pluginLogCol);
-    })
-  }
-
 
   public applyFilter() {
 
-    const filterValue = this._filterText.toLowerCase();
+    const filterValue = this.filterText.toLowerCase();
 
-    this._dataSource.filterPredicate = (data: PluginLog, filter: string) => {
+    this.dataSource.filterPredicate = (data: PluginLog, filter: string) => {
 
-      if (Object.hasOwn(data, this._filterType)) {
-        const columnValue = data[this._filterType].toLowerCase();
+      if (Object.hasOwn(data, this.filterType)) {
+        const columnValue = data[this.filterType].toString().toLowerCase();
         return columnValue.includes(filter);
       }
       else return true;
     }
 
-    this._dataSource.filter = filterValue;
+    this.dataSource.filter = filterValue;
 
-    if (this._dataSource._pageData) this._dataSource.paginator.firstPage();
+    if (this.dataSource._pageData) this.dataSource.paginator.firstPage();
+  }
+
+  private getPlugin() {
+    this._pluginService.getWithLog(this.pluginId).subscribe((data: Plugin) => {
+      this.automatedMinutes = (data.automatedMinutes * this.pluginLogCol.length);
+      this.manualMinutes = (data.manualMinutes * this.pluginLogCol.length);
+    })
+  }
+
+  private getAllPluginLog() {
+    this._activateRoute.data.subscribe((data) => {
+      this.pluginLogCol = data['pluginLogCol'];
+      this.dataSource = new MatTableDataSource<PluginLog>(this.pluginLogCol);
+    })
   }
 }

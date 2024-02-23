@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { Chart } from 'chart.js';
 import { Plugin } from '../../domain/model/plugin.model';
 import 'chartjs-adapter-moment'
@@ -9,7 +9,7 @@ import { AnyObject } from 'chart.js/dist/types/basic';
   templateUrl: './productivity-chart.component.html',
   styleUrls: ['./productivity-chart.component.css']
 })
-export class ProductivityChartComponent implements OnInit, OnChanges {
+export class ProductivityChartComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() plgn: Plugin;
   chart: Chart;
@@ -136,5 +136,13 @@ export class ProductivityChartComponent implements OnInit, OnChanges {
 
 
     return `${hours}h : ${minutes}m`
+  }
+
+  
+  ngOnDestroy() {
+    // console.log("Destoryed!");
+    if (this.chart) {
+      this.chart.destroy();
+    }
   }
 }

@@ -96,7 +96,7 @@ export class PluginUpsertComponent implements OnInit {
         this.update();
       }
 
-      this._pluginFrmDialog.close({ msg: "Loaded", isValid: true });
+      this._pluginFrmDialog.close(true);
     }
   }
 
@@ -112,8 +112,8 @@ export class PluginUpsertComponent implements OnInit {
 
   update() {
 
-    this._pluginModel.pluginId = this._editData.pluginId;
     this._pluginModel.lastModifiedBy = 2701;
+    this._pluginModel.pluginId = this._editData.pluginId;
 
     this._service.update(this._editData.pluginId, this._pluginModel).subscribe({
       next: (val: Plugin) => {
@@ -128,7 +128,6 @@ export class PluginUpsertComponent implements OnInit {
     this._pluginModel.manualMinutes = this.manualMinutes.value;
     this._pluginModel.automatedMinutes = this.automatedMinutes.value;
     this._pluginModel.description = this.description.value;
-    // this._pluginModel.departmentName = "";
     this._pluginModel.departmentId = this.departmentName.value;
   }
 }

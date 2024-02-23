@@ -16,4 +16,9 @@ export class DashbordService {
     return this._http.get<Dashbord>(`Dashbord/get_all/departmentid=${this._lsService.getDepartmentId()}`);
   }
 
+  getByMonthYear(month: number, year: number) {
+    // [HttpGet("get_all_by_monthyear/departmentid={departmentid}&month={month}&year={year}")]
+    return this._http.get<Dashbord>(`Dashbord/get_all_by_monthyear/departmentid=${this._lsService.getDepartmentId()}&month=${month}&year=${year}`)
+  }
+
 }

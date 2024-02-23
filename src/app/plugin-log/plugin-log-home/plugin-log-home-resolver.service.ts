@@ -17,7 +17,7 @@ export class PluginLogHomeResolverService implements Resolve<PluginLog[]> {
     const id = +route.params['id'];
     return this._service.getByPlugin(id).pipe(catchError(error => {
       this._router.navigate(['/']); 
-      console.log(error);
+      // console.log(error);
       return of(null);
     }))
   }

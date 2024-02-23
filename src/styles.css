@@ -13,6 +13,7 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background-color: #e5e9ec;
+    
 }
 
 
@@ -65,5 +66,31 @@ mat-footer-row mat-footer-cell {
 mat-form-field {
     font-size: 10px;
 }
+
+
+table {
+    width: 100%;
+    background-color: white;
+  }
+  
+  .mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+  }
+  
+  .mat-mdc-row:hover .mat-mdc-cell {
+    border-color: #eee;
+    color: rgba(0, 120, 212, 1);
+    font-weight: bold;
+  }
+  
+  .demo-row-is-clicked {
+    font-weight: bold;
+  }
+  
+  th.mat-sort-header-sorted {
+    color: black;
+  }
 
 

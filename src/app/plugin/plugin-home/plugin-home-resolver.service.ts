@@ -12,7 +12,7 @@ export class PluginHomeResolverService implements Resolve<Plugin[]> {
   //navigate to another page or else could able to show the error page like that.
   constructor(private _router: Router, private _Service: PluginService) { }
   resolve(): Observable<Plugin[]> {
-    console.log("Resolver working...");
+    // console.log("Resolver working...");
     return this._Service.getAll().pipe(catchError(error => {
       // this._router.navigate(['/error-page']); //not yet implemented!
       // this._router.navigate(['/']);

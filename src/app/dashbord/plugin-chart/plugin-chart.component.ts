@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, SimpleChanges, input } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, SimpleChanges, input } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { Plugin } from '../../domain/model/plugin.model';
 import { PluginService } from '../../services/plugin-services/plugin-base.service';
@@ -11,7 +11,7 @@ Chart.register(...registerables);
   templateUrl: './plugin-chart.component.html',
   styleUrls: ['./plugin-chart.component.css']
 })
-export class PluginChartComponent implements OnInit {
+export class PluginChartComponent implements OnInit, OnDestroy  {
 
   @Input() pluginCol: Array<Plugin>;
 
@@ -37,12 +37,7 @@ export class PluginChartComponent implements OnInit {
     }
   }
 
-  ngOnDestroy() {
-    // console.log("Destoryed!");
-    if (this.chart) {
-      this.chart.destroy();
-    }
-  }
+ 
 
   refreshChart() {
 
@@ -80,7 +75,7 @@ export class PluginChartComponent implements OnInit {
       data: {
         labels: this.labelChart,
         datasets: [{
-          label: 'Utlized',
+          label: 'Utilized',
           data: this.dataChart,
           backgroundColor: [
             'rgba(255, 99, 132, 0.5)',
@@ -151,5 +146,12 @@ export class PluginChartComponent implements OnInit {
         }
       },
     });
+  }
+
+  ngOnDestroy() {
+    // console.log("Destoryed!");
+    if (this.chart) {
+      this.chart.destroy();
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ContentChild, Input, OnChanges, OnInit, SimpleChanges, ViewChild, input } from '@angular/core';
+import { Component, ContentChild, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, input } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { PluginLog } from '../../domain/model/plugin-log.model';
 import { PluginLogService } from '../../services/plugin-services/plugin-log.service';
@@ -17,7 +17,7 @@ const MONTHS = [
   templateUrl: './plugin-log-chart.component.html',
   styleUrls: ['./plugin-log-chart.component.css']
 })
-export class PluginLogChartComponent implements OnInit, OnChanges {
+export class PluginLogChartComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() plugin: Plugin;
 
@@ -55,7 +55,7 @@ export class PluginLogChartComponent implements OnInit, OnChanges {
       data: {
         labels: MONTHS,
         datasets: [{
-          label: 'Utlized',
+          label: 'Utilized',
           data: this.countSet,
           backgroundColor: [
             'rgba(255, 99, 132, 0.5)',
@@ -151,6 +151,13 @@ export class PluginLogChartComponent implements OnInit, OnChanges {
     });
 
     return groupedDates;
+  }
+
+  ngOnDestroy() {
+    // console.log("Destoryed!");
+    if (this.chart) {
+      this.chart.destroy();
+    }
   }
 }
 

@@ -67,24 +67,21 @@ export class PluginLogUpsertComponent implements OnInit {
 
       this.mapProject();
 
-
       if (this._dialogData.pluginLogId === 0) {
         this.add();
       } else {
         this.update();
       }
-      
-      this._pluginLogFrmDialog.close({ msg: "Loaded", isValid: true });
+
+      this._pluginLogFrmDialog.close(true);
     }
   }
 
   add() {
     this._pluginLogModel.createdBy = 2701;
 
-    this._service.add(this._pluginLogModel).subscribe({
-      next: (val: PluginLog) => {
-        this._alertify.success("Log added successfully!");
-      }
+    this._service.add(this._pluginLogModel).subscribe(data => {
+      this._alertify.success("Log added successfully!");
     })
   }
 
@@ -93,10 +90,8 @@ export class PluginLogUpsertComponent implements OnInit {
     this._pluginLogModel.pluginLogId = this._dialogData.pluginLogId;
     this._pluginLogModel.lastModifiedBy = 2701;
 
-    this._service.update(this._dialogData.pluginLogId, this._pluginLogModel).subscribe({
-      next: (val: PluginLog) => {
-        this._alertify.success("Log updated successfully!");
-      }
+    this._service.update(this._dialogData.pluginLogId, this._pluginLogModel).subscribe(data => {
+      this._alertify.success("Log updated successfully!");
     })
   }
 

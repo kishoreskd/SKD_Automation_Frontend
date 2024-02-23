@@ -28,7 +28,7 @@ export class PluginHomeComponent implements OnInit {
   filterSource: Array<any> = [
     { key: "pluginName", val: "Plugin Name" },
     { key: "description", val: "Description" },
-    { key: "createdEmployeeId", val: "Created By" }
+    { key: "createdBy", val: "Created By" }
   ];
 
   constructor(
@@ -51,9 +51,9 @@ export class PluginHomeComponent implements OnInit {
     this.filterType = this.displayedColumns[1];
   }
 
-
   public onOpenPluginAddDialog() {
     const dialogRef = this._matDialog.open(PluginUpsertComponent, {});
+
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
@@ -64,7 +64,8 @@ export class PluginHomeComponent implements OnInit {
   }
 
   public onEditPluginDialog(data: Plugin) {
-    const dialogRef = this._matDialog.open(PluginUpsertComponent, { data })
+    const dialogRef = this._matDialog.open(PluginUpsertComponent, { data });
+
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
@@ -75,16 +76,15 @@ export class PluginHomeComponent implements OnInit {
   }
 
   public onRemovePlugin(id: number) {
-    const isConfirm = this._alertify.alertQA("Are you sure want to remove the selected?")
-    if (!isConfirm) return;
+    // const isConfirm = this._alertify.alertQA("Are you sure want to remove the selected?")
+    // if (!isConfirm) return;
 
-    this._service.remove(id).subscribe({
-      next: (val) => {
-        this._alertify.alert("Plugin has been removed!");
+    this._alertify.confirm("Are you sure want to remove?", () => {
+      this._service.remove(id).subscribe(data => {
+        this._alertify.success("Plugin has been removed!");
         this.refreshPlugins();
-      }
-    });
-
+      });
+    })
   }
 
   private refreshPlugins() {
@@ -119,7 +119,7 @@ export class PluginHomeComponent implements OnInit {
     this.dataSource.filterPredicate = (data: Plugin, filter: string) => {
 
       if (Object.hasOwn(data, this.filterType)) {
-        const columnValue = data[this.filterType].toLowerCase();
+        const columnValue = data[this.filterType].toString().toLowerCase();
         return columnValue.includes(filter);
       }
       else return true;

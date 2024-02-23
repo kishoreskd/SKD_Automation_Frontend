@@ -27,6 +27,10 @@ export class AlertifyService {
     }, function () { return false });
   }
 
+  confirm(msg: string, okCallback: () => any, cancelCallback?: () => any) {
+    alertify.confirm("Confirmation", msg, () => { okCallback(); }, () => { if (cancelCallback) cancelCallback(); })
+  }
+
   // alertQA(): any {
   //   return alertify.confirm();
   // }

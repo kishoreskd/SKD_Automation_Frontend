@@ -56,6 +56,7 @@ import { YearPickerComponent } from './common/year-picker/year-picker.component'
 import { MatDivider } from '@angular/material/divider';
 import { MinutesToHoursPipe } from './application/pipes/minutesToHours.pipe';
 import { ProductivityChartComponent } from './dashbord/productivity-chart/productivity-chart.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
     declarations:
@@ -108,7 +109,8 @@ import { ProductivityChartComponent } from './dashbord/productivity-chart/produc
             MatSortModule,
             MatExpansionModule,
             MatMenuModule,
-            MatDivider
+            MatDivider,
+            MatTabsModule
         ],
     providers:
         [

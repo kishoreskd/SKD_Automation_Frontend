@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router, NavigationStart, NavigationEnd, Event } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd, Event, ActivatedRoute } from '@angular/router';
 import { LoaderService } from '../services/common/loader.service';
 import { DepartmentService } from '../services/department/department.service';
 import { Department } from '../domain/model/department';
@@ -22,7 +22,8 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
     public _loaderService: LoaderService,
     private readonly _departmentService: DepartmentService,
     private readonly _localStorageService: LocalStorageService,
-    private _cdr: ChangeDetectorRef) {
+    private _cdr: ChangeDetectorRef,
+    private _activateRoute: ActivatedRoute) {
 
     // this._router.events.subscribe((routerEvent: Event) => {
 
@@ -62,11 +63,44 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
         this.departmentId = this.depSelections[0].departmentId;
       }
 
+      this.selectionChange();
+      this._cdr.detectChanges();
     });
   }
 
   selectionChange() {
-    this._localStorageService.updateDepartmentId(this.departmentId);
-    this._router.navigate([""]);
+
+    // if (this._router.navigated === false) {
+    //   // Case when route was not used yet
+    //   this._router.navigateByUrl(`/module/1`);
+    // } else {
+    //   // Case when route was used once or more
+    //   this._router.navigateByUrl(`/`).then(
+    //     () => {
+    //       this._router.navigateByUrl(`/`);
+    //     });
+    // }
+
+    // // this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+    // // this._router.onsa
+
+
+
+    if (this._localStorageService.getDepartmentId() != this.departmentId) {
+
+      this._localStorageService.updateDepartmentId(this.departmentId);
+
+      if (this._router.navigated === false) {
+        this._router.navigateByUrl("");
+        this._cdr.detectChanges();
+      }
+      else {
+        this._router.navigateByUrl("/plugin/home").then(() => {
+          this._router.navigateByUrl("");
+          this._cdr.detectChanges();
+        })
+      }
+    }
+
   }
 }

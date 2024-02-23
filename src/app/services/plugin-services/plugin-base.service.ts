@@ -37,7 +37,7 @@ export class PluginService {
   }
 
   getByDepartment(): Observable<any> {
-    console.log(this._lsService.getDepartmentId());
+    // console.log(this._lsService.getDepartmentId());
     return this._http.get<Plugin[]>(`Plugin/get_by_department/departmentid=${this._lsService.getDepartmentId()}`);
   }
 
