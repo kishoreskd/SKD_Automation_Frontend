@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import * as alertify from 'alertifyjs';
+import { NgToastService } from 'ng-angular-popup';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertifyService {
 
-  constructor() { }
+  constructor(private _toast: NgToastService) { }
   success(msg: string) {
     alertify.set('notifier', 'position', 'top-center');
+    // this._toast.success({ detail: "Automation", summary: msg, duration: 5000 });
     alertify.success(msg);
   }
 
@@ -34,5 +36,23 @@ export class AlertifyService {
   // alertQA(): any {
   //   return alertify.confirm();
   // }
+
+  title = "Automation";
+
+  showSuccess(msg: string) {
+    this._toast.success({ detail: "SUCCESS", summary: msg, duration: 5000 });
+  }
+
+  showError(msg: string) {
+    this._toast.error({ detail: "ERROR", summary: msg, duration: 5000 });
+  }
+
+  showInfo(msg: string) {
+    this._toast.info({ detail: "INFORMATION", summary: msg, sticky: true });
+  }
+
+  showWarn(msg: string) {
+    this._toast.warning({ detail: "WARNING", summary: msg, duration: 5000 });
+  }
 
 }

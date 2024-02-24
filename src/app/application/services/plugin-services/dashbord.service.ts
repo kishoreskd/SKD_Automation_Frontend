@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Dashbord } from '../../domain/model/dashbord';
+import { Dashbord } from '../../../domain/model/dashbord';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LocalStorageService } from '../common/local-storage.service';

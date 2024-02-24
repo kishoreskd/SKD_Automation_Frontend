@@ -1,0 +1,43 @@
+<div class="container">
+
+  <div class="m-5">
+
+      <div class="px-4 pt-5  py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+
+          <div class="container">
+              <div class="row gx-lg-5 align-items-center">
+                  <div class="col-lg-6 mb-5 mb-lg-0">
+                      <h1 class="my-5 display-3 fw-bold ls-tight">
+                          Plan and execute<br />
+                          <span class="text-primary">with Work Allocation System</span>
+                      </h1>
+                  </div>
+
+                  <div class="col-lg-6 mb-5 mb-lg-0">
+                      <div class="card">
+                          <div class="card-body py-5 px-md-5">
+                              <form asp-controller="Login" asp-action="Login" method="post">
+
+                                  <div class="form-group has-success">
+                                      <label class="form-label mt-4" for="inputValid">User Name</label>
+                                      <input asp-for="UserName" type="text" placeholder="User name" class="form-control" id="inputValid">
+                                      <span class="text-danger" asp-validation-for="UserName"></span>
+
+                                  </div>
+
+                                  <div class="form-group has-success">
+                                      <label class="form-label mt-4" for="inputValid">Password</label>
+                                      <input asp-for="Password" type="password" placeholder="Password" class="form-control" id="inputValid">
+                                      <span class="text-danger" asp-validation-for="Password"></span>
+                                  </div>
+
+                                  <button type="submit" class="btn btn-primary">Login</button>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

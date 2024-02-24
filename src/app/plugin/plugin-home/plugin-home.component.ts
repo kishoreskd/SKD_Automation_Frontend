@@ -5,9 +5,9 @@ import { MatSort } from '@angular/material/sort'
 import { MatDialog } from '@angular/material/dialog';
 import { PluginUpsertComponent } from '../plugin-upsert/plugin-upsert.component';
 import { Plugin } from '../../domain/model/plugin.model';
-import { PluginService } from '../../services/plugin-services/plugin-base.service';
+import { PluginService } from '../../application/services/plugin-services/plugin-base.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertifyService } from '../../services/common/alertify.service';
+import { AlertifyService } from '../../application/services/common/alertify.service';
 
 
 @Component({

@@ -1,9 +1,9 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, Event, ActivatedRoute } from '@angular/router';
-import { LoaderService } from '../services/common/loader.service';
-import { DepartmentService } from '../services/department/department.service';
+import { LoaderService } from '../application/services/common/loader.service';
+import { DepartmentService } from '../application/services/department/department.service';
 import { Department } from '../domain/model/department';
-import { LocalStorageService } from '../services/common/local-storage.service';
+import { LocalStorageService } from '../application/services/common/local-storage.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -52,6 +52,7 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
   }
 
   loadDepartmentSelections() {
+    
     this._departmentService.getAll().subscribe((data: Department[]) => {
 
       this.depSelections = data;

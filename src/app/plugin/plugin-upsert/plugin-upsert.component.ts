@@ -1,12 +1,12 @@
 import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidator } from '../../application/Validator/CustomValidator.component';
-import { PluginService } from '../../services/plugin-services/plugin-base.service';
+import { PluginService } from '../../application/services/plugin-services/plugin-base.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Plugin } from '../../domain/model/plugin.model';
 import { Department } from '../../domain/model/department';
-import { DepartmentService } from '../../services/department/department.service';
-import { AlertifyService } from '../../services/common/alertify.service';
+import { DepartmentService } from '../../application/services/department/department.service';
+import { AlertifyService } from '../../application/services/common/alertify.service';
 
 @Component({
   selector: 'app-plugin-upsert',

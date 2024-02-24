@@ -16,7 +16,7 @@
       </option>
     </select>
 
-    
+
   </div>
 
 
@@ -69,6 +69,8 @@
     <div class="loader-container">
       <mat-progress-bar mode="indeterminate" *ngIf="loaderVisible"></mat-progress-bar>
     </div>
+
+    <ng-toast></ng-toast>
 
     <div class="main-content">
       <router-outlet *ngIf="departmentId"></router-outlet>

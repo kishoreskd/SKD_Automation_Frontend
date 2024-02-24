@@ -33,14 +33,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { PluginService } from './services/plugin-services/plugin-base.service';
+import { PluginService } from './application/services/plugin-services/plugin-base.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatBadgeModule } from '@angular/material/badge';
-import { PluginUpsertCanDeactivateGuardService } from './plugin/plugin-upsert/plugin-upsert-canDeactivate-guard.service';
+import { PluginUpsertCanDeactivateGuardService } from './application/guards/plugin-upsert-canDeactivate.guard';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpInterceptorService } from './services/interceptor/http-interceptor.service';
+import { HttpInterceptorService } from './application/interceptor/http.interceptor';
 import { PluginLogHomeComponent } from './plugin-log/plugin-log-home/plugin-log-home.component';
 import { PluginLogUpsertComponent } from './plugin-log/plugin-log-upsert/plugin-log-upsert.component';
 import { MatSortModule } from '@angular/material/sort';
@@ -57,10 +57,12 @@ import { MatDivider } from '@angular/material/divider';
 import { MinutesToHoursPipe } from './application/pipes/minutesToHours.pipe';
 import { ProductivityChartComponent } from './dashbord/productivity-chart/productivity-chart.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { NgToastModule } from 'ng-angular-popup';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
     declarations:
-        [
+        [	
             AppComponent,
             NavigationBarComponent,
             PluginHomeComponent,
@@ -74,8 +76,9 @@ import {MatTabsModule} from '@angular/material/tabs';
             YearPickerComponent,
             DashbordComponent,
             MinutesToHoursPipe,
-            ProductivityChartComponent
-        ],
+            ProductivityChartComponent,
+      LoginComponent
+   ],
     imports:
         [
             AppRoutingModule,
@@ -110,7 +113,8 @@ import {MatTabsModule} from '@angular/material/tabs';
             MatExpansionModule,
             MatMenuModule,
             MatDivider,
-            MatTabsModule
+            MatTabsModule,
+            NgToastModule 
         ],
     providers:
         [

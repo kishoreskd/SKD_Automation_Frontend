@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
-import { Plugin } from '../../domain/model/plugin.model';
+import { Plugin } from '../../../domain/model/plugin.model';
 import { delay } from 'rxjs';
 import { concatMap } from 'rxjs';
 import { LocalStorageService } from '../common/local-storage.service';

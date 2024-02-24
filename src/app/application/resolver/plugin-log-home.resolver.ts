@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { PluginLog } from '../../domain/model/plugin-log.model';
-import { PluginLogService } from '../../services/plugin-services/plugin-log.service';
+import { PluginLogService } from '../services/plugin-services/plugin-log.service';
 import { Observable, catchError, of } from 'rxjs';
 
 @Injectable({
