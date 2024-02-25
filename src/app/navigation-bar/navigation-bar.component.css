@@ -5,7 +5,6 @@ mat-sidenav-container {
     right: 0;
     /* height: 100%; */
     top: 45px;
-    ;
     /* height: 100%; */
 }
 
@@ -16,6 +15,10 @@ mat-sidenav-content {
 
 
 }
+
+mat-sidenav {
+    /* width: 200px; */
+  }
 
 mat-nav-list {
     margin-left: 0px;

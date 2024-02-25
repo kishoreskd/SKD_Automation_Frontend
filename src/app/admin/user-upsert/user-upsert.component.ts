@@ -58,19 +58,19 @@ export class UserUpsertComponent implements OnInit {
     this.registerFrm = this._fb.group({
       userName: [null, [Validators.required]],
       password: [null, [Validators.required]],
-      roleName: [null, [Validators.required]]
+      roleName: [[Validators.required]]
     });
   }
 
   patchObj() {
-    if (this._dialogData) {
+    if (this._dialogData.id !== 0) {
       this.action = "Update";
       this.registerFrm.patchValue(this._dialogData);
     }
   }
 
-
   onFrmSubmit() {
+
     if (this.registerFrm.valid) {
       this.map();
       if (this._dialogData.id === 0) {
@@ -104,12 +104,11 @@ export class UserUpsertComponent implements OnInit {
     this._roleService.getAll().subscribe((data: Role[]) => {
       this.roles = data;
       this.roleName.setValue(this._dialogData.roleId);
-
     });
   }
 
   map() {
-    this.user.userName = this.userName        .value;
+    this.user.userName = this.userName.value;
     this.user.roleId = this.roleName.value;
     this.user.password = this.password.value;
   }

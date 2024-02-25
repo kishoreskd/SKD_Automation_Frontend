@@ -12,7 +12,7 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./navigation-bar.component.css']
 })
 export class NavigationBarComponent implements OnInit, AfterViewInit {
-  opened = false;
+  opened = true;
   loaderVisible: boolean = false;
   // showLoadingIndicator = true;
   departmentId: number;

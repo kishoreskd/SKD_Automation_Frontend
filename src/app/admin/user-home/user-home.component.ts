@@ -40,6 +40,7 @@ export class UserHomeComponent implements OnInit {
 
   onOpenPrjAddDialog() {
     const data = new User();
+    data.id = 0;
     const dialogRef = this._matDialog.open(UserUpsertComponent, { width: "30%", data });
     dialogRef.afterClosed().subscribe({
       next: (val) => {
