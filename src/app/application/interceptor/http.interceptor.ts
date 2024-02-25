@@ -1,8 +1,8 @@
 import { HttpEvent, HttpEventType, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponseBase, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, delay, finalize, tap } from 'rxjs';
-import { LoaderService } from '../services/common/loader.service';
-import { AlertifyService } from '../services/common/alertify.service';
+import { LoaderService } from '../services/common-services/loader.service';
+import { AlertifyService } from '../services/common-services/alertify.service';
 
 @Injectable({
   providedIn: 'root'

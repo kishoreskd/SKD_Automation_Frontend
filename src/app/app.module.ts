@@ -56,13 +56,24 @@ import { YearPickerComponent } from './common/year-picker/year-picker.component'
 import { MatDivider } from '@angular/material/divider';
 import { MinutesToHoursPipe } from './application/pipes/minutesToHours.pipe';
 import { ProductivityChartComponent } from './dashbord/productivity-chart/productivity-chart.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { NgToastModule } from 'ng-angular-popup';
 import { LoginComponent } from './login/login.component';
+import { UserHomeComponent } from './admin/user-home/user-home.component';
+import { PluginLogService } from './application/services/plugin-services/plugin-log.service';
+import { LocalStorageService } from './application/services/common-services/local-storage.service';
+import { LoginService } from './application/services/common-services/login.service';
+import { DepartmentService } from './application/services/admin-services/department.service';
+import { DashbordService } from './application/services/plugin-services/dashbord.service';
+import { AlertifyService } from './application/services/common-services/alertify.service';
+import { LoaderService } from './application/services/common-services/loader.service';
+import { UserUpsertComponent } from './admin/user-upsert/user-upsert.component';
+import { UserService } from './application/services/admin-services/user.service';
+import { RoleService } from './application/services/admin-services/role.service';
 
 @NgModule({
     declarations:
-        [	
+        [
             AppComponent,
             NavigationBarComponent,
             PluginHomeComponent,
@@ -77,8 +88,10 @@ import { LoginComponent } from './login/login.component';
             DashbordComponent,
             MinutesToHoursPipe,
             ProductivityChartComponent,
-      LoginComponent
-   ],
+            LoginComponent,
+            UserHomeComponent,
+            UserUpsertComponent
+        ],
     imports:
         [
             AppRoutingModule,
@@ -114,14 +127,23 @@ import { LoginComponent } from './login/login.component';
             MatMenuModule,
             MatDivider,
             MatTabsModule,
-            NgToastModule 
+            NgToastModule
         ],
     providers:
         [
-            PluginService,
-            PluginUpsertCanDeactivateGuardService,
             { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
             { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+            PluginService,
+            PluginLogService,
+            DepartmentService,
+            DashbordService,
+            LoginService,
+            LocalStorageService,
+            AlertifyService,
+            LoaderService,
+            UserService,
+            RoleService,
+            PluginUpsertCanDeactivateGuardService
         ],
     bootstrap: [AppComponent],
     exports: [],

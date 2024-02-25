@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Dashbord } from '../../../domain/model/dashbord';
+import { Dashbord } from '../../../domain/model/dashbord.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { LocalStorageService } from '../common/local-storage.service';
+import { LocalStorageService } from '../common-services/local-storage.service';
 
 @Injectable({
   providedIn: 'root'

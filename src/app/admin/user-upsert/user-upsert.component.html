@@ -1,0 +1,41 @@
+<div mat-dialog-title>
+  <h1>Register</h1>
+  <hr>
+</div>
+
+<form [formGroup]="registerFrm" (ngSubmit)="onFrmSubmit()">
+  <div mat-dialog-content class="content">
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Employee Id</mat-label>
+        <input matInput type="text" placeholder="Employee Id" formControlName="userName" />
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" autocomplete="on" placeholder="Password" formControlName="password" />
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Role Name</mat-label>
+        <mat-select formControlName="roleName">
+          <mat-option *ngFor="let val of roles" [value]="val.id">
+            {{val.roleName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions class="action">
+      <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+      <button mat-raised-button color="primary" type="submit">{{action}}</button>
+    </div>
+
+
+  </div>
+</form>

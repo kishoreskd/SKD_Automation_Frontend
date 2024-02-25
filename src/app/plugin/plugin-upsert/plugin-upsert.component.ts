@@ -4,9 +4,9 @@ import { CustomValidator } from '../../application/Validator/CustomValidator.com
 import { PluginService } from '../../application/services/plugin-services/plugin-base.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Plugin } from '../../domain/model/plugin.model';
-import { Department } from '../../domain/model/department';
-import { DepartmentService } from '../../application/services/department/department.service';
-import { AlertifyService } from '../../application/services/common/alertify.service';
+import { Department } from '../../domain/model/department.model';
+import { DepartmentService } from '../../application/services/admin-services/department.service';
+import { AlertifyService } from '../../application/services/common-services/alertify.service';
 
 @Component({
   selector: 'app-plugin-upsert',
@@ -85,23 +85,15 @@ export class PluginUpsertComponent implements OnInit {
   }
 
   onFormSubmit() {
-
     if (this._pluginFrm.valid) {
-
       this.mapProject();
-
-      if (!this._editData) {
-        this.add();
-      } else {
-        this.update();
-      }
-
+      if (!this._editData) this.add();
+      else this.update();
       this._pluginFrmDialog.close(true);
     }
   }
 
   add() {
-
     this._pluginModel.createdBy = 2701;
     this._service.add(this._pluginModel).subscribe({
       next: (val: Plugin) => {

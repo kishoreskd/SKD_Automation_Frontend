@@ -2,15 +2,15 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { AlertifyService } from '../application/services/common/alertify.service';
+import { AlertifyService } from '../application/services/common-services/alertify.service';
 import { PluginLogService } from '../application/services/plugin-services/plugin-log.service';
 import { PluginLog } from '../domain/model/plugin-log.model';
 import { Plugin } from '../domain/model/plugin.model';
 import { PluginService } from '../application/services/plugin-services/plugin-base.service';
 import { DashbordService } from '../application/services/plugin-services/dashbord.service';
-import { Dashbord } from '../domain/model/dashbord';
-import { DepartmentService } from '../application/services/department/department.service';
-import { Department } from '../domain/model/department';
+import { Dashbord } from '../domain/model/dashbord.model';
+import { DepartmentService } from '../application/services/admin-services/department.service';
+import { Department } from '../domain/model/department.model';
 
 @Component({
   selector: 'app-dashbord',

@@ -6,7 +6,7 @@ import { PluginLogService } from '../../application/services/plugin-services/plu
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { AlertifyService } from '../../application/services/common/alertify.service';
+import { AlertifyService } from '../../application/services/common-services/alertify.service';
 import { PluginLogUpsertComponent } from '../plugin-log-upsert/plugin-log-upsert.component';
 import { Plugin } from '../../domain/model/plugin.model';
 import { PluginService } from '../../application/services/plugin-services/plugin-base.service';

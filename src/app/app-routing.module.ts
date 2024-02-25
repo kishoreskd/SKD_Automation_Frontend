@@ -11,6 +11,7 @@ import { PluginChartComponent } from './dashbord/plugin-chart/plugin-chart.compo
 import { DashbordComponent } from './dashbord/dashbord.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationGuard } from './application/guards/authentication.guard';
+import { UserHomeComponent } from './admin/user-home/user-home.component';
 
 
 
@@ -58,6 +59,12 @@ const routes: Routes = [
     {
         path: "dashbord",
         component: DashbordComponent,
+        canActivate: [AuthenticationGuard]
+        // resolve: { pluginLogCol: PluginLogHomeResolverService }
+    },
+    {
+        path: "admin/user-home",
+        component: UserHomeComponent,
         canActivate: [AuthenticationGuard]
         // resolve: { pluginLogCol: PluginLogHomeResolverService }
     }

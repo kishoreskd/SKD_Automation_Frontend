@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class LocalStorageService {
 
   private readonly departmentId = "departmentId";
-
+  
   constructor() { }
 
   updateDepartmentId(departmentId: number) {
