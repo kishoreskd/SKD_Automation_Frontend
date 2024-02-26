@@ -25,7 +25,6 @@ const routes: Routes = [
     {
         path: "login",
         component: LoginComponent,
-
     },
     {
         path: "plugin/home",

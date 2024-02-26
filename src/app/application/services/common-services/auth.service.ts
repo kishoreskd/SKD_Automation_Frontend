@@ -10,13 +10,15 @@ export class AuthService {
   // private isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   // isLoggedIn: boolean = false;
 
+  constructor() {
 
-  constructor() { 
     this.decodeToken();
   }
 
   setToken(token: string) {
     localStorage.setItem("token", token);
+    // this.isLoggedIn = true;
+    // this.isLoggedIn$.next(!!localStorage.getItem("token"))
   }
 
   getToken(): string {
@@ -25,6 +27,7 @@ export class AuthService {
 
   removeToken() {
     localStorage.removeItem("token");
+    // this.isLoggedIn = true;
     // this.isLoggedIn$.next(false);
   }
 
@@ -32,13 +35,17 @@ export class AuthService {
     localStorage.setItem("refreshtoken", token);
   }
 
-  getRefreshToken() : string  {
+  getRefreshToken(): string {
     return localStorage.getItem("refreshtoken");
   }
 
-
   isLoggedIn(): boolean {
     // this.isLoggedIn$.next(!!localStorage.getItem("token"));
+
+    // if (this.getToken() === null || this.getToken() === undefined) {
+    //   this.isLoggedIn$.next(false);
+    // }
+
     // return this.isLoggedIn$.asObservable();
     return !!localStorage.getItem("token");
   }
@@ -46,8 +53,8 @@ export class AuthService {
   decodeToken() {
     const jwtHelper = new JwtHelperService();
     const token = this.getToken()!;
+
+
     return jwtHelper.decodeToken(token);
   }
-
-
 }

@@ -18,6 +18,7 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
   // showLoadingIndicator = true;
   departmentId: number;
   depSelections: Array<Department> = new Array<Department>();
+  isLoggedIn : boolean = true;
 
   constructor(private _router: Router,
     public _loaderService: LoaderService,
@@ -25,7 +26,7 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
     private readonly _localStorageService: LocalStorageService,
     private _cdr: ChangeDetectorRef,
     private _activateRoute: ActivatedRoute,
-    private _authService: AuthService) {
+    public _authService: AuthService) {
 
     // this._router.events.subscribe((routerEvent: Event) => {
 
@@ -44,6 +45,14 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     // this.loaderVisible = this._loaderService.loaderVisible;
+
+      // this._authService.isLoggedIn().subscribe((data: boolean) => {
+      //   this.isLoggedIn = data;
+      //   console.log(this.isLoggedIn);
+      // });
+
+    // this.isLoggedIn = this._authService.isLoggedIn();
+    // console.log(this.isLoggedIn);
 
     this._loaderService.getLoaderVisibility().subscribe((isLoading: boolean) => {
       this.loaderVisible = isLoading;

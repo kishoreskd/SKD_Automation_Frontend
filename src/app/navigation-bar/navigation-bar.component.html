@@ -1,80 +1,82 @@
 <!-- <mat-toolbar> -->
 <!--  -->
 
-<mat-toolbar>
-  <!-- <button  (click)="opened=!opened"> -->
-  <img src="assets/icon/pgt.ico" />
-  <!-- </button> -->
-  <span class="logo-text">Automation</span>
+<div *ngIf="_authService.isLoggedIn()" class="div">
 
-  <div class="spacer"></div>
-  <i class="bi bi-building"></i>
-  <div>
-    <select class="form-select border-0" [(ngModel)]="departmentId" (change)="selectionChange()">
-      <option *ngFor="let val of depSelections" [value]="val.departmentId">
-        {{val.departmentName}}
-      </option>
-    </select>
-  </div>
+  <mat-toolbar>
+    <!-- <button  (click)="opened=!opened"> -->
+    <img src="assets/icon/pgt.ico" />
+    <!-- </button> -->
+    <span class="logo-text">Automation</span>
 
-  <a mat-button (click)="onLogout()">Logout</a>
-</mat-toolbar>
+    <div class="spacer"></div>
+    <i class="bi bi-building"></i>
+    <div>
+      <select class="form-select border-0" [(ngModel)]="departmentId" (change)="selectionChange()">
+        <option *ngFor="let val of depSelections" [value]="val.departmentId">
+          {{val.departmentName}}
+        </option>
+      </select>
+    </div>
 
+    <a mat-button (click)="onLogout()">Logout</a>
+  </mat-toolbar>
 
+  <mat-sidenav-container autosize>
+    <mat-sidenav #sidenav opened="true" mode="side" [fixedInViewport]="true" [fixedTopGap]="45">
 
-<mat-sidenav-container autosize>
-  <mat-sidenav  #sidenav opened="true" mode="side"  [fixedInViewport]="true" [fixedTopGap]="45">
+      <mat-nav-list>
 
-    <mat-nav-list>
+        <mat-list-item (click)="opened = !opened">
+          <mat-icon mat-list-icon class="chevron-button" [ngClass]="{ rotated: opened }">chevron_right</mat-icon>
+        </mat-list-item>
 
-      <mat-list-item (click)="opened = !opened">
-        <mat-icon mat-list-icon class="chevron-button" [ngClass]="{ rotated: opened }">chevron_right</mat-icon>
-      </mat-list-item>
-
-      <mat-divider></mat-divider>
-
-
-      <mat-list-item routerLink="/">
-        <mat-icon mat-list-icon class="nav-icon">home</mat-icon>
-        <span *ngIf="opened" class="menu-item">Dashbord</span>
-      </mat-list-item>
+        <mat-divider></mat-divider>
 
 
-      <mat-list-item routerLink="/plugin/home">
-        <mat-icon mat-list-icon class="">
-          auto_stories
-        </mat-icon>
-        <span *ngIf="opened" class="menu-item">Logging</span>
-      </mat-list-item>
-
-      <mat-list-item routerLink="/admin/user-home">
-        <mat-icon mat-list-icon class="">
-          shield_person
-        </mat-icon>
-        <span *ngIf="opened" class="menu-item">Admin</span>
-      </mat-list-item>
-
-    </mat-nav-list>
+        <mat-list-item routerLink="/dashbord">
+          <mat-icon mat-list-icon class="nav-icon">home</mat-icon>
+          <span *ngIf="opened" class="menu-item">Dashbord</span>
+        </mat-list-item>
 
 
-    <!-- <div class="side-nav-items">
+        <mat-list-item routerLink="/plugin/home">
+          <mat-icon mat-list-icon class="">
+            auto_stories
+          </mat-icon>
+          <span *ngIf="opened" class="menu-item">Logging</span>
+        </mat-list-item>
+
+        <mat-list-item routerLink="/admin/user-home">
+          <mat-icon mat-list-icon class="">
+            shield_person
+          </mat-icon>
+          <span *ngIf="opened" class="menu-item">Admin</span>
+        </mat-list-item>
+
+      </mat-nav-list>
+
+
+      <!-- <div class="side-nav-items">
         <mat-list>
           <mat-list-item routerLink="project/home" class="side-menu-item">
             Dashbord
           </mat-list-item>
         </mat-list>
       </div> -->
-  </mat-sidenav>
+    </mat-sidenav>
 
-  <mat-sidenav-content>
+    <mat-sidenav-content>
 
-    <div class="loader-container">
-      <mat-progress-bar mode="indeterminate" *ngIf="loaderVisible"></mat-progress-bar>
-    </div>
-   
-    <div class="main-content">
-      <router-outlet *ngIf="departmentId"></router-outlet>
-      <ng-toast></ng-toast>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+      <div class="loader-container">
+        <mat-progress-bar mode="indeterminate" *ngIf="loaderVisible"></mat-progress-bar>
+      </div>
+
+      <div class="main-content">
+        <router-outlet *ngIf="departmentId"></router-outlet>
+        <ng-toast></ng-toast>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>

@@ -48,6 +48,10 @@ export class UserUpsertComponent implements OnInit {
     return this.getControl("roleName");
   }
 
+  get employeeId(): FormControl {
+    return this.getControl("employeeId");
+  }
+
   getControl(field: string): FormControl {
     return this.registerFrm.get(field) as FormControl;
   }
@@ -58,6 +62,7 @@ export class UserUpsertComponent implements OnInit {
     this.registerFrm = this._fb.group({
       userName: [null, [Validators.required]],
       password: [null, [Validators.required]],
+      employeeId: [null, [Validators.required]],
       roleName: [[Validators.required]]
     });
   }

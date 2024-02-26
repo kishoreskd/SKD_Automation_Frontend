@@ -7,6 +7,7 @@ import { AuthService } from '../application/services/common-services/auth.servic
 import { LocalStorageService } from '../application/services/common-services/local-storage.service';
 import { Route, Router } from '@angular/router';
 import ValidateForm from '../application/helpers/validateForm.helper';
+import { UserStoreService } from '../application/services/common-services/user-store.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
     private readonly _loginService: LoginService,
     private _authService: AuthService,
     private readonly _localStorageService: LocalStorageService,
-    private readonly _router: Router) { }
+    private readonly _router: Router,
+    private readonly _userStoreService: UserStoreService) { }
 
 
   ngOnInit() {
@@ -57,26 +59,25 @@ export class LoginComponent implements OnInit {
     this.isText ? (this.type = 'text') : (this.type = 'password')
   }
 
-
   onSubmit() {
-
-
     if (this.loginForm.valid) {
-    console.log(this.loginForm);
-
       this.map();
       this._loginService.authenticate(this.login).subscribe((data: AuthToken) => {
         this._authService.setToken(data.accessToken);
         this._authService.setRefreshToken(data.refreshToken);
+        const tokenPayLoad = this._authService.decodeToken();
+        console.log(tokenPayLoad);
+        this._userStoreService.setFullNameForStore(tokenPayLoad.unique_name);
+        this._userStoreService.setRoleForStore(tokenPayLoad.role);
+        this._userStoreService.setEmployeeIdForStore(+tokenPayLoad.employeeId);
         this._router.navigate(["/dashbord"]);
       });
+      // this.loginForm.reset();
 
     } else {
       ValidateForm.validateAllFormFields(this.loginForm);
     }
   }
-
-
 
   map() {
     this.login.userName = this.userName.value;

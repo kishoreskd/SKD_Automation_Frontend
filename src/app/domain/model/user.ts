@@ -7,6 +7,7 @@ export class User {
     refreshTokenExpiryTime: Date;
     roleId: number;
     roleName: string;
+    employeeId : number;
 
     createdBy: number;
     createdDate: Date;

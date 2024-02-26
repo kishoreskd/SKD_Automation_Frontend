@@ -19,14 +19,13 @@ export class UserHomeComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   users: User[];
-  displayedColumns: string[] = ['index', 'userName', 'roleName', 'createdDate','action'];
+  displayedColumns: string[] = ['index', 'userName', 'employeeId', 'roleName', 'createdDate', 'action'];
   dataSource: MatTableDataSource<User>;
   filterType: string;
   filterText: string;
   filterSource: any[] = [
     { key: "userName", val: "User Name" },
     { key: "roleName", val: "Role" },
-
   ]
 
   constructor(private readonly _userService: UserService,
@@ -63,7 +62,6 @@ export class UserHomeComponent implements OnInit {
   }
 
   public onRemovePrjLog(id: number) {
-
     const isConfirm = this._alertify.confirm("Are you sure want to remove ?", () => {
       this._userService.remove(id).subscribe(data => {
         this.getAll();
@@ -73,8 +71,8 @@ export class UserHomeComponent implements OnInit {
   }
 
   getAll() {
-
     this._userService.getAll().subscribe((data: User[]) => {
+      console.log(data);
       this.users = data;
       this.dataSource = new MatTableDataSource<User>(this.users);
       this.dataSource.paginator = this.paginator;
