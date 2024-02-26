@@ -15,14 +15,9 @@
         {{val.departmentName}}
       </option>
     </select>
-
-
   </div>
 
-
-  <a mat-button>Logout</a>
-
-
+  <a mat-button (click)="onLogout()">Logout</a>
 </mat-toolbar>
 
 
@@ -76,11 +71,10 @@
     <div class="loader-container">
       <mat-progress-bar mode="indeterminate" *ngIf="loaderVisible"></mat-progress-bar>
     </div>
-
-    <ng-toast></ng-toast>
-
+   
     <div class="main-content">
       <router-outlet *ngIf="departmentId"></router-outlet>
+      <ng-toast></ng-toast>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

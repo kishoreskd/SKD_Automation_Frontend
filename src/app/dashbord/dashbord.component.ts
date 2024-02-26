@@ -29,14 +29,15 @@ export class DashbordComponent implements OnInit {
   pluginChartData: Plugin[] = new Array<Plugin>();
   productivityChartData: Plugin = new Plugin();
   pluginLogChartData: Plugin = new Plugin();
-
   pluginSelections: Plugin[] = new Array<Plugin>();
+  dashbordSelectedMonth: Dashbord = new Dashbord();
 
   totalPCount: number = 0;
   totalMminute: number = 0;
   totalAminute: number = 0;
 
-  month
+
+
 
   constructor(
     private readonly _pluginService: PluginService,
@@ -50,6 +51,7 @@ export class DashbordComponent implements OnInit {
     this.loadPluginSelections();
     this.setDefault();
     this.getCounterCardData();
+    this.getCounterCardDataByMonthYear();
   }
 
   setDefault() {
@@ -75,12 +77,12 @@ export class DashbordComponent implements OnInit {
       this.getPluginChartData();
       this.getProductivityChartData();
       this.getPluginLogChartData();
+      this.getCounterCardDataByMonthYear();
     }
   }
 
   onPluginSelectionChange(event: any) {
 
-    console.log("Triggered");
     if (this.pId > 0) {
 
       this.resetChartData();
@@ -131,8 +133,8 @@ export class DashbordComponent implements OnInit {
   }
 
   getCounterCardDataByMonthYear() {
-    this._dashbordService.getAll().subscribe((data: Dashbord) => {
-
+    this._dashbordService.getByMonthYear(this.selectedMonth, this.selectedYear).subscribe((data: Dashbord) => {
+      this.dashbordSelectedMonth = data;
     })
   }
 

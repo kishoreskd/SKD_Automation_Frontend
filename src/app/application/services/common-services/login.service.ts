@@ -15,7 +15,9 @@ export class LoginService {
     return this._http.post<AuthToken>("Login/authenticate", data)
   }
 
-  refreshToken(data: Login): Observable<AuthToken> {
-    return this._http.post<AuthToken>("Login/token/refresh", data);
+  renewToken(token: AuthToken): Observable<any> {
+    console.log("Token service called!");
+    // console.log(this._http.post<AuthToken>("Login/token/refresh", token).subscribe(data=> data));
+    return this._http.post<any>("Login/token/refresh", token);
   }
 }

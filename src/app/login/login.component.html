@@ -1,43 +1,92 @@
-<div class="container">
+<!-- <div class="container">
 
-  <div class="m-5">
+    <div class="m-5">
 
-      <div class="px-4 pt-5  py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+        <div class="px-4 pt-5  py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
 
-          <div class="container">
-              <div class="row gx-lg-5 align-items-center">
-                  <div class="col-lg-6 mb-5 mb-lg-0">
-                      <h1 class="my-5 display-3 fw-bold ls-tight">
-                          Plan and execute<br />
-                          <span class="text-primary">with Work Allocation System</span>
-                      </h1>
-                  </div>
+            <div class="container">
+                <div class="row gx-lg-5 align-items-center">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <h1 class="my-5 display-3 fw-bold ls-tight">
+                            Plan and execute<br />
+                            <span class="text-primary">with Work Allocation System</span>
+                        </h1>
+                    </div>
 
-                  <div class="col-lg-6 mb-5 mb-lg-0">
-                      <div class="card">
-                          <div class="card-body py-5 px-md-5">
-                              <form asp-controller="Login" asp-action="Login" method="post">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="card">
+                            <div class="card-body py-5 px-md-5">
+                                <form [formGroup]="loginFrm" (submit)="onSubmit()">
 
-                                  <div class="form-group has-success">
-                                      <label class="form-label mt-4" for="inputValid">User Name</label>
-                                      <input asp-for="UserName" type="text" placeholder="User name" class="form-control" id="inputValid">
-                                      <span class="text-danger" asp-validation-for="UserName"></span>
+                                    <div class="form-group has-success">
+                                        <label class="form-label mt-4" for="inputValid">User Name</label>
+                                        <input asp-for="userName" type="text" placeholder="User name"
+                                            class="form-control" id="inputValid" formControlName="userName">
+                                    </div>
 
-                                  </div>
+                                    <div class="form-group has-success">
+                                        <label class="form-label mt-4" for="inputValid">Password</label>
+                                        <input class="form-control" id="inputValid" formControlName="password">
+                                    </div>
 
-                                  <div class="form-group has-success">
-                                      <label class="form-label mt-4" for="inputValid">Password</label>
-                                      <input asp-for="Password" type="password" placeholder="Password" class="form-control" id="inputValid">
-                                      <span class="text-danger" asp-validation-for="Password"></span>
-                                  </div>
+                                    <button type="submit" class="btn btn-primary">Login</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  -->
 
-                                  <button type="submit" class="btn btn-primary">Login</button>
-                              </form>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+
+
+<div class="outer">
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+                <div class="panel border bg-white rounded-5 shadow">
+                    <div class="panel-heading">
+                        <img class="pt-3" src="https://pms.pangulftechnologies.com/assets/images/logo/logo.png">
+                        <p class="login-box-msg pt-3 pb-0">Sign in</p>
+                    </div>
+                    <div class="panel-body p-3">
+                        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                            <div class="form-group pt-3">
+                                <div class="input-field"
+                                    [class.error]="loginForm.controls['userName'].dirty && loginForm.hasError('required','userName')">
+                                    <span class="fa fa-user p-2"></span> <input formControlName="userName" type="text"
+                                        placeholder="userName" required> </div>
+                            </div>
+                            <small
+                                *ngIf="loginForm.controls['userName'].dirty && loginForm.hasError('required','userName')"
+                                class="text-danger">*User name is required*</small>
+                            <div class="form-group pt-3">
+                                <div class="input-field"
+                                    [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required','password')">
+                                    <span class="fa fa-lock px-2"></span> <input formControlName="password"
+                                        [type]="type" placeholder="Password"> <button type="button"
+                                        (click)="hideShowPass()" class="bg-white text-muted"> <span
+                                            class="fa {{eyeIcon}}"></span> </button></div>
+                            </div>
+                            <small
+                                *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')"
+                                class="text-danger">*Password is required*</small>
+                            <div class="form-inline fr mt-4"> <a id="forgot" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" class="font-weight-bold">Forgot password?</a> </div>
+                            <button type="submit" class="btn btn-primary btn-block mt-4 w-100">Login</button>
+                            <!-- <div class="text-center pt-4 text-muted">Don't have an account? <a id="forgot" href="#" routerLink="/signup">Sign up</a> </div> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+<!-- <div class="container">
+    <h1>Iam Login</h1>
+</div> -->

@@ -131,6 +131,49 @@
     </div>
 
 
+    <!-- <div class="d-flex justify-content-center mt-3"> -->
+    <div class="card border-0 shadow rounded-4 mt-3">
+      <div class="card-body">
+
+        <div class="flex-row row ">
+
+          <div class="col-md-4">
+            <div class="card border-primary ">
+              <!-- <div class="card-header">Plugins</div> -->
+              <div class="card-body">
+                <h4 class="card-title">Plugins</h4>
+                <p class="card-text">{{dashbordSelectedMonth.totalPlugins}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card border-primary ">
+              <!-- <div class="card-header">Header</div> -->
+              <div class="card-body">
+                <h4 class="card-title">Manual {{selectedMonth}}/{{selectedYear}}</h4>
+                <p class="card-text">{{dashbordSelectedMonth.totalManualMiniutes | minutesToHours}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card border-primary ">
+              <!-- <div class="card-header">Header</div> -->
+              <div class="card-body">
+                <h4 class="card-title">Automate {{selectedMonth}}/{{selectedYear}}</h4>
+                <p class="card-text">{{dashbordSelectedMonth.totalAutomatedMinutes | minutesToHours}}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <!-- </div> -->
+
+
     <!-- Chart -->
 
     <div class="flex-row row mt-3">
@@ -138,7 +181,7 @@
       <div class="col-md-6">
         <div class="card rounded-2 shadow-lg border-0">
           <div class="card-header bg-white">
-            <span>{{pluginName}} - {{selectedMonth}}/{{selectedYear}}</span> Productivity Analyzis
+            <span>{{pluginName}}</span> Productivity Analyzis {{selectedMonth}}/{{selectedYear}}
           </div>
 
           <div class="card-body">
@@ -153,21 +196,33 @@
         </div>
       </div>
 
-      
-      <div class="col-md-6">
-        <div class="card rounded-4 shadow-lg border-0">
+
+      <div class="col-md-6 ">
+        <div class="card  rounded-2 shadow-lg border-0">
+          <div class="card-header bg-white">
+            {{pluginName}} Utilizing Analyzis {{selectedMonth}}/{{selectedYear}}
+          </div>
+
           <div class="card-body">
-            <div class="card  rounded-4 shadow-lg">
+            <div class="card-title">
             </div>
+            <!--  -->
+            <app-plugin-log-chart [plugin]="pluginLogChartData" *ngIf="pluginLogChartData"></app-plugin-log-chart>
+            <!--  -->
           </div>
         </div>
-        <div class="w-100 pt-2"></div>
       </div>
 
+
+    </div>
+
+
+
+    <div class="flex-row row mt-3">
       <div class="col-md-6 mt-3">
         <div class="card  rounded-2 shadow-lg border-0">
           <div class="card-header bg-white">
-            {{selectedMonth}}/{{selectedYear}} All Plugin Utilizing Analyzis
+            Plugins Utilizing Analyzis {{selectedYear}}
           </div>
 
           <div class="card-body">
@@ -184,21 +239,8 @@
 
       </div>
 
-      <div class="col-md-6 mt-3">
-        <div class="card  rounded-2 shadow-lg border-0">
-          <div class="card-header bg-white">
-            {{pluginName}} {{selectedMonth}}/{{selectedYear}} Plugin Utilizing Analyzis
-          </div>
 
-          <div class="card-body">
-            <div class="card-title">
-            </div>
-            <!--  -->
-            <app-plugin-log-chart [plugin]="pluginLogChartData" *ngIf="pluginLogChartData"></app-plugin-log-chart>
-            <!--  -->
-          </div>
-        </div>
-      </div>
     </div>
+
   </div>
 </div>

@@ -5,6 +5,7 @@ import { DepartmentService } from '../application/services/admin-services/depart
 import { Department } from '../domain/model/department.model';
 import { LocalStorageService } from '../application/services/common-services/local-storage.service';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService } from '../application/services/common-services/auth.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -23,7 +24,8 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
     private readonly _departmentService: DepartmentService,
     private readonly _localStorageService: LocalStorageService,
     private _cdr: ChangeDetectorRef,
-    private _activateRoute: ActivatedRoute) {
+    private _activateRoute: ActivatedRoute,
+    private _authService: AuthService) {
 
     // this._router.events.subscribe((routerEvent: Event) => {
 
@@ -52,7 +54,7 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
   }
 
   loadDepartmentSelections() {
-    
+
     this._departmentService.getAll().subscribe((data: Department[]) => {
 
       this.depSelections = data;
@@ -71,28 +73,12 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
 
   selectionChange() {
 
-    // if (this._router.navigated === false) {
-    //   // Case when route was not used yet
-    //   this._router.navigateByUrl(`/module/1`);
-    // } else {
-    //   // Case when route was used once or more
-    //   this._router.navigateByUrl(`/`).then(
-    //     () => {
-    //       this._router.navigateByUrl(`/`);
-    //     });
-    // }
-
-    // // this._router.routeReuseStrategy.shouldReuseRoute = () => false;
-    // // this._router.onsa
-
-
-
     if (this._localStorageService.getDepartmentId() != this.departmentId) {
 
-      this._localStorageService.updateDepartmentId(this.departmentId);
+      this._localStorageService.setDepartmentId(this.departmentId);
 
       if (this._router.navigated === false) {
-        this._router.navigateByUrl("");
+        this._router.navigateByUrl("/");
         this._cdr.detectChanges();
       }
       else {
@@ -102,6 +88,11 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
         })
       }
     }
-
   }
+
+  onLogout() {
+    this._authService.removeToken();
+    this._router.navigate(["/login"]);
+  }
+
 }

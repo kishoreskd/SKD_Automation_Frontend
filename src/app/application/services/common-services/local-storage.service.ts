@@ -9,13 +9,15 @@ export class LocalStorageService {
   
   constructor() { }
 
-  updateDepartmentId(departmentId: number) {
-    localStorage.clear();
+  setDepartmentId(departmentId: number) {
+    localStorage.removeItem(this.departmentId);
     localStorage.setItem(this.departmentId, departmentId.toString())
   }
 
   getDepartmentId(): number {
     return +localStorage.getItem(this.departmentId);
   }
+
+  
 
 }

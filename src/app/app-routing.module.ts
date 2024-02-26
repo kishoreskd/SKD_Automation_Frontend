@@ -12,14 +12,15 @@ import { DashbordComponent } from './dashbord/dashbord.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationGuard } from './application/guards/authentication.guard';
 import { UserHomeComponent } from './admin/user-home/user-home.component';
+import { LoginGuard } from './application/guards/login.guard';
 
 
 
 const routes: Routes = [
     {
-        path: "",
-        component: DashbordComponent,
-        canActivate: [AuthenticationGuard]
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full'
     },
     {
         path: "login",

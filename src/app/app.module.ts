@@ -70,6 +70,7 @@ import { LoaderService } from './application/services/common-services/loader.ser
 import { UserUpsertComponent } from './admin/user-upsert/user-upsert.component';
 import { UserService } from './application/services/admin-services/user.service';
 import { RoleService } from './application/services/admin-services/role.service';
+import { AuthService } from './application/services/common-services/auth.service';
 
 @NgModule({
     declarations:
@@ -143,6 +144,7 @@ import { RoleService } from './application/services/admin-services/role.service'
             LoaderService,
             UserService,
             RoleService,
+            AuthService,
             PluginUpsertCanDeactivateGuardService
         ],
     bootstrap: [AppComponent],
