@@ -3,51 +3,51 @@
 <div class="container-fluid px-4">
   <div class="row g-3 my-2">
     <div class="col-md-4">
-      <div class="card border-left-primary shadow h-100 py-2 rounded-5">
+      <div class="card border-left-primary shadow h-100 py-2 rounded-5 ">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                Total Plugins</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalPCount}}</div>
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> Total Plugins</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-database" aria-hidden="true"></i> {{totalPCount}}</div>
             </div>
-            <div class="col-auto">
+            <!-- <div class="col-auto">
               <i class="fas fa-calendar fa-2x text-gray-300"></i>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
     </div>
 
     <div class="col-md-4">
-      <div class="card border-left-primary shadow h-100 py-2 rounded-5">
+      <div class="card border-left-primary shadow h-100 py-2 rounded-5 ">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
+
               <div class="text-xs font-weight-bold text-primary  text-uppercase mb-1">
                 Total Productivity By Manual</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalMminute | minutesToHours}}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-clock-o" aria-hidden="true"></i> {{totalMminute | minutesToHours}}</div>
             </div>
-            <div class="col-auto">
-              <i class="fas fa-calendar fa-2x text-gray-300"></i>
-            </div>
+            <!-- <div class="col-auto">
+                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+            </div> -->
           </div>
         </div>
       </div>
     </div>
 
     <div class="col-md-4">
-      <div class="card border-left-primary shadow h-100 py-2 rounded-5">
+      <div class="card border-left-primary shadow h-100 py-2 rounded-5 ">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                 Total Productivity By Automate</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalAminute | minutesToHours}}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-clock-o" aria-hidden="true"></i> {{totalAminute | minutesToHours}}</div>
             </div>
-            <div class="col-auto">
+            <!-- <div class="col-auto">
               <i class="fas fa-calendar fa-2x text-gray-300"></i>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -58,47 +58,7 @@
 
 
 
-
-<!-- <div class="row text-center border-0  ">
-
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card-counter bg-purple">
-        <i class="fa fa-code-fork"></i>
-        <span id="cc_department" class="count-numbers">0</span>
-        <span class="count-name">Department</span>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card-counter bg-coral">
-        <i class="fa fa-ticket"></i>
-        <span id="cc_designation" class="count-numbers">0</span>
-        <span class="count-name">Designation</span>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card-counter bg-green">
-        <i class="fa-light fa-location-dot"></i>
-        <span id="cc_location" class="count-numbers">0</span>
-        <span class="count-name">Location</span>
-      </div>
-    </div>   
-</div> -->
-
-
-
-<!-- <div class="w-100 pt-lg-2"></div>
-<div class="w-100 pt-lg-2"></div>
-<div class="w-100 pt-lg-2"></div>
-<div class="w-100 pt-lg-2"></div> -->
-
-
-
-
 <!-- Menu Bar -->
-
 
 
 <div class="card border-0 mt-5">
@@ -108,10 +68,12 @@
       <div class="card border-0 shadow rounded-4">
         <div class="card-body">
 
-          <div class="flex-row row ">
+          <div class="flex-row row">
 
             <div class="col-md-6">
+
               <mat-form-field class="material-resize mx-2" appearance="outline">
+                <mat-label>Plugin</mat-label>
                 <mat-select [(ngModel)]="pId" (selectionChange)="onPluginSelectionChange($event)">
                   <mat-option *ngFor="let val of pluginSelections" [value]="val.pluginId">
                     {{val.pluginName}}
@@ -131,47 +93,49 @@
     </div>
 
 
-    <!-- <div class="d-flex justify-content-center mt-3"> -->
-    <div class="card border-0 shadow rounded-4 mt-3">
-      <div class="card-body">
 
-        <div class="flex-row row ">
 
-          <div class="col-md-4">
-            <div class="card border-primary ">
-              <!-- <div class="card-header">Plugins</div> -->
-              <div class="card-body">
-                <h4 class="card-title">Plugins</h4>
-                <p class="card-text">{{dashbordSelectedMonth.totalPlugins}}</p>
-              </div>
-            </div>
-          </div>
+    <div class="justify-content-center m-3">
 
-          <div class="col-md-4">
-            <div class="card border-primary ">
-              <!-- <div class="card-header">Header</div> -->
-              <div class="card-body">
-                <h4 class="card-title">Manual {{selectedMonth}}/{{selectedYear}}</h4>
-                <p class="card-text">{{dashbordSelectedMonth.totalManualMiniutes | minutesToHours}}</p>
-              </div>
-            </div>
-          </div>
+      <div class="row d-flex">
+        <div class="col-md-3">
 
-          <div class="col-md-4">
-            <div class="card border-primary ">
-              <!-- <div class="card-header">Header</div> -->
-              <div class="card-body">
-                <h4 class="card-title">Automate {{selectedMonth}}/{{selectedYear}}</h4>
-                <p class="card-text">{{dashbordSelectedMonth.totalAutomatedMinutes | minutesToHours}}</p>
-              </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card border-0 shadow">
+            <div class="card-body">
+              <h4 class="card-title text-xs font-weight-bold text-primary text-uppercase mb-1">Manual
+                {{selectedMonth}}/{{selectedYear}}</h4>
+              <p class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-clock-o" aria-hidden="true"></i> {{dashbordSelectedMonth.totalManualMiniutes |
+                minutesToHours}}</p>
             </div>
           </div>
 
         </div>
 
+        <div class="col-md-3">
+          <div class="card border-0 shadow">
+            <div class="card-body">
+              <h4 class="card-title text-xs font-weight-bold text-primary text-uppercase mb-1">Automate
+                {{selectedMonth}}/{{selectedYear}}</h4>
+              <p class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-clock-o" aria-hidden="true"></i> {{dashbordSelectedMonth.totalAutomatedMinutes |
+                minutesToHours}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+
+        </div>
+
       </div>
     </div>
-    <!-- </div> -->
+
+
+
+
+
+
 
 
     <!-- Chart -->
@@ -181,7 +145,7 @@
       <div class="col-md-6">
         <div class="card rounded-2 shadow-lg border-0">
           <div class="card-header bg-white">
-            <span>{{pluginName}}</span> Productivity Analyzis {{selectedMonth}}/{{selectedYear}}
+            <span><i class="fa fa-bar-chart" aria-hidden="true"></i> {{pluginName}}</span> Productivity Analyzis {{selectedMonth}}/{{selectedYear}}
           </div>
 
           <div class="card-body">
@@ -200,7 +164,7 @@
       <div class="col-md-6 ">
         <div class="card  rounded-2 shadow-lg border-0">
           <div class="card-header bg-white">
-            {{pluginName}} Utilizing Analyzis {{selectedMonth}}/{{selectedYear}}
+            <i class="fa fa-bar-chart" aria-hidden="true"></i> {{pluginName}} Utilizing Analyzis {{selectedMonth}}/{{selectedYear}}
           </div>
 
           <div class="card-body">
@@ -222,7 +186,7 @@
       <div class="col-md-6 mt-3">
         <div class="card  rounded-2 shadow-lg border-0">
           <div class="card-header bg-white">
-            Plugins Utilizing Analyzis {{selectedMonth}}/{{selectedYear}}
+            <i class="fa fa-line-chart" aria-hidden="true"></i> Plugins Utilizing Analyzis {{selectedMonth}}/{{selectedYear}}
           </div>
 
           <div class="card-body">

@@ -6,6 +6,7 @@ import { AlertifyService } from '../../application/services/common-services/aler
 import { PluginService } from '../../application/services/plugin-services/plugin-base.service';
 import { PluginLogService } from '../../application/services/plugin-services/plugin-log.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../application/services/common-services/auth.service';
 
 @Component({
   selector: 'app-plugin-log-upsert',
@@ -22,8 +23,9 @@ export class PluginLogUpsertComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public _dialogData: PluginLog,
     private _pluginLogFrmDialog: MatDialogRef<PluginLogUpsertComponent>,
     private _fb: FormBuilder,
-    private _service: PluginLogService,
-    private _alertify: AlertifyService) {
+    private readonly _service: PluginLogService,
+    private readonly _alertify: AlertifyService,
+    private readonly _authService: AuthService) {
     this._pluginLogModel = new PluginLog();
   }
 
@@ -79,20 +81,20 @@ export class PluginLogUpsertComponent implements OnInit {
   }
 
   add() {
-    this._pluginLogModel.createdBy = 2701;
 
+    this._pluginLogModel.createdBy = this._authService.getEmployeeIdFromToken();
     this._service.add(this._pluginLogModel).subscribe(data => {
-      this._alertify.success("Log added successfully!");
+      this._alertify.showSuccess("Log added successfully!");
     })
   }
 
   update() {
 
     this._pluginLogModel.pluginLogId = this._dialogData.pluginLogId;
-    this._pluginLogModel.lastModifiedBy = 2701;
+    this._pluginLogModel.lastModifiedBy = this._authService.getEmployeeIdFromToken();
 
     this._service.update(this._dialogData.pluginLogId, this._pluginLogModel).subscribe(data => {
-      this._alertify.success("Log updated successfully!");
+      this._alertify.showSuccess("Log updated successfully!");
     })
   }
 

@@ -9,10 +9,10 @@ export class AuthService {
 
   // private isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   // isLoggedIn: boolean = false;
+  private payLoad: any;
 
   constructor() {
-
-    this.decodeToken();
+    this.payLoad = this.decodeToken();
   }
 
   setToken(token: string) {
@@ -39,6 +39,11 @@ export class AuthService {
     return localStorage.getItem("refreshtoken");
   }
 
+  logOut() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refrestoken");
+  }
+
   isLoggedIn(): boolean {
     // this.isLoggedIn$.next(!!localStorage.getItem("token"));
 
@@ -53,8 +58,15 @@ export class AuthService {
   decodeToken() {
     const jwtHelper = new JwtHelperService();
     const token = this.getToken()!;
-
-
     return jwtHelper.decodeToken(token);
   }
+
+  getUserNameFromTeken(): string {
+    return this.payLoad.unique_name;
+  }
+
+  getEmployeeIdFromToken(): number {
+    return this.payLoad.employeeId;
+  }
+
 }

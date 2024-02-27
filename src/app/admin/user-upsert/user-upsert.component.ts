@@ -6,6 +6,8 @@ import { User } from '../../domain/model/user';
 import { AlertifyService } from '../../application/services/common-services/alertify.service';
 import { UserService } from '../../application/services/admin-services/user.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UserStoreService } from '../../application/services/common-services/user-store.service';
+import { AuthService } from '../../application/services/common-services/auth.service';
 
 @Component({
   selector: 'app-user-upsert',
@@ -26,7 +28,9 @@ export class UserUpsertComponent implements OnInit {
     private readonly _roleService: RoleService,
     private readonly _userService: UserService,
     private readonly _alertify: AlertifyService,
-    private _userDialog: MatDialogRef<UserUpsertComponent>) { }
+    private _userDialog: MatDialogRef<UserUpsertComponent>,
+    private readonly _userStoreService: UserStoreService,
+    private readonly _authService: AuthService) { }
 
   ngOnInit() {
     this.createForm();
@@ -88,20 +92,21 @@ export class UserUpsertComponent implements OnInit {
   }
 
   add() {
-    this.user.createdBy = 2701;
+
+    this.user.createdBy = this._authService.getEmployeeIdFromToken();
 
     this._userService.add(this.user).subscribe((data: User) => {
-      this._alertify.success("User added successfully!");
+      this._alertify.showSuccess("User added successfully!");
     })
   }
 
   update() {
 
     this.user.id = this._dialogData.id;
-    this.user.lastModifiedBy = 2701;
+    this.user.lastModifiedBy = this._authService.getEmployeeIdFromToken();
 
     this._userService.update(this._dialogData.id, this.user).subscribe((data: User) => {
-      this._alertify.success("User updated successfully!");
+      this._alertify.showSuccess("User updated successfully!");
     })
   }
 

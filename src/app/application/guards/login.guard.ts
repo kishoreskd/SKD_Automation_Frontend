@@ -23,16 +23,16 @@ export const LoginGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: 
   //   _router.navigate(['/dashbord']);
   //   return false;
   // }
+  // console.log("Login called");
 
-  if (!_authService.isLoggedIn()) {
-    console.log("called loggin gaurd not logged in ");
-    _router.navigate(['/login']);
-    return true;
-  } else {
-    console.log("called loggin gaurd not logged out");
 
+  if (_authService.isLoggedIn()) {
     _router.navigate(['/dashbord']);
     return false;
+  } else {
+    // console.log("called loggin gaurd not logged out");
+
+    return true;
   }
 
 };

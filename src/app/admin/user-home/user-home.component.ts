@@ -72,7 +72,6 @@ export class UserHomeComponent implements OnInit {
 
   getAll() {
     this._userService.getAll().subscribe((data: User[]) => {
-      console.log(data);
       this.users = data;
       this.dataSource = new MatTableDataSource<User>(this.users);
       this.dataSource.paginator = this.paginator;

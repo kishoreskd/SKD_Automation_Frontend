@@ -128,7 +128,7 @@ import { AuthService } from './application/services/common-services/auth.service
             MatMenuModule,
             MatDivider,
             MatTabsModule,
-            NgToastModule
+            NgToastModule,
         ],
     providers:
         [

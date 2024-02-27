@@ -36,6 +36,7 @@ export class HttpInterceptorService implements HttpInterceptor {
             return this.handleUnAuthorizedError(req, next);
           }
         }
+        this.CustomeErroShow(error);
         return throwError(() => error);
       }),
       finalize(() => {
@@ -92,14 +93,29 @@ export class HttpInterceptorService implements HttpInterceptor {
 
           return next.handle(req);
 
-        }), catchError((err) => {
-
+        }), catchError((err: any) => {
           return throwError(() => {
             this._alertify.showWarn("Token is expired, Please Login again");
+            this._authService.logOut();
             this._router.navigate(['/login'])
           })
         })
       )
+  }
+
+  CustomeErroShow(error: any) {
+
+    console.log("called");
+    let val = "";
+    if (error.error?.ErrorCode) {
+      val = error.error.ErrorCode + "/" + error.error.ErrorMessage;
+    } else if (error.error?.status) {
+      val = error.error.status + "/" + error.error.title;
+    } else {
+      val = error.toString();
+    }
+
+    this._alertify.showError(val);
   }
 
 }

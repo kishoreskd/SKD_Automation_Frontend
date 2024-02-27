@@ -5,19 +5,21 @@ import { Injectable } from '@angular/core';
 })
 export class LocalStorageService {
 
-  private readonly departmentId = "departmentId";
-  
+  private readonly departmentKey = "departmentId";
+  public departmentId = 0;
   constructor() { }
 
   setDepartmentId(departmentId: number) {
-    localStorage.removeItem(this.departmentId);
-    localStorage.setItem(this.departmentId, departmentId.toString())
+    this.departmentId = departmentId;
+    // localStorage.removeItem(this.departmentKey);
+    // localStorage.setItem(this.departmentKey, departmentId.toString())
   }
 
   getDepartmentId(): number {
-    return +localStorage.getItem(this.departmentId);
+    return this.departmentId;
+    // return +localStorage.getItem(this.departmentKey);
   }
 
-  
+
 
 }

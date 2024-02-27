@@ -7,6 +7,7 @@ import { Plugin } from '../../domain/model/plugin.model';
 import { Department } from '../../domain/model/department.model';
 import { DepartmentService } from '../../application/services/admin-services/department.service';
 import { AlertifyService } from '../../application/services/common-services/alertify.service';
+import { AuthService } from '../../application/services/common-services/auth.service';
 
 @Component({
   selector: 'app-plugin-upsert',
@@ -27,7 +28,8 @@ export class PluginUpsertComponent implements OnInit {
     private _fb: FormBuilder,
     private _service: PluginService,
     private _depService: DepartmentService,
-    private _alertify: AlertifyService) {
+    private _alertify: AlertifyService,
+    private readonly _authService : AuthService) {
     this._pluginModel = new Plugin();
   }
 
@@ -94,22 +96,22 @@ export class PluginUpsertComponent implements OnInit {
   }
 
   add() {
-    this._pluginModel.createdBy = 2701;
+    this._pluginModel.createdBy = this._authService.getEmployeeIdFromToken();
     this._service.add(this._pluginModel).subscribe({
       next: (val: Plugin) => {
-        this._alertify.success("Plugin added successfully!");
+        this._alertify.showSuccess("Plugin added successfully!");
       }
     })
   }
 
   update() {
 
-    this._pluginModel.lastModifiedBy = 2701;
+    this._pluginModel.lastModifiedBy = this._authService.getEmployeeIdFromToken();
     this._pluginModel.pluginId = this._editData.pluginId;
 
     this._service.update(this._editData.pluginId, this._pluginModel).subscribe({
       next: (val: Plugin) => {
-        this._alertify.success("Plugin updated successfully!");
+        this._alertify.showSuccess("Plugin updated successfully!");
       }
     })
   }

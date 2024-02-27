@@ -68,7 +68,7 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
 
       this.depSelections = data;
 
-      if (this._localStorageService.getDepartmentId() > 0) {
+      if (this._localStorageService.departmentId > 0) {
         this.departmentId = this._localStorageService.getDepartmentId();
       }
       else {
@@ -82,7 +82,7 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
 
   selectionChange() {
 
-    if (this._localStorageService.getDepartmentId() != this.departmentId) {
+    if (this._localStorageService.departmentId != this.departmentId) {
 
       this._localStorageService.setDepartmentId(this.departmentId);
 

@@ -25,12 +25,13 @@ const routes: Routes = [
     {
         path: "login",
         component: LoginComponent,
+        canActivate: [LoginGuard]
     },
     {
         path: "plugin/home",
         component: PluginHomeComponent,
         resolve: { pluginCol: PluginHomeResolverService },
-        canActivate: [AuthenticationGuard]
+        canActivate: [AuthenticationGuard],
     },
     {
         path: "plugin/upsert",

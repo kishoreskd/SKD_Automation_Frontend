@@ -56,8 +56,8 @@ export class ProductivityChartComponent implements OnInit, OnChanges, OnDestroy 
           label: 'Taken ',
           data: this.countSet,
           backgroundColor: [
-            'rgba(255, 99, 132, 0.5)',
-            'rgba(54, 162, 235, 0.5)',
+            'rgba(255, 99, 132, 0.7)',
+            'rgba(54, 162, 235, 0.7)',
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',

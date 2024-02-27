@@ -4,13 +4,13 @@
 <div *ngIf="_authService.isLoggedIn()" class="div">
 
   <mat-toolbar>
-    <!-- <button  (click)="opened=!opened"> -->
-    <img src="assets/icon/pgt.ico" />
-    <!-- </button> -->
-    <span class="logo-text">Automation</span>
+    <a style="margin: 0;" (click)="opened=!opened">
+      <img src="assets/icon/pgt.ico" />
+      <span *ngIf="opened" class="logo-text card-title text-xs font-weight-bold text-uppercase">Automation</span>
+    </a>
 
     <div class="spacer"></div>
-    <i class="bi bi-building"></i>
+    <i class="fa fa-building" aria-hidden="true"></i>
     <div>
       <select class="form-select border-0" [(ngModel)]="departmentId" (change)="selectionChange()">
         <option *ngFor="let val of depSelections" [value]="val.departmentId">
@@ -18,12 +18,22 @@
         </option>
       </select>
     </div>
-
-    <a mat-button (click)="onLogout()">Logout</a>
+    <!-- <i class="fa fa-sign-out" aria-hidden="true"></i> -->
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span (click)="onLogout()">Logout</span>
+      </button>
+    </mat-menu>
   </mat-toolbar>
 
+
+
   <mat-sidenav-container autosize>
-    <mat-sidenav #sidenav opened="true" mode="side" [fixedInViewport]="true" [fixedTopGap]="45">
+    <mat-sidenav #sidenav opened="true" mode="side" [fixedInViewport]="true" [fixedTopGap]="50">
 
       <mat-nav-list>
 
@@ -33,22 +43,22 @@
 
         <mat-divider></mat-divider>
 
-
         <mat-list-item routerLink="/dashbord">
-          <mat-icon mat-list-icon class="nav-icon">home</mat-icon>
+          <mat-icon mat-list-icon class="nav-icon custom-font">home</mat-icon>
           <span *ngIf="opened" class="menu-item">Dashbord</span>
         </mat-list-item>
 
 
         <mat-list-item routerLink="/plugin/home">
-          <mat-icon mat-list-icon class="">
+          <mat-icon mat-list-icon class="nav-icon">
             auto_stories
           </mat-icon>
           <span *ngIf="opened" class="menu-item">Logging</span>
         </mat-list-item>
 
         <mat-list-item routerLink="/admin/user-home">
-          <mat-icon mat-list-icon class="">
+          <mat-icon mat-list-icon class="nav-icon">
+            <i class="fa-solid fa-house"></i>
             shield_person
           </mat-icon>
           <span *ngIf="opened" class="menu-item">Admin</span>

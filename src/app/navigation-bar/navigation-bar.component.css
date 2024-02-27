@@ -4,7 +4,7 @@ mat-sidenav-container {
     left: 0;
     right: 0;
     /* height: 100%; */
-    top: 45px;
+    top: 50px;
     /* height: 100%; */
 }
 
@@ -18,19 +18,19 @@ mat-sidenav-content {
 
 mat-sidenav {
     /* width: 200px; */
-  }
+}
 
 mat-nav-list {
     margin-left: 0px;
     color: white;
 }
 
-.loader-container{
+.loader-container {
     position: fixed;
     width: 100%;
     z-index: 99;
-   
-  }
+
+}
 
 .menu-item {
     margin-left: 30px;
@@ -42,6 +42,7 @@ mat-nav-list {
 
 .nav-icon {
     /* margin-top: 9px; */
+    /* padding-top: 3px; */
 }
 
 mat-sidenav {
@@ -74,19 +75,23 @@ mat-sidenav {
 } */
 
 img {
-    margin: 10px;
+    margin-left: 0px;
+    margin-bottom: 13px;
+    margin-right: 15px;
+    padding-left: 0;
 }
 
 mat-toolbar {
-    height: 45px;
+    height: 50px;
     background: white;
-    border-radius: 10px;
+    /* border-radius: 10px; */
+    border: 1px solid whitesmoke;
 }
 
 .logo-text {
-    padding-right: 11px;
+    /* padding-right: 11px; */
     /* margin: 1px; */
-    font-size: .875rem;
+    font-size: 1rem;
     /* color: rgba(0, 120, 212, 1); */
 }
 
@@ -126,18 +131,17 @@ img {
   } */
 
 
-  .material-resize ::ng-deep .mat-mdc-text-field-wrapper {
+
+.material-resize ::ng-deep .mat-mdc-text-field-wrapper {
     height: 36px !important;
     width: 133px;
-  
-  }
-  
-  .material-resize::ng-deep .mat-mdc-form-field-flex {
+
+}
+
+.material-resize::ng-deep .mat-mdc-form-field-flex {
     margin-top: -7px !important;
-  }
-  
-  .mat-mdc-form-field {
+}
+
+.mat-mdc-form-field {
     flex-direction: row;
-  }
-  
-  
+}

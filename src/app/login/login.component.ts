@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
         console.log(tokenPayLoad);
         this._userStoreService.setFullNameForStore(tokenPayLoad.unique_name);
         this._userStoreService.setRoleForStore(tokenPayLoad.role);
+        console.log("Login "+ tokenPayLoad.employeeId);
         this._userStoreService.setEmployeeIdForStore(+tokenPayLoad.employeeId);
         this._router.navigate(["/dashbord"]);
       });
