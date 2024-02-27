@@ -72,6 +72,21 @@ export class PluginService {
     return this._http.get<Plugin>(`Plugin/plugin/${pluginId}/log/${year}`);
   }
 
+  // getWithLogByDay(pluginId: number, date: Date) {
+
+  //   // console.log(date);
+
+  //   const day = date.getDate();
+  //   const month = date.getMonth() + 1;
+  //   const year = date.getFullYear();
+
+  //   // const utcDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  //   // const isoDate = encodeURIComponent(utcDate.toISOString());
+
+  //   // [HttpGet("plugin/{pluginId}/log/{day}/{month}/{year}")]
+  //   return this._http.get<Plugin>(`Plugin/plugin/${pluginId}/log/${day}/${month}/${year}`)
+  // }
+
   getWithLogByDay(pluginId: number, date: Date) {
 
     // console.log(date);
@@ -80,10 +95,18 @@ export class PluginService {
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
 
-    // const utcDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
-    // const isoDate = encodeURIComponent(utcDate.toISOString());
-
+    const utcDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    const isoDate = encodeURIComponent(utcDate.toUTCString());
+    // alert(isoDate);
     // [HttpGet("plugin/{pluginId}/log/{day}/{month}/{year}")]
-    return this._http.get<Plugin>(`Plugin/plugin/${pluginId}/log/${day}/${month}/${year}`)
+    return this._http.get<Plugin>(`Plugin/plugin/${pluginId}/log/day/${isoDate}`)
   }
+
+  //   const activationDate = this.getNowUTC();    
+
+  public getLocal(date: Date) {
+    // const now = new Date();
+    return new Date(date.getTime() + (date.getTimezoneOffset() * 60000));
+  }
+
 }

@@ -37,6 +37,11 @@ export class DashbordComponent implements OnInit {
   totalMminute: number = 0;
   totalAminute: number = 0;
 
+  manualCardByMnth: number = 0;
+  automateCardByMnth: number = 0;
+
+
+
   constructor(
     private readonly _pluginService: PluginService,
     private readonly _logService: PluginLogService,
@@ -93,12 +98,17 @@ export class DashbordComponent implements OnInit {
 
   loadPluginSelections() {
     this._pluginService.getByDepartment().subscribe((data: Plugin[]) => {
-      this.pluginSelections = data;
-      this.pId = data[0].pluginId;
+      // console.log(data[0]);
 
-      this.getPluginChartData();
-      this.getProductivityChartData();
-      this.getPluginLogChartData();
+      if (data.length > 0) {
+        this.pluginSelections = data;
+        this.pId = data[0].pluginId;
+
+        this.getPluginChartData();
+        this.getProductivityChartData();
+        this.getPluginLogChartData();
+      }
+
     })
   }
 
@@ -133,6 +143,9 @@ export class DashbordComponent implements OnInit {
   getCounterCardDataByMonthYear() {
     this._dashbordService.getByMonthYear(this.selectedDate).subscribe((data: Dashbord) => {
       this.dashbordSelectedMonth = data;
+      this.manualCardByMnth = data.totalManualMiniutes;
+      this.automateCardByMnth = data.totalAutomatedMinutes;
+
     })
   }
 

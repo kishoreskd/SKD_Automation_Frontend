@@ -125,7 +125,13 @@ export class PluginLogHomeComponent implements OnInit {
     } else {
       console.log("Day");
 
+
+
       this._pluginService.getWithLogByDay(this.pluginId, this.selectedDate).subscribe((data) => {
+        data.pluginLogs.forEach(e => {
+          console.log(this._pluginService.getLocal(new Date(e.createdDate)));
+          e.createdDate = this._pluginService.getLocal(new Date(e.createdDate));
+        })
         this.loadDataSource(data);
       })
     }
