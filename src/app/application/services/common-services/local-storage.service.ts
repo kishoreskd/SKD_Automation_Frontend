@@ -11,11 +11,12 @@ export class LocalStorageService {
 
   setDepartmentId(departmentId: number) {
     this.departmentId = departmentId;
-    // localStorage.removeItem(this.departmentKey);
-    // localStorage.setItem(this.departmentKey, departmentId.toString())
+    localStorage.removeItem(this.departmentKey);
+    localStorage.setItem(this.departmentKey, departmentId.toString())
   }
 
   getDepartmentId(): number {
+    this.departmentId = +localStorage.getItem(this.departmentKey);
     return this.departmentId;
     // return +localStorage.getItem(this.departmentKey);
   }

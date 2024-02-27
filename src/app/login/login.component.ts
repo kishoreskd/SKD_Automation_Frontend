@@ -66,10 +66,10 @@ export class LoginComponent implements OnInit {
         this._authService.setToken(data.accessToken);
         this._authService.setRefreshToken(data.refreshToken);
         const tokenPayLoad = this._authService.decodeToken();
-        console.log(tokenPayLoad);
+        // console.log(tokenPayLoad);
         this._userStoreService.setFullNameForStore(tokenPayLoad.unique_name);
         this._userStoreService.setRoleForStore(tokenPayLoad.role);
-        console.log("Login "+ tokenPayLoad.employeeId);
+        // console.log("Login "+ tokenPayLoad.employeeId);
         this._userStoreService.setEmployeeIdForStore(+tokenPayLoad.employeeId);
         this._router.navigate(["/dashbord"]);
       });

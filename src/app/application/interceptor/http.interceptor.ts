@@ -35,8 +35,11 @@ export class HttpInterceptorService implements HttpInterceptor {
           if (error.status === 401) {
             return this.handleUnAuthorizedError(req, next);
           }
+          if (error.status === 404) {
+            this.CustomeErroShow(error);
+          }
         }
-        this.CustomeErroShow(error);
+        // this.CustomeErroShow(error);
         return throwError(() => error);
       }),
       finalize(() => {
@@ -82,7 +85,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     return this._loginService.renewToken(tokenApi)
       .pipe(
         switchMap((data: any) => {
-          console.log(data);
+          // console.log(data);
 
           this._authService.setToken(data.accessToken);
           this._authService.setRefreshToken(data.refreshToken);
@@ -105,7 +108,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   CustomeErroShow(error: any) {
 
-    console.log("called");
+    // console.log("called");
     let val = "";
     if (error.error?.ErrorCode) {
       val = error.error.ErrorCode + "/" + error.error.ErrorMessage;

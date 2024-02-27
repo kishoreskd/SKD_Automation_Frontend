@@ -71,6 +71,7 @@ import { UserUpsertComponent } from './admin/user-upsert/user-upsert.component';
 import { UserService } from './application/services/admin-services/user.service';
 import { RoleService } from './application/services/admin-services/role.service';
 import { AuthService } from './application/services/common-services/auth.service';
+import { DatePickerComponent } from './common/date-picker/date-picker.component';
 
 @NgModule({
     declarations:
@@ -91,7 +92,8 @@ import { AuthService } from './application/services/common-services/auth.service
             ProductivityChartComponent,
             LoginComponent,
             UserHomeComponent,
-            UserUpsertComponent
+            UserUpsertComponent,
+            DatePickerComponent
         ],
     imports:
         [
@@ -129,11 +131,12 @@ import { AuthService } from './application/services/common-services/auth.service
             MatDivider,
             MatTabsModule,
             NgToastModule,
+            MatRadioModule
         ],
     providers:
         [
             { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
-            { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+            // { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
             PluginService,
             PluginLogService,
             DepartmentService,

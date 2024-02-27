@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
 import moment, { Moment } from 'moment';
 
@@ -16,12 +17,19 @@ export const MY_FORMATS = {
   },
 };
 
+// { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+
 
 @Component({
   selector: 'app-month-picker',
   templateUrl: './month-picker.component.html',
   styleUrls: ['./month-picker.component.css'],
-  providers: [{ provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },]
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
+  ],
+  // providers: [{ provide: MAT_DATE_FORMATS, useValue: MY_FORMATS}],
+
 })
 export class MonthPickerComponent implements OnInit {
 
@@ -44,7 +52,7 @@ export class MonthPickerComponent implements OnInit {
     ctrlValue.month(normalizedMonth.month());
     this.date.setValue(ctrlValue);
     datepicker.close();
-    
+
     let result = new Date();
     if (this.date.valid) {
       result = this.date.value.toDate();

@@ -76,10 +76,10 @@
           </option>
         </select> -->
 
-        <mat-form-field class="material-resize mx-2" appearance="outline">
+        <mat-form-field class="material-resize mx-1" appearance="outline">
           <mat-label>Filter by</mat-label>
           <mat-select [(ngModel)]="filterType">
-            <mat-option *ngFor="let val of filterSource" [value]="val.key">
+            <mat-option *ngFor="let val of _FILTERSOURCE" [value]="val.key">
               {{val.val}}
             </mat-option>
           </mat-select>
@@ -87,10 +87,29 @@
 
       </div>
 
-      <div>
+      <div *ngIf="pickerSelection === 'month'">
         <app-month-picker (dateTimeSelected)="onSelectedMonth($event)"></app-month-picker>
       </div>
 
+      <div *ngIf="pickerSelection !== 'month'" class="mx-1">
+        <app-date-picker (dateTimeSelected)="onSelectedDay($event)"></app-date-picker>
+      </div>
+
+
+
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <div mat-menu-item>
+          <section>
+            <mat-radio-group [(ngModel)]="pickerSelection">
+              <mat-radio-button value="day">Day</mat-radio-button>
+              <mat-radio-button value="month">Month</mat-radio-button>
+            </mat-radio-group>
+          </section>
+        </div>
+      </mat-menu>
     </mat-toolbar>
 
     <!-- <mat-divider></mat-divider> -->
@@ -149,8 +168,8 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-header-row *matHeaderRowDef="_DISPLAYED_COLUMNS"></tr>
+      <tr mat-row *matRowDef="let row; columns: _DISPLAYED_COLUMNS;"></tr>
 
     </table>
 

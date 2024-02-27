@@ -89,6 +89,7 @@ export class PluginHomeComponent implements OnInit {
 
   private refreshPlugins() {
     this._service.getByDepartment().subscribe((data: Plugin[]) => {
+
       this.pluginCol = data;
       this.dataSource = new MatTableDataSource<Plugin>(this.pluginCol);
       this.dataSource.paginator = this._paginator;

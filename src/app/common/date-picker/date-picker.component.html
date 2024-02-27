@@ -1,0 +1,5 @@
+<mat-form-field class="material-resize" appearance="outline">
+  <input matInput [matDatepicker]="picker" [readonly]="true" [formControl]="date">
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker (closed)="OnClosed()" #picker></mat-datepicker>
+</mat-form-field>

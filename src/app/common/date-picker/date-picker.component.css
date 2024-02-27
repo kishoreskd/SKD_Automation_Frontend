@@ -1,0 +1,13 @@
+.material-resize ::ng-deep .mat-mdc-text-field-wrapper {
+    height: 36px !important;
+    width: 150px;
+
+}
+
+.material-resize::ng-deep .mat-mdc-form-field-flex {
+    margin-top: -7px !important;
+}
+
+.mat-mdc-form-field {
+    flex-direction: row;
+}

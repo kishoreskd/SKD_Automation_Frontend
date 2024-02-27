@@ -45,23 +45,45 @@ export class PluginService {
     return this._http.get<Plugin>(`Plugin/plugins/${pluginId}/log`);
   }
 
-  getWithLogByMonthAndYear(pluginId: number, month: number, year: number): Observable<Plugin> {
+  getWithLogByMonthAndYear(pluginId: number, date: Date): Observable<Plugin> {
 
-    // Plugin/get_withlog_by_monthandyear/departmentid=1&month=2&year=2024
-    // [HttpGet("get_withlog_by_monthyear/pluginId={pluginId}&month={month}&year={year}")]
-    // [HttpGet("get_withlog_by_monthyear/pluginId={pluginId}&month={month}&year={year}")]
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
     return this._http.get<Plugin>(`Plugin/plugin/${pluginId}/log/${month}/${year}`);
   }
 
-  getAllWithLogByMonthAndYear(month: number, year: number): Observable<Plugin[]> {
+  getAllWithLogByMonthAndYear(date: Date): Observable<Plugin[]> {
 
-    // Plugin/get_withlog_by_monthandyear/departmentid=1&month=2&year=2024
-    // [HttpGet("get_withlog_by_monthyear/pluginId={pluginId}&month={month}&year={year}")]
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
 
     return this._http.get<Plugin[]>(`Plugin/plugins/${this._lsService.getDepartmentId()}/log/${month}/${year}`);
   }
 
-  getWithLogByYear(pluginId:number, year: number): Observable<Plugin> {
+  getWithLogByYear(pluginId: number, date: Date): Observable<Plugin> {
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
     return this._http.get<Plugin>(`Plugin/plugin/${pluginId}/log/${year}`);
+  }
+
+  getWithLogByDay(pluginId: number, date: Date) {
+
+    // console.log(date);
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    // const utcDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    // const isoDate = encodeURIComponent(utcDate.toISOString());
+
+    // [HttpGet("plugin/{pluginId}/log/{day}/{month}/{year}")]
+    return this._http.get<Plugin>(`Plugin/plugin/${pluginId}/log/${day}/${month}/${year}`)
   }
 }

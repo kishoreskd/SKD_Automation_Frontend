@@ -21,11 +21,24 @@ export class PluginLogHomeComponent implements OnInit {
   @ViewChild(MatPaginator) _paginator: MatPaginator;
   @ViewChild(MatSort) _sort: MatSort;
 
+
+  _FILTERSOURCE: Array<any> = [
+    { key: "jobName", val: "Job Name" },
+    { key: "activity", val: "Activity" },
+    { key: "createdBy", val: "Created By" },
+  ];
+
+  _DISPLAYED_COLUMNS: string[] = ['index', 'jobName', 'activity', 'createdBy', 'createdDate', 'action'];
+  _PICKER_FILTERSOURCE: Array<any> = [
+    { key: "day", val: "Day" },
+    { key: "month", val: "Month" }
+  ]
+
+  selectedDate: Date = new Date();;
+  pickerSelection: string;
   plugin: Plugin;
-  pluginLogCol: Array<PluginLog>;
-  displayedColumns: string[];
+  plugins: Array<PluginLog> = new Array<PluginLog>();;
   dataSource: MatTableDataSource<PluginLog>;
-  filterSource: Array<any>;
   filterText: string;
   filterType: string;
   pluginId: number;
@@ -33,34 +46,20 @@ export class PluginLogHomeComponent implements OnInit {
   manualMinutes: number = 0;
   automatedMinutes: number = 0;
 
-  selectedMonth: number;
-  selectedYear: number;
-
   constructor(private _matDialog: MatDialog,
     private _service: PluginLogService,
     private _activateRoute: ActivatedRoute,
     private _alertify: AlertifyService,
     private _pluginService: PluginService) {
-    // this.displayedColumns = ['pluginLogId', 'pluginId', 'jobName', 'activity', 'createdBy', 'createdDate', 'action'];
-    this.displayedColumns = ['index', 'jobName', 'activity', 'createdBy', 'createdDate', 'action'];
-
-    this.filterSource = [
-      { key: "jobName", val: "Job Name" },
-      { key: "activity", val: "Activity" },
-      { key: "createdBy", val: "Created By" },
-    ];
-    this.pluginLogCol = new Array<PluginLog>();
   }
 
   ngOnInit() {
 
-    const today = new Date();
-    this.selectedMonth = today.getMonth() + 1;
-    this.selectedYear = today.getFullYear();
     this.pluginId = +this._activateRoute.snapshot.params['id'];
     this.refreshPluginLog();
 
-    this.filterType = this.displayedColumns[1];
+    this.filterType = this._DISPLAYED_COLUMNS[1];
+    this.pickerSelection = this._PICKER_FILTERSOURCE[0].key;
   }
 
   ngAfterViewInit(): void {
@@ -70,10 +69,12 @@ export class PluginLogHomeComponent implements OnInit {
 
   onSelectedMonth(date: Date) {
 
-    this.dataSource = null;
-    this.selectedMonth = date.getMonth() + 1;
-    this.selectedYear = date.getFullYear();
+    this.selectedDate = date;
+    this.refreshPluginLog();
+  }
 
+  onSelectedDay(date: Date) {
+    this.selectedDate = date;
     this.refreshPluginLog();
   }
 
@@ -115,17 +116,32 @@ export class PluginLogHomeComponent implements OnInit {
   }
 
   private refreshPluginLog() {
-    this._pluginService.getWithLogByMonthAndYear(this.pluginId, this.selectedMonth, this.selectedYear).subscribe((data) => {
-      this.automatedMinutes = (data.automatedMinutes * data.pluginLogs?.length);
-      this.manualMinutes = (data.manualMinutes * data.pluginLogs?.length);
 
-      this.pluginLogCol = data.pluginLogs;
-      this.dataSource = new MatTableDataSource<PluginLog>(this.pluginLogCol);
-      this.dataSource.paginator = this._paginator;
-      this.dataSource.sort = this._sort;
-      this.pluginName = data.pluginName;
+    if (this.pickerSelection === "month") {
+      console.log("Month");
+      this._pluginService.getWithLogByMonthAndYear(this.pluginId, this.selectedDate).subscribe((data) => {
+        this.loadDataSource(data);
+      })
+    } else {
+      console.log("Day");
 
-    })
+      this._pluginService.getWithLogByDay(this.pluginId, this.selectedDate).subscribe((data) => {
+        this.loadDataSource(data);
+      })
+    }
+  }
+
+
+
+  private loadDataSource(data: Plugin) {
+    this.dataSource = null;
+    this.automatedMinutes = (data.automatedMinutes * data.pluginLogs?.length);
+    this.manualMinutes = (data.manualMinutes * data.pluginLogs?.length);
+    this.plugins = data.pluginLogs;
+    this.dataSource = new MatTableDataSource<PluginLog>(this.plugins);
+    this.dataSource.paginator = this._paginator;
+    this.dataSource.sort = this._sort;
+    this.pluginName = data.pluginName;
   }
 
   public applyFilter() {
@@ -148,15 +164,15 @@ export class PluginLogHomeComponent implements OnInit {
 
   private getPlugin() {
     this._pluginService.getWithLog(this.pluginId).subscribe((data: Plugin) => {
-      this.automatedMinutes = (data.automatedMinutes * this.pluginLogCol.length);
-      this.manualMinutes = (data.manualMinutes * this.pluginLogCol.length);
+      this.automatedMinutes = (data.automatedMinutes * this.plugins.length);
+      this.manualMinutes = (data.manualMinutes * this.plugins.length);
     })
   }
 
   private getAllPluginLog() {
     this._activateRoute.data.subscribe((data) => {
-      this.pluginLogCol = data['pluginLogCol'];
-      this.dataSource = new MatTableDataSource<PluginLog>(this.pluginLogCol);
+      this.plugins = data['plugins'];
+      this.dataSource = new MatTableDataSource<PluginLog>(this.plugins);
     })
   }
 }

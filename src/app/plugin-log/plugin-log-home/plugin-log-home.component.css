@@ -1,6 +1,4 @@
-
-
-  /* ::ng-deep .mat-mdc-text-field-wrapper {
+/* ::ng-deep .mat-mdc-text-field-wrapper {
     height: 40px !important;
   }
   
@@ -8,17 +6,17 @@
     margin-top: -7px !important;
   }
    */
-  .menudiv {
-    /* background-color: rgb(255, 255, 255); */
-    height: 38px;
-  }
+.menudiv {
+  /* background-color: rgb(255, 255, 255); */
+  height: 38px;
+}
 
-  .spacer {
-    flex: 1 1 auto;
-  }
+.spacer {
+  flex: 1 1 auto;
+}
 
 
-  /* .material-resize ::ng-deep .mat-mdc-text-field-wrapper {
+/* .material-resize ::ng-deep .mat-mdc-text-field-wrapper {
     height: 36px !important;
   }
   
@@ -26,16 +24,23 @@
     margin-top: -7px !important;
   } */
 
-  .material-resize ::ng-deep .mat-mdc-text-field-wrapper {
-    height: 36px !important;
-    width: 133px;
-  
-  }
-  
-  .material-resize::ng-deep .mat-mdc-form-field-flex {
-    margin-top: -7px !important;
-  }
-  
-  .mat-mdc-form-field {
-    flex-direction: row;
-  }
+.material-resize ::ng-deep .mat-mdc-text-field-wrapper {
+  height: 36px !important;
+  width: 133px;
+
+}
+
+.material-resize::ng-deep .mat-mdc-form-field-flex {
+  margin-top: -7px !important;
+}
+
+.mat-mdc-form-field {
+  flex-direction: row;
+}
+
+
+.material-filter-resize ::ng-deep .mat-mdc-text-field-wrapper {
+  height: 36px !important;
+  width: 133px;
+
+}

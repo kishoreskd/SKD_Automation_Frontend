@@ -16,7 +16,11 @@ export class DashbordService {
     return this._http.get<Dashbord>(`Dashbord/dashbord/${this._lsService.getDepartmentId()}`);
   }
 
-  getByMonthYear(month: number, year: number) {
+  getByMonthYear(date: Date) {
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
     // [HttpGet("get_all_by_monthyear/departmentid={departmentid}&month={month}&year={year}")]
     return this._http.get<Dashbord>(`Dashbord/dashbord/${this._lsService.getDepartmentId()}/${month}/${year}`)
   }

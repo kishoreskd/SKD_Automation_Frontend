@@ -97,8 +97,8 @@
   color: #FFF;
 }
 
-.card-counter .bg-purple{
-  background-color:  #605ca8 !important
+.card-counter .bg-purple {
+  background-color: #605ca8 !important
 }
 
 
@@ -142,26 +142,39 @@
   opacity: 0.2;
 }
 
-.card-counter .count-numbers {
-  position: absolute;
+
+.count-numbers {
+  /* position: absolute;
   right: 35px;
   top: 65px;
   font-size: 32px;
-  display: block;
+  display: block; */
+  color: #007bff;
+  font-size: 25px;
 }
 
-.card-counter .count-name {
-  position: absolute;
-  right: 35px;
+.count-name {
+  /* position: absolute;
+  right: 35px; */
   /* top: 65px; */
 
   /* font-style: italic; */
   /* font-weight: 600; */
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   /* opacity: 0.5; */
-  color: white;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
   /* display: block;
   font-size: 18px; */
 }
 
 /* Counter Card */
+
+
+
+.card .card-header-title {
+  font-weight: 900;
+  font-weight: bold;
+  padding-bottom: 25px;
+  font-size: 16px;
+}

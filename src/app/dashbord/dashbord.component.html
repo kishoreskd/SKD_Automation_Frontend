@@ -7,8 +7,9 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> Total Plugins</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-database" aria-hidden="true"></i> {{totalPCount}}</div>
+              <div class="text-xs font-weight-bold  text-uppercase mb-1 count-name"> Total Plugins</div>
+              <div class="h5 mb-0 font-weight-bold  count-numbers"><i class="fa fa-database" aria-hidden="true"></i>
+                {{totalPCount}}</div>
             </div>
             <!-- <div class="col-auto">
               <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -24,9 +25,10 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
 
-              <div class="text-xs font-weight-bold text-primary  text-uppercase mb-1">
+              <div class="text-xs font-weight-bold text-uppercase mb-1 count-name">
                 Total Productivity By Manual</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-clock-o" aria-hidden="true"></i> {{totalMminute | minutesToHours}}</div>
+              <div class="h5 mb-0 font-weight-bold  count-numbers"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                {{totalMminute | minutesToHours}}</div>
             </div>
             <!-- <div class="col-auto">
                 <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -41,9 +43,10 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+              <div class="text-xs font-weight-bold text-uppercase mb-1 count-name">
                 Total Productivity By Automate</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-clock-o" aria-hidden="true"></i> {{totalAminute | minutesToHours}}</div>
+              <div class="h5 mb-0 font-weight-bold  count-numbers"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                {{totalAminute | minutesToHours}}</div>
             </div>
             <!-- <div class="col-auto">
               <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -54,9 +57,6 @@
     </div>
   </div>
 </div>
-
-
-
 
 <!-- Menu Bar -->
 
@@ -93,8 +93,6 @@
     </div>
 
 
-
-
     <div class="justify-content-center m-3">
 
       <div class="row d-flex">
@@ -106,7 +104,8 @@
             <div class="card-body">
               <h4 class="card-title text-xs font-weight-bold text-primary text-uppercase mb-1">Manual
                 {{selectedMonth}}/{{selectedYear}}</h4>
-              <p class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-clock-o" aria-hidden="true"></i> {{dashbordSelectedMonth.totalManualMiniutes |
+              <p class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                {{dashbordSelectedMonth.totalManualMiniutes |
                 minutesToHours}}</p>
             </div>
           </div>
@@ -118,7 +117,8 @@
             <div class="card-body">
               <h4 class="card-title text-xs font-weight-bold text-primary text-uppercase mb-1">Automate
                 {{selectedMonth}}/{{selectedYear}}</h4>
-              <p class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-clock-o" aria-hidden="true"></i> {{dashbordSelectedMonth.totalAutomatedMinutes |
+              <p class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                {{dashbordSelectedMonth.totalAutomatedMinutes |
                 minutesToHours}}</p>
             </div>
           </div>
@@ -131,80 +131,64 @@
       </div>
     </div>
 
+  </div>
+</div>
 
+<!-- Chart -->
 
+<div class="flex-row row mt-3">
 
+  <div class="col-md-6">
+    <div class="card rounded-2 shadow-lg border-0">
 
-
-
-
-    <!-- Chart -->
-
-    <div class="flex-row row mt-3">
-
-      <div class="col-md-6">
-        <div class="card rounded-2 shadow-lg border-0">
-          <div class="card-header bg-white">
-            <span><i class="fa fa-bar-chart" aria-hidden="true"></i> {{pluginName}}</span> Productivity Analyzis {{selectedMonth}}/{{selectedYear}}
-          </div>
-
-          <div class="card-body">
-            <div class="card-title">
-
-            </div>
-
-            <app-productivity-chart [plgn]="productivityChartData"
-              *ngIf="productivityChartData"></app-productivity-chart>
-
-          </div>
+      <div class="card-body">
+        <div class="card-title card-header-title">
+          <span><i class="fa fa-bar-chart" aria-hidden="true"></i> {{pluginName}}</span> Productivity Analyzis
+          {{selectedMonth}}/{{selectedYear}}
         </div>
+
+        <app-productivity-chart [plgn]="productivityChartData" *ngIf="productivityChartData"></app-productivity-chart>
+
       </div>
-
-
-      <div class="col-md-6 ">
-        <div class="card  rounded-2 shadow-lg border-0">
-          <div class="card-header bg-white">
-            <i class="fa fa-bar-chart" aria-hidden="true"></i> {{pluginName}} Utilizing Analyzis {{selectedMonth}}/{{selectedYear}}
-          </div>
-
-          <div class="card-body">
-            <div class="card-title">
-            </div>
-            <!--  -->
-            <app-plugin-log-chart [plugin]="pluginLogChartData" *ngIf="pluginLogChartData"></app-plugin-log-chart>
-            <!--  -->
-          </div>
-        </div>
-      </div>
-
-
     </div>
+  </div>
+
+
+  <div class="col-md-6 ">
+    <div class="card  rounded-2 shadow-lg border-0">
+      <div class="card-body">
+        <div class="card-title card-header-title">
+          <i class="fa fa-bar-chart" aria-hidden="true"></i> {{pluginName}} Utilizing Analyzis
+          {{selectedMonth}}/{{selectedYear}}
+        </div>
+        <!--  -->
+        <app-plugin-log-chart [plugin]="pluginLogChartData" *ngIf="pluginLogChartData"></app-plugin-log-chart>
+        <!--  -->
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
-    <div class="flex-row row mt-3">
-      <div class="col-md-6 mt-3">
-        <div class="card  rounded-2 shadow-lg border-0">
-          <div class="card-header bg-white">
-            <i class="fa fa-line-chart" aria-hidden="true"></i> Plugins Utilizing Analyzis {{selectedMonth}}/{{selectedYear}}
-          </div>
+<div class="flex-row row mt-3">
+  <div class="col-md-6 mt-3">
+    <div class="card  rounded-2 shadow-lg border-0">
 
-          <div class="card-body">
-            <div class="card-title">
-            </div>
-
-            <!--  -->
-            <app-plugin-chart [pluginCol]="pluginChartData" *ngIf="pluginChartData"></app-plugin-chart>
-            <!--  -->
-
-          </div>
+      <div class="card-body">
+        <div class="card-title card-header-title">
+          <i class="fa fa-line-chart" aria-hidden="true"></i> Plugins Utilizing Analyzis
+          {{selectedMonth}}/{{selectedYear}}
         </div>
 
+        <!--  -->
+        <app-plugin-chart [pluginCol]="pluginChartData" *ngIf="pluginChartData"></app-plugin-chart>
+        <!--  -->
 
       </div>
 
-
+      <div class="card-footer">
+      </div>
     </div>
-
   </div>
 </div>

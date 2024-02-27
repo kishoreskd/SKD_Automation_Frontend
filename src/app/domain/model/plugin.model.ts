@@ -3,7 +3,7 @@ import { PluginLog } from "./plugin-log.model";
 export class Plugin {
 
     constructor(){
-        this.pluginLogs = new Array<PluginLog>();
+        this.pluginLogs = new Array<PluginLog>();    
     }
 
     pluginId: number;

@@ -23,6 +23,7 @@ export class DashbordComponent implements OnInit {
   pId: number;
   selectedMonth: number;
   selectedYear: number;
+  selectedDate: Date = new Date();
 
   pluginName: string;
 
@@ -35,9 +36,6 @@ export class DashbordComponent implements OnInit {
   totalPCount: number = 0;
   totalMminute: number = 0;
   totalAminute: number = 0;
-
-
-
 
   constructor(
     private readonly _pluginService: PluginService,
@@ -58,6 +56,7 @@ export class DashbordComponent implements OnInit {
     const today = new Date();
     this.selectedMonth = today.getMonth() + 1;
     this.selectedYear = today.getFullYear();
+
   }
 
   resetChartData() {
@@ -72,6 +71,7 @@ export class DashbordComponent implements OnInit {
 
     this.selectedMonth = date.getMonth() + 1;
     this.selectedYear = date.getFullYear();
+    this.selectedDate = date;
 
     if (this.pId > 0) {
       this.getPluginChartData();
@@ -103,24 +103,22 @@ export class DashbordComponent implements OnInit {
   }
 
   getProductivityChartData() {
-    this._pluginService.getWithLogByMonthAndYear(this.pId, this.selectedMonth, this.selectedYear).subscribe((data: Plugin) => {
+    this._pluginService.getWithLogByMonthAndYear(this.pId, this.selectedDate).subscribe((data: Plugin) => {
       this.productivityChartData = data;
     });
   }
 
   getPluginChartData() {
-    this._pluginService.getAllWithLogByMonthAndYear(this.selectedMonth, this.selectedYear).subscribe((data: Plugin[]) => {
+    this._pluginService.getAllWithLogByMonthAndYear(this.selectedDate).subscribe((data: Plugin[]) => {
       this.pluginChartData = data;
     });
   }
 
   getPluginLogChartData() {
-    this._pluginService.getWithLogByYear(this.pId, this.selectedYear).subscribe((data: Plugin) => {
+    this._pluginService.getWithLogByYear(this.pId, this.selectedDate).subscribe((data: Plugin) => {
       this.pluginLogChartData = data;
       this.pluginName = data.pluginName;
-    }, error => {
-      console.log(error);
-    })
+    });
   }
 
 
@@ -133,7 +131,7 @@ export class DashbordComponent implements OnInit {
   }
 
   getCounterCardDataByMonthYear() {
-    this._dashbordService.getByMonthYear(this.selectedMonth, this.selectedYear).subscribe((data: Dashbord) => {
+    this._dashbordService.getByMonthYear(this.selectedDate).subscribe((data: Dashbord) => {
       this.dashbordSelectedMonth = data;
     })
   }

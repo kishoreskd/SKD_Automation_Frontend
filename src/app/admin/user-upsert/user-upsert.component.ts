@@ -75,6 +75,7 @@ export class UserUpsertComponent implements OnInit {
     if (this._dialogData.id !== 0) {
       this.action = "Update";
       this.registerFrm.patchValue(this._dialogData);
+      this.password.setValue("");
     }
   }
 

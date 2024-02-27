@@ -18,7 +18,7 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
   // showLoadingIndicator = true;
   departmentId: number;
   depSelections: Array<Department> = new Array<Department>();
-  isLoggedIn : boolean = true;
+  isLoggedIn: boolean = true;
 
   constructor(private _router: Router,
     public _loaderService: LoaderService,
@@ -46,10 +46,10 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     // this.loaderVisible = this._loaderService.loaderVisible;
 
-      // this._authService.isLoggedIn().subscribe((data: boolean) => {
-      //   this.isLoggedIn = data;
-      //   console.log(this.isLoggedIn);
-      // });
+    // this._authService.isLoggedIn().subscribe((data: boolean) => {
+    //   this.isLoggedIn = data;
+    //   console.log(this.isLoggedIn);
+    // });
 
     // this.isLoggedIn = this._authService.isLoggedIn();
     // console.log(this.isLoggedIn);
@@ -68,7 +68,7 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
 
       this.depSelections = data;
 
-      if (this._localStorageService.departmentId > 0) {
+      if (this._localStorageService.getDepartmentId() > 0) {
         this.departmentId = this._localStorageService.getDepartmentId();
       }
       else {
@@ -82,7 +82,7 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
 
   selectionChange() {
 
-    if (this._localStorageService.departmentId != this.departmentId) {
+    if (this._localStorageService.getDepartmentId() != this.departmentId) {
 
       this._localStorageService.setDepartmentId(this.departmentId);
 
