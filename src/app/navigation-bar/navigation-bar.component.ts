@@ -15,10 +15,10 @@ import { AuthService } from '../application/services/common-services/auth.servic
 export class NavigationBarComponent implements OnInit, AfterViewInit {
   opened = true;
   loaderVisible: boolean = false;
-  // showLoadingIndicator = true;
   departmentId: number;
   depSelections: Array<Department> = new Array<Department>();
   isLoggedIn: boolean = true;
+  userName: string = "";
 
   constructor(private _router: Router,
     public _loaderService: LoaderService,
@@ -43,16 +43,8 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngOnInit() {
-    // this.loaderVisible = this._loaderService.loaderVisible;
-
-    // this._authService.isLoggedIn().subscribe((data: boolean) => {
-    //   this.isLoggedIn = data;
-    //   console.log(this.isLoggedIn);
-    // });
-
-    // this.isLoggedIn = this._authService.isLoggedIn();
-    // console.log(this.isLoggedIn);
+  ngOnInit() {  
+    this.userName = this._authService.getUserNameFromToken();
 
     this._loaderService.getLoaderVisibility().subscribe((isLoading: boolean) => {
       this.loaderVisible = isLoading;
@@ -65,9 +57,8 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
   loadDepartmentSelections() {
 
     this._departmentService.getAll().subscribe((data: Department[]) => {
-
+      
       this.depSelections = data;
-
       if (this._localStorageService.getDepartmentId() > 0) {
         this.departmentId = this._localStorageService.getDepartmentId();
       }
@@ -100,7 +91,17 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
   }
 
   onLogout() {
-    this._authService.removeToken();
+    // this._loaderService.loaderVisible.next(true);
+    // const timer = setTimeout(() => {
+    //   if (!this.loaderVisible) {
+    //     return;
+    //   }
+    //   this._authService.logOut();
+    //   this._router.navigate(["/login"]);
+    //   this._loaderService.loaderVisible.next(false);
+    // }, 5000)
+
+    this._authService.logOut();
     this._router.navigate(["/login"]);
   }
 

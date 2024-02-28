@@ -9,11 +9,18 @@ export class AuthService {
 
   // private isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   // isLoggedIn: boolean = false;
-  private payLoad: any;
+  public payLoad: any;
 
   constructor() {
-    this.payLoad = this.decodeToken();
+    this.decodeToken();
   }
+
+  public decodeToken() {
+    const jwtHelper = new JwtHelperService();
+    const token = this.getToken()!;
+    this.payLoad = jwtHelper.decodeToken(token);
+  }
+
 
   setToken(token: string) {
     localStorage.setItem("token", token);
@@ -26,6 +33,7 @@ export class AuthService {
   }
 
   removeToken() {
+    // console.log("called");
     localStorage.removeItem("token");
     // this.isLoggedIn = true;
     // this.isLoggedIn$.next(false);
@@ -41,7 +49,7 @@ export class AuthService {
 
   logOut() {
     localStorage.removeItem("token");
-    localStorage.removeItem("refrestoken");
+    localStorage.removeItem("refreshtoken");
   }
 
   isLoggedIn(): boolean {
@@ -55,18 +63,18 @@ export class AuthService {
     return !!localStorage.getItem("token");
   }
 
-  decodeToken() {
-    const jwtHelper = new JwtHelperService();
-    const token = this.getToken()!;
-    return jwtHelper.decodeToken(token);
-  }
 
-  getUserNameFromTeken(): string {
+  getUserNameFromToken(): string {
     return this.payLoad.unique_name;
   }
 
   getEmployeeIdFromToken(): number {
     return this.payLoad.employeeId;
   }
+
+  getRoleFromToken(): string {
+    return this.payLoad.role;
+  }
+
 
 }

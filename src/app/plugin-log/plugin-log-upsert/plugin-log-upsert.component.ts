@@ -55,7 +55,6 @@ export class PluginLogUpsertComponent implements OnInit {
   }
 
   patchObj() {
-    console.log(this._dialogData);
     if (this._dialogData.pluginLogId !== 0) {
       this._action = "Update";
       this._pluginLogFrm.patchValue(this._dialogData);

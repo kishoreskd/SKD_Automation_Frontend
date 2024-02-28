@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AuthService } from './application/services/common-services/auth.service';
+import { LoaderService } from './application/services/common-services/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -9,20 +10,16 @@ import { AuthService } from './application/services/common-services/auth.service
 export class AppComponent implements OnInit {
 
   isLoggedIn: boolean = false;
+  isLoading: boolean;
 
-  constructor(public _authService: AuthService) { }
+  constructor(public _authService: AuthService,
+    public _loaderService: LoaderService,
+    private _cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    // this.isLoggedIn = this._authService.isLoggedIn();
-    // console.log(this.isLoggedIn);
-
-    // this.isLoggedIn = this._authService.isLoggedIn();
-    // console.log(this.isLoggedIn);
-
-    // this._authService.isLoggedIn().subscribe((data: boolean) => {
-    //   this.isLoggedIn = data;
-    //   console.log(this.isLoggedIn);
-    // });
-
+    this._loaderService.getLoaderVisibility().subscribe((isLoading: boolean) => {
+      this.isLoading = isLoading;
+      this._cdr.detectChanges();
+    });
   }
 }

@@ -21,6 +21,8 @@ export class LoginComponent implements OnInit {
   isText: boolean = false;
   eyeIcon: string = 'fa-eye-slash';
   type: string = 'password';
+  ermsg: string = "";
+  isError: boolean = false;
 
   constructor(private _fb: FormBuilder,
     private readonly _loginService: LoginService,
@@ -32,6 +34,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    this.loginForm.get('userName').setValue("2701");
+    this.loginForm.get('password').setValue("KishIndi@345");
+
   }
 
   get userName(): FormControl {
@@ -59,21 +64,26 @@ export class LoginComponent implements OnInit {
     this.isText ? (this.type = 'text') : (this.type = 'password')
   }
 
+  hideAlertMsg() {
+    this.isError = false;
+  }
+
   onSubmit() {
+
     if (this.loginForm.valid) {
+
       this.map();
       this._loginService.authenticate(this.login).subscribe((data: AuthToken) => {
+
         this._authService.setToken(data.accessToken);
         this._authService.setRefreshToken(data.refreshToken);
-        const tokenPayLoad = this._authService.decodeToken();
-        // console.log(tokenPayLoad);
-        this._userStoreService.setFullNameForStore(tokenPayLoad.unique_name);
-        this._userStoreService.setRoleForStore(tokenPayLoad.role);
-        // console.log("Login "+ tokenPayLoad.employeeId);
-        this._userStoreService.setEmployeeIdForStore(+tokenPayLoad.employeeId);
+        this._authService.decodeToken();      
         this._router.navigate(["/dashbord"]);
+        
+      }, err => {
+        this.isError = true;
+        this.ermsg = err.error.errorMessage;
       });
-      // this.loginForm.reset();
 
     } else {
       ValidateForm.validateAllFormFields(this.loginForm);

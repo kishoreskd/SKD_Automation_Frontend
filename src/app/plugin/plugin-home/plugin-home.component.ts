@@ -127,7 +127,6 @@ export class PluginHomeComponent implements OnInit {
     }
 
     this.dataSource.filter = filterValue;
-
     if (this.dataSource._pageData) this.dataSource.paginator.firstPage();
   }
 }

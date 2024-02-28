@@ -88,7 +88,7 @@ export class UserUpsertComponent implements OnInit {
       } else {
         this.update();
       }
-      this._userDialog.close(false);
+      this._userDialog.close(true);
     }
   }
 
@@ -122,6 +122,7 @@ export class UserUpsertComponent implements OnInit {
     this.user.userName = this.userName.value;
     this.user.roleId = this.roleName.value;
     this.user.password = this.password.value;
+    this.user.employeeId = this.employeeId.value;
   }
 
 }

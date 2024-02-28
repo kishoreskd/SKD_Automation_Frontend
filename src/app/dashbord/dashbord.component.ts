@@ -40,8 +40,6 @@ export class DashbordComponent implements OnInit {
   manualCardByMnth: number = 0;
   automateCardByMnth: number = 0;
 
-
-
   constructor(
     private readonly _pluginService: PluginService,
     private readonly _logService: PluginLogService,

@@ -163,7 +163,7 @@
   /* text-transform: capitalize; */
   /* opacity: 0.5; */
   color: rgb(0, 0, 0);
-  font-weight: bold;
+  /* font-weight: bold; */
   /* display: block;
   font-size: 18px; */
 }
@@ -173,8 +173,8 @@
 
 
 .card .card-header-title {
-  font-weight: 900;
-  font-weight: bold;
-  padding-bottom: 25px;
-  font-size: 16px;
+  /* font-weight: 300; */
+  /* font-weight: bold; */
+  padding-bottom: 15px;
+  font-size: 13px;
 }

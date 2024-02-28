@@ -3,7 +3,7 @@ import { PluginLog } from '../../domain/model/plugin-log.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { PluginLogService } from '../../application/services/plugin-services/plugin-log.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { AlertifyService } from '../../application/services/common-services/alertify.service';
@@ -50,7 +50,8 @@ export class PluginLogHomeComponent implements OnInit {
     private _service: PluginLogService,
     private _activateRoute: ActivatedRoute,
     private _alertify: AlertifyService,
-    private _pluginService: PluginService) {
+    private _pluginService: PluginService,
+    private _router : Router) {
   }
 
   ngOnInit() {
@@ -118,26 +119,17 @@ export class PluginLogHomeComponent implements OnInit {
   private refreshPluginLog() {
 
     if (this.pickerSelection === "month") {
-      console.log("Month");
+      // console.log("Month");
       this._pluginService.getWithLogByMonthAndYear(this.pluginId, this.selectedDate).subscribe((data) => {
         this.loadDataSource(data);
       })
     } else {
-      console.log("Day");
-
-
-
+      // console.log("Day");
       this._pluginService.getWithLogByDay(this.pluginId, this.selectedDate).subscribe((data) => {
-        data.pluginLogs.forEach(e => {
-          console.log(this._pluginService.getLocal(new Date(e.createdDate)));
-          e.createdDate = this._pluginService.getLocal(new Date(e.createdDate));
-        })
         this.loadDataSource(data);
       })
     }
   }
-
-
 
   private loadDataSource(data: Plugin) {
     this.dataSource = null;
@@ -181,4 +173,9 @@ export class PluginLogHomeComponent implements OnInit {
       this.dataSource = new MatTableDataSource<PluginLog>(this.plugins);
     })
   }
+
+  public navigateToPluginHome() {
+    this._router.navigate(['plugin/home']);
+  }
+
 }

@@ -12,4 +12,8 @@
     flex-direction: row;
   }
   
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
   
