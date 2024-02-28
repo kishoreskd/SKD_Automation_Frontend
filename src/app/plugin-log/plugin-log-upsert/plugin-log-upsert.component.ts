@@ -15,7 +15,7 @@ import { AuthService } from '../../application/services/common-services/auth.ser
 })
 export class PluginLogUpsertComponent implements OnInit {
 
-  _pluginLogModel: PluginLog;
+  _pluginLogModel: PluginLog= new PluginLog();;
   _pluginLogFrm: FormGroup;
   _action: string = "Save";
   _pluginId: number;
@@ -26,7 +26,6 @@ export class PluginLogUpsertComponent implements OnInit {
     private readonly _service: PluginLogService,
     private readonly _alertify: AlertifyService,
     private readonly _authService: AuthService) {
-    this._pluginLogModel = new PluginLog();
   }
 
   ngOnInit() {

@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpEvent, HttpEventType, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponseBase, HttpStatusCode } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, catchError, delay, finalize, switchMap, tap, throwError } from 'rxjs';
+import { ENVIRONMENT_INITIALIZER, Injectable } from '@angular/core';
+import { EmptyError, Observable, catchError, delay, finalize, switchMap, tap, throwError } from 'rxjs';
 import { LoaderService } from '../services/common-services/loader.service';
 import { AlertifyService } from '../services/common-services/alertify.service';
 import { AuthService } from '../services/common-services/auth.service';
@@ -30,16 +30,14 @@ export class HttpInterceptorService implements HttpInterceptor {
     })
 
     return next.handle(newReq).pipe(
+
       catchError((error) => {
+
         if (error instanceof HttpErrorResponse) {
-          if (error.status === 401) {
-            return this.handleUnAuthorizedError(req, next);
-          }
-          if (error.status === 404) {
-            this.CustomeErroShow(error);
-          }
+          if (error.status === 401) return this.handleUnAuthorizedError(req, next);
+          if (error.status === 404) this.CustomeErroShow(error);
         }
-        // this.CustomeErroShow(error);
+
         return throwError(() => error);
       }),
       finalize(() => {
@@ -97,30 +95,27 @@ export class HttpInterceptorService implements HttpInterceptor {
           return next.handle(req);
 
         }), catchError((err: any) => {
+
           return throwError(() => {
             this._alertify.showWarn("Token is expired, Please Login again");
             this._authService.logOut();
             this._router.navigate(['/login'])
           })
-        })
-      )
+        }),
+
+
+        // catchError(err => '')
+      )      
   }
 
   CustomeErroShow(error: any) {
 
-    // console.log("called");
     let val = "";
-    if (error.error?.ErrorCode) {
-      val = error.error.ErrorCode + "/" + error.error.ErrorMessage;
-    } else if (error.error?.status) {
-      val = error.error.status + "/" + error.error.title;
-    } else {
-      val = error.toString();
-    }
-
+    if (error.error?.ErrorCode) val = error.error.ErrorCode + "/" + error.error.ErrorMessage;
+    else if (error.error?.status) val = error.error.status + "/" + error.error.title;
+    else val = error.toString();
     this._alertify.showError(val);
   }
-
 }
 
 

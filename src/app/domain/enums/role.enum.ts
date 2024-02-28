@@ -1,7 +1,7 @@
-export enum Role {
-    ADMIN,
-    DASHBORD,
-    MANAGER,
-    TEAMLEAD,
-    USER
+export enum RoleEnum {
+    ADMIN = "ADMIN",
+    DASHBORD = "DASHBORD",
+    MANAGER = "MANAGER",
+    TEAMLEAD = "TEAMLEAD",
+    USER = "USER"
 }

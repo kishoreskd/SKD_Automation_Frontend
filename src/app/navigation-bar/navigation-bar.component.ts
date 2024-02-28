@@ -4,8 +4,9 @@ import { LoaderService } from '../application/services/common-services/loader.se
 import { DepartmentService } from '../application/services/admin-services/department.service';
 import { Department } from '../domain/model/department.model';
 import { LocalStorageService } from '../application/services/common-services/local-storage.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError } from 'rxjs';
 import { AuthService } from '../application/services/common-services/auth.service';
+import { RoleEnum } from '../domain/enums/role.enum';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -13,20 +14,23 @@ import { AuthService } from '../application/services/common-services/auth.servic
   styleUrls: ['./navigation-bar.component.css']
 })
 export class NavigationBarComponent implements OnInit, AfterViewInit {
+  RoleEnum = RoleEnum;
   opened = true;
   loaderVisible: boolean = false;
   departmentId: number;
   depSelections: Array<Department> = new Array<Department>();
   isLoggedIn: boolean = true;
   userName: string = "";
+  role: string;
 
   constructor(private _router: Router,
     public _loaderService: LoaderService,
     private readonly _departmentService: DepartmentService,
     private readonly _localStorageService: LocalStorageService,
     private _cdr: ChangeDetectorRef,
-    private _activateRoute: ActivatedRoute,
     public _authService: AuthService) {
+
+    this.role = this._authService.getRoleFromToken().toUpperCase();
 
     // this._router.events.subscribe((routerEvent: Event) => {
 
@@ -43,7 +47,9 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngOnInit() {  
+  ngOnInit() {
+
+    
     this.userName = this._authService.getUserNameFromToken();
 
     this._loaderService.getLoaderVisibility().subscribe((isLoading: boolean) => {
@@ -56,19 +62,17 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
 
   loadDepartmentSelections() {
 
-    this._departmentService.getAll().subscribe((data: Department[]) => {
-      
-      this.depSelections = data;
-      if (this._localStorageService.getDepartmentId() > 0) {
-        this.departmentId = this._localStorageService.getDepartmentId();
+    this._departmentService.getAll().subscribe({
+      next: (data: Department[]) => {
+        this.depSelections = data;
+        if (this._localStorageService.getDepartmentId() > 0) this.departmentId = this._localStorageService.getDepartmentId();
+        else this.departmentId = this.depSelections[0].departmentId;
+        this.selectionChange();
+        this._cdr.detectChanges();
       }
-      else {
-        this.departmentId = this.depSelections[0].departmentId;
-      }
-
-      this.selectionChange();
-      this._cdr.detectChanges();
-    });
+    })
+    // this._departmentService.getAll().subscribe((data: Department[]) => {
+    // });
   }
 
   selectionChange() {

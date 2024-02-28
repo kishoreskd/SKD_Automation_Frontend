@@ -43,7 +43,6 @@
 
 <mat-sidenav-container autosize *ngIf="_authService.isLoggedIn()">
   <mat-sidenav #sidenav opened="true" mode="side" [fixedInViewport]="true" [fixedTopGap]="50">
-
     <mat-nav-list>
       <mat-list-item (click)="opened = !opened">
         <mat-icon mat-list-icon class="chevron-button" [ngClass]="{ rotated: opened }">chevron_right</mat-icon>
@@ -51,11 +50,20 @@
 
       <mat-divider></mat-divider>
 
+      @if (role === RoleEnum.ADMIN) {
+      <mat-list-item routerLink="/admin/user-home">
+        <mat-icon mat-list-icon class="nav-icon">
+          <i class="fa-solid fa-house"></i>
+          shield_person
+        </mat-icon>
+        <span *ngIf="opened" class="menu-item">Admin</span>
+      </mat-list-item>
+      }
+
       <mat-list-item routerLink="/dashbord">
         <mat-icon mat-list-icon class="nav-icon custom-font">home</mat-icon>
         <span *ngIf="opened" class="menu-item">Dashbord</span>
       </mat-list-item>
-
 
       <mat-list-item routerLink="/plugin/home">
         <mat-icon mat-list-icon class="nav-icon">
@@ -64,24 +72,8 @@
         <span *ngIf="opened" class="menu-item">Logging</span>
       </mat-list-item>
 
-      <mat-list-item routerLink="/admin/user-home">
-        <mat-icon mat-list-icon class="nav-icon">
-          <i class="fa-solid fa-house"></i>
-          shield_person
-        </mat-icon>
-        <span *ngIf="opened" class="menu-item">Admin</span>
-      </mat-list-item>
 
     </mat-nav-list>
-
-
-    <!-- <div class="side-nav-items">
-        <mat-list>
-          <mat-list-item routerLink="project/home" class="side-menu-item">
-            Dashbord
-          </mat-list-item>
-        </mat-list>
-      </div> -->
   </mat-sidenav>
 
   <mat-sidenav-content>

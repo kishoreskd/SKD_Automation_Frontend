@@ -95,7 +95,7 @@ export class UserUpsertComponent implements OnInit {
   add() {
 
     this.user.createdBy = this._authService.getEmployeeIdFromToken();
-
+    console.log(this.user);
     this._userService.add(this.user).subscribe((data: User) => {
       this._alertify.showSuccess("User added successfully!");
     })
@@ -105,6 +105,8 @@ export class UserUpsertComponent implements OnInit {
 
     this.user.id = this._dialogData.id;
     this.user.lastModifiedBy = this._authService.getEmployeeIdFromToken();
+
+    console.log(this.user);
 
     this._userService.update(this._dialogData.id, this.user).subscribe((data: User) => {
       this._alertify.showSuccess("User updated successfully!");
@@ -120,9 +122,9 @@ export class UserUpsertComponent implements OnInit {
 
   map() {
     this.user.userName = this.userName.value;
-    this.user.roleId = this.roleName.value;
+    this.user.roleId = +this.roleName.value;
     this.user.password = this.password.value;
-    this.user.employeeId = this.employeeId.value;
+    this.user.employeeId = +this.employeeId.value;
   }
 
 }
