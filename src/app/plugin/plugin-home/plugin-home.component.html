@@ -194,7 +194,7 @@
           <button mat-icon-button color="warn" (click)="onRemovePlugin(element.pluginId)">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-icon-button color="primary" (click)="onNavigatePluginLog(element.pluginId)">
+          <button mat-icon-button color="primary" routerLink="/plugin-log/{{element.pluginId}}">
             <mat-icon>auto_stories</mat-icon>
           </button>
           <!-- <button mat-icon-button color="primary" (click)="onNavigatePluginLogChart(element.pluginId)">
