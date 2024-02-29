@@ -8,22 +8,6 @@ export const AuthenticationGuard: CanActivateFn = (route: ActivatedRouteSnapshot
   const router = inject(Router);
   const authService = inject(AuthService);
 
-  // router.navigate(['login']);
-  // return false;
-  // console.log("logged out");
-
-
-  // authService.isLoggedIn().subscribe((d: boolean) => {
-  //   isLoggedIn = d;
-  // });
-
-  // if (isLoggedIn) {
-  //   return true;
-  // } else {
-  //   router.navigate(["/login"])
-  //   return false;
-  // }
-
   if (authService.isLoggedIn()) {
     return true;
   } else {

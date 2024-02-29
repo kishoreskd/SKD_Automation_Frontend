@@ -24,11 +24,14 @@ export class HttpInterceptorService implements HttpInterceptor {
 
     this._loader.loaderVisible.next(true);
     const token = this._authService.getToken();
+    console.log(token);
 
     const newReq = req.clone({
       url: "http://localhost:45300/" + req.url, headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` })
     })
 
+    console.log(newReq.url);
+    
     return next.handle(newReq).pipe(
 
       catchError((error) => {
@@ -36,6 +39,9 @@ export class HttpInterceptorService implements HttpInterceptor {
         if (error instanceof HttpErrorResponse) {
           if (error.status === 401) return this.handleUnAuthorizedError(req, next);
           if (error.status === 404) this.CustomeErroShow(error);
+          if (error.status === 0) {
+            this._router.navigate(['/plugin/home']);
+          }
         }
 
         return throwError(() => error);
@@ -76,6 +82,8 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   handleUnAuthorizedError(req: HttpRequest<any>, next: HttpHandler) {
 
+    console.log("un authorized called!");
+
     let tokenApi = new AuthToken();
     tokenApi.accessToken = this._authService.getToken();
     tokenApi.refreshToken = this._authService.getRefreshToken();
@@ -105,7 +113,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 
 
         // catchError(err => '')
-      )      
+      )
   }
 
   CustomeErroShow(error: any) {
