@@ -10,6 +10,7 @@ import { AlertifyService } from '../../application/services/common-services/aler
 import { PluginLogUpsertComponent } from '../plugin-log-upsert/plugin-log-upsert.component';
 import { Plugin } from '../../domain/model/plugin.model';
 import { PluginService } from '../../application/services/plugin-services/plugin-base.service';
+import { PluginKeyComponent } from '../../components/plugin-key/plugin-key.component';
 
 @Component({
   selector: 'app-plugin-log-home',
@@ -51,7 +52,7 @@ export class PluginLogHomeComponent implements OnInit {
     private _activateRoute: ActivatedRoute,
     private _alertify: AlertifyService,
     private _pluginService: PluginService,
-    private _router : Router) {
+    private _router: Router) {
   }
 
   ngOnInit() {
@@ -177,5 +178,7 @@ export class PluginLogHomeComponent implements OnInit {
   public navigateToPluginHome() {
     this._router.navigate(['plugin/home']);
   }
+
+
 
 }

@@ -8,6 +8,7 @@ import { Plugin } from '../../domain/model/plugin.model';
 import { PluginService } from '../../application/services/plugin-services/plugin-base.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertifyService } from '../../application/services/common-services/alertify.service';
+import { PluginKeyComponent } from '../../components/plugin-key/plugin-key.component';
 
 
 @Component({
@@ -89,7 +90,6 @@ export class PluginHomeComponent implements OnInit {
 
   private refreshPlugins() {
     this._service.getByDepartment().subscribe((data: Plugin[]) => {
-
       this.pluginCol = data;
       this.dataSource = new MatTableDataSource<Plugin>(this.pluginCol);
       this.dataSource.paginator = this._paginator;
@@ -128,5 +128,9 @@ export class PluginHomeComponent implements OnInit {
 
     this.dataSource.filter = filterValue;
     if (this.dataSource._pageData) this.dataSource.paginator.firstPage();
+  }
+
+  onOpenKeyGenerator(data: Plugin) {
+    const ref = this._matDialog.open(PluginKeyComponent, { width: "30%", data });
   }
 }

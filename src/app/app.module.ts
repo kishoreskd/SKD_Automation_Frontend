@@ -72,6 +72,7 @@ import { UserService } from './application/services/admin-services/user.service'
 import { RoleService } from './application/services/admin-services/role.service';
 import { AuthService } from './application/services/common-services/auth.service';
 import { DatePickerComponent } from './common/date-picker/date-picker.component';
+import { PluginKeyComponent } from './components/plugin-key/plugin-key.component';
 
 @NgModule({
     declarations:
@@ -93,7 +94,8 @@ import { DatePickerComponent } from './common/date-picker/date-picker.component'
             LoginComponent,
             UserHomeComponent,
             UserUpsertComponent,
-            DatePickerComponent
+            DatePickerComponent,
+            PluginKeyComponent
         ],
     imports:
         [

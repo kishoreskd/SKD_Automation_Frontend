@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpEvent, HttpEventType, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponseBase, HttpStatusCode } from '@angular/common/http';
 import { ENVIRONMENT_INITIALIZER, Injectable } from '@angular/core';
-import { EmptyError, Observable, catchError, delay, finalize, switchMap, tap, throwError } from 'rxjs';
+import { BehaviorSubject, EMPTY, EmptyError, Observable, catchError, delay, filter, finalize, switchMap, take, tap, throwError } from 'rxjs';
 import { LoaderService } from '../services/common-services/loader.service';
 import { AlertifyService } from '../services/common-services/alertify.service';
 import { AuthService } from '../services/common-services/auth.service';
@@ -20,24 +20,90 @@ export class HttpInterceptorService implements HttpInterceptor {
     private readonly _router: Router) {
 
   }
+
+  private isRefreshing: boolean = false;
+  private refreshTokenObject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
+  // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+  //   this._loader.loaderVisible.next(true);
+  //   const token = this._authService.getToken();
+
+
+  //   const newReq = req.clone({
+  //     url: "http://localhost:45300/" + req.url, headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-key-lgn': `Bearer ${token}` })
+  //   })
+
+  //   // console.log(newReq.url);
+
+  //   return next.handle(newReq).pipe(
+
+  //     catchError((error) => {
+
+  //       if (error instanceof HttpErrorResponse) {
+  //         if (error.status === 401) {
+  //           return this.handleUnAuthorizedError(req, next)
+  //         };
+  //         if (error.status === 404) this.CustomeErroShow(error);
+  //         if (error.status === 0) {
+  //           this._router.navigate(['/plugin/home']);
+  //         }
+  //       }
+
+  //       return throwError(() => error);
+  //     }),
+  //     finalize(() => {
+  //       this._loader.loaderVisible.next(false);
+  //     })
+  //   )
+
+  //   // return next.handle(newReq).pipe(
+  //   //   tap({
+  //   //     error: (error: any) => {
+
+  //   //       let val = "";
+  //   //       if (error instanceof HttpErrorResponse) {
+
+  //   //         if (error.status === 401) {
+  //   //           return this.handleUnAuthorizedError(req, next);
+  //   //         }
+  //   //       }
+
+  //   //       if (error.error?.ErrorCode) {
+  //   //         val = error.error.ErrorCode + "/" + error.error.ErrorMessage;
+  //   //       } else {
+  //   //         val = error.error.status + "/" + error.error.title;
+  //   //       }
+
+  //   //       this._alertify.showError(val);
+  //   //       return throwError(() => error);
+  //   //     }
+  //   //   }),
+  //   //   finalize(() => {
+  //   //     this._loader.loaderVisible.next(false);
+  //   //     // this._loader.hideLoader();
+  //   //   })
+  //   // );
+  // }
+
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    // console.log("Request block");
 
     this._loader.loaderVisible.next(true);
     const token = this._authService.getToken();
-    console.log(token);
 
-    const newReq = req.clone({
-      url: "http://localhost:45300/" + req.url, headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` })
-    })
+    req = this.addToken(req, token);   
 
-    console.log(newReq.url);
-    
-    return next.handle(newReq).pipe(
+    return next.handle(req).pipe(
 
-      catchError((error) => {
+      catchError((error: HttpErrorResponse) => {
 
         if (error instanceof HttpErrorResponse) {
-          if (error.status === 401) return this.handleUnAuthorizedError(req, next);
+          if (error.status === 401) {
+            return this.handleUnAuthorizedError(req, next)
+          };
           if (error.status === 404) this.CustomeErroShow(error);
           if (error.status === 0) {
             this._router.navigate(['/plugin/home']);
@@ -50,70 +116,96 @@ export class HttpInterceptorService implements HttpInterceptor {
         this._loader.loaderVisible.next(false);
       })
     )
-
-    // return next.handle(newReq).pipe(
-    //   tap({
-    //     error: (error: any) => {
-
-    //       let val = "";
-    //       if (error instanceof HttpErrorResponse) {
-
-    //         if (error.status === 401) {
-    //           return this.handleUnAuthorizedError(req, next);
-    //         }
-    //       }
-
-    //       if (error.error?.ErrorCode) {
-    //         val = error.error.ErrorCode + "/" + error.error.ErrorMessage;
-    //       } else {
-    //         val = error.error.status + "/" + error.error.title;
-    //       }
-
-    //       this._alertify.showError(val);
-    //       return throwError(() => error);
-    //     }
-    //   }),
-    //   finalize(() => {
-    //     this._loader.loaderVisible.next(false);
-    //     // this._loader.hideLoader();
-    //   })
-    // );
   }
 
   handleUnAuthorizedError(req: HttpRequest<any>, next: HttpHandler) {
 
-    console.log("un authorized called!");
+    if (!this.isRefreshing) {
 
-    let tokenApi = new AuthToken();
-    tokenApi.accessToken = this._authService.getToken();
-    tokenApi.refreshToken = this._authService.getRefreshToken();
+      this.isRefreshing = true;
+      this.refreshTokenObject.next(null);
 
-    return this._loginService.renewToken(tokenApi)
-      .pipe(
-        switchMap((data: any) => {
-          // console.log(data);
+      let tokenApi = new AuthToken();
+      tokenApi.accessToken = this._authService.getToken();
+      tokenApi.refreshToken = this._authService.getRefreshToken();
 
-          this._authService.setToken(data.accessToken);
-          this._authService.setRefreshToken(data.refreshToken);
+      return this._loginService.renewToken(tokenApi)
+        .pipe(
+          switchMap((data: AuthToken) => {
 
-          req = req.clone({
-            url: "http://localhost:45300/" + req.url, headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${data.accessToken}` })
-          });
+            this._authService.setToken(data.accessToken);
+            this._authService.setRefreshToken(data.refreshToken);
 
-          return next.handle(req);
+            this.isRefreshing = false;
+            this.refreshTokenObject.next(data.accessToken);
 
-        }), catchError((err: any) => {
+            return next.handle(this.addToken(req, data.accessToken));
 
-          return throwError(() => {
-            this._alertify.showWarn("Token is expired, Please Login again");
+          }), catchError((err: any) => {
+            // console.log("ERRor blocka");
+
             this._authService.logOut();
             this._router.navigate(['/login'])
-          })
-        }),
+            this._alertify.showWarn("Token is expired, Please Login again");
+            return EMPTY;
+          }),
 
+        )
+    } else {
+      // console.log("Wait block");
 
-        // catchError(err => '')
+      return this.refreshTokenObject.pipe(
+        filter(token => token !== null),
+        take(1),
+        switchMap(() => next.handle(this.addToken(req, this._authService.getToken())))
       )
+    }
+
+
+  }
+
+
+
+  // handleUnAuthorizedError(req: HttpRequest<any>, next: HttpHandler) {
+
+  //   // console.log("un authorized called!");
+
+  //   let tokenApi = new AuthToken();
+  //   tokenApi.accessToken = this._authService.getToken();
+  //   tokenApi.refreshToken = this._authService.getRefreshToken();
+
+  //   return this._loginService.renewToken(tokenApi)
+  //     .pipe(
+  //       switchMap((data: any) => {
+  //         // console.log(data);
+
+  //         this._authService.setToken(data.accessToken);
+  //         this._authService.setRefreshToken(data.refreshToken);
+
+  //         req = req.clone({
+  //           url: "http://localhost:45300/" + req.url, headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-key-lgn': `Bearer ${data.accessToken}` })
+  //         });
+
+  //         return next.handle(req);
+
+  //       }), catchError((err: any) => {
+
+  //         console.log("Token is expired");
+  //         this._alertify.showWarn("Token is expired, Please Login again");
+  //         this._authService.logOut();
+  //         this._router.navigate(['/login'])
+  //         return EMPTY;
+
+  //       }),
+
+  //       // catchError(err => '')
+  //     )
+  // }
+
+  private addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
+    return req = req.clone({
+      url: "http://localhost:45300/" + req.url, headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-key-lgn': `Bearer ${token}` })
+    });
   }
 
   CustomeErroShow(error: any) {
