@@ -94,7 +94,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     this._loader.loaderVisible.next(true);
     const token = this._authService.getToken();
 
-    req = this.addToken(req, token);   
+    req = this.addToken(req, token);
 
     return next.handle(req).pipe(
 
@@ -105,7 +105,9 @@ export class HttpInterceptorService implements HttpInterceptor {
             return this.handleUnAuthorizedError(req, next)
           };
           if (error.status === 404) this.CustomeErroShow(error);
+          if (error.status === 400) this.CustomeErroShow(error);
           if (error.status === 0) {
+            this._alertify.error("Internet is not connected, please connect and try again!");
             this._router.navigate(['/plugin/home']);
           }
         }
@@ -146,7 +148,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 
             this._authService.logOut();
             this._router.navigate(['/login'])
-            this._alertify.showWarn("Token is expired, Please Login again");
+            this._alertify.error("Token is expired, Please Login again");
             return EMPTY;
           }),
 
@@ -160,8 +162,6 @@ export class HttpInterceptorService implements HttpInterceptor {
         switchMap(() => next.handle(this.addToken(req, this._authService.getToken())))
       )
     }
-
-
   }
 
 
@@ -208,13 +208,12 @@ export class HttpInterceptorService implements HttpInterceptor {
     });
   }
 
-  CustomeErroShow(error: any) {
-
-    let val = "";
-    if (error.error?.ErrorCode) val = error.error.ErrorCode + "/" + error.error.ErrorMessage;
-    else if (error.error?.status) val = error.error.status + "/" + error.error.title;
-    else val = error.toString();
-    this._alertify.showError(val);
+  CustomeErroShow(error: HttpErrorResponse) {
+    // console.log(error);
+    // if (error.error?.error) {
+      const str = error.error.errorCode + "/ " + error.error.errorMessage;
+      this._alertify.error(str);
+    // }
   }
 }
 

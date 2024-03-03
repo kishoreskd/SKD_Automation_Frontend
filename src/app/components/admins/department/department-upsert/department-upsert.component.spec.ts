@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { PluginKeyComponent } from './plugin-key.component';
+import { DepartmentUpsertComponent } from './department-upsert.component';
 
-describe('PluginKeyComponent', () => {
-  let component: PluginKeyComponent;
-  let fixture: ComponentFixture<PluginKeyComponent>;
+describe('DepartmentUpsertComponent', () => {
+  let component: DepartmentUpsertComponent;
+  let fixture: ComponentFixture<DepartmentUpsertComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PluginKeyComponent ]
+      declarations: [ DepartmentUpsertComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PluginKeyComponent);
+    fixture = TestBed.createComponent(DepartmentUpsertComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

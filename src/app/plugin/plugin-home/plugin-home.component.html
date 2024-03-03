@@ -191,14 +191,14 @@
           <button mat-icon-button color="primary" (click)="onEditPluginDialog(element)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="onRemovePlugin(element.pluginId)">
-            <mat-icon>delete</mat-icon>
-          </button>
           <button mat-icon-button color="warn" (click)="onOpenKeyGenerator(element)">
             <mat-icon>key</mat-icon>
           </button>
           <button mat-icon-button color="primary" routerLink="/plugin-log/{{element.pluginId}}">
             <mat-icon>auto_stories</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="onRemovePlugin(element.pluginId)">
+            <mat-icon>delete</mat-icon>
           </button>
           <!-- <button mat-icon-button color="primary" (click)="onNavigatePluginLogChart(element.pluginId)">
             <mat-icon>bar_chart</mat-icon>

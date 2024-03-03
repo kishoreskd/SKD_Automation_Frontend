@@ -39,20 +39,20 @@ export class AlertifyService {
 
   title = "Automation";
 
-  showSuccess(msg: string) {
-    this._toast.success({ detail: "SUCCESS", summary: msg, duration: 5000 });
-  }
+  // showSuccess(msg: string) {
+  //   this._toast.success({ detail: "SUCCESS", summary: msg, duration: 5000 });
+  // }
 
-  showError(msg: string) {
-    this._toast.error({ detail: "ERROR", summary: msg, duration: 5000 });
-  }
+  // showError(msg: string) {
+  //   this._toast.error({ detail: "ERROR", summary: msg, duration: 5000 });
+  // }
 
-  showInfo(msg: string) {
-    this._toast.info({ detail: "INFORMATION", summary: msg, sticky: true });
-  }
+  // showInfo(msg: string) {
+  //   this._toast.info({ detail: "INFORMATION", summary: msg, sticky: true });
+  // }
 
-  showWarn(msg: string) {
-    this._toast.warning({ detail: "WARNING", summary: msg, duration: 5000 });
-  }
+  // showWarn(msg: string) {
+  //   this._toast.warning({ detail: "WARNING", summary: msg, duration: 5000 });
+  // }
 
 }

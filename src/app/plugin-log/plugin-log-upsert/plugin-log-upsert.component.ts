@@ -82,7 +82,7 @@ export class PluginLogUpsertComponent implements OnInit {
 
     this._pluginLogModel.createdBy = this._authService.getEmployeeIdFromToken();
     this._service.add(this._pluginLogModel).subscribe(data => {
-      this._alertify.showSuccess("Log added successfully!");
+      this._alertify.success("Log added successfully!");
     })
   }
 
@@ -92,7 +92,7 @@ export class PluginLogUpsertComponent implements OnInit {
     this._pluginLogModel.lastModifiedBy = this._authService.getEmployeeIdFromToken();
 
     this._service.update(this._dialogData.pluginLogId, this._pluginLogModel).subscribe(data => {
-      this._alertify.showSuccess("Log updated successfully!");
+      this._alertify.success("Log updated successfully!");
     })
   }
 

@@ -69,12 +69,11 @@ export class AuthService {
   }
 
   getEmployeeIdFromToken(): number {
+    console.log(this.payLoad);
     return this.payLoad.employeeId;
   }
 
   getRoleFromToken(): string {
     return this.payLoad.role;
   }
-
-
 }

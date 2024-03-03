@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { User } from '../../domain/model/user';
+import { User } from '../../../../domain/model/user';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserService } from '../../application/services/admin-services/user.service';
+import { UserService } from '../../../../application/services/admin-services/user.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { AlertifyService } from '../../application/services/common-services/alertify.service';
+import { AlertifyService } from '../../../../application/services/common-services/alertify.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserUpsertComponent } from '../user-upsert/user-upsert.component';
 

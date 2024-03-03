@@ -11,65 +11,14 @@ import { PluginChartComponent } from './dashbord/plugin-chart/plugin-chart.compo
 import { DashbordComponent } from './dashbord/dashbord.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationGuard } from './application/guards/authentication.guard';
-import { UserHomeComponent } from './admin/user-home/user-home.component';
+import { UserHomeComponent } from './components/admins/user/user-home/user-home.component';
 import { LoginGuard } from './application/guards/login.guard';
+import { AdminHomeComponent } from './components/admins/admin-home/admin-home.component';
+import { DepartmentHomeComponent } from './components/admins/department/department-home/department-home.component';
+import { RoleAuthGuard } from './application/guards/role-auth.guard';
 
 
 
-// const routes: Routes = [
-//     {
-//         path: '',
-//         redirectTo: 'login',
-//         pathMatch: 'full'
-//     },
-//     {
-//         path: "login",
-//         component: LoginComponent,
-//         canActivate: [LoginGuard]
-//     },
-//     {
-//         path: "plugin/home",
-//         component: PluginHomeComponent,
-//         resolve: { pluginCol: PluginHomeResolverService },
-//         canActivate: [AuthenticationGuard],
-//     },
-//     {
-//         path: "plugin/upsert",
-//         component: PluginUpsertComponent,
-//         canDeactivate: [PluginUpsertCanDeactivateGuardService],
-//         canActivate: [AuthenticationGuard]
-//     },
-//     {
-//         path: "plugin-log/:id",
-//         component: PluginLogHomeComponent,
-//         canActivate: [AuthenticationGuard]
-//         // resolve: { pluginLogCol: PluginLogHomeResolverService }
-//     },
-//     {
-//         path: "plugin-chart/:id",
-//         component: PluginChartComponent,
-//         canActivate: [AuthenticationGuard]
-//         // resolve: { pluginLogCol: PluginLogHomeResolverService }
-//     },
-//     {
-//         path: "plugin-log-chart/:id",
-//         component: PluginLogChartComponent,
-//         canActivate: [AuthenticationGuard]
-//         // resolve: { pluginLogCol: PluginLogHomeResolverService }
-//     },
-//     {
-//         path: "dashbord",
-//         component: DashbordComponent,
-//         canActivate: [AuthenticationGuard]
-//         // resolve: { pluginLogCol: PluginLogHomeResolverService }
-//     },
-//     {
-//         path: "admin/user-home",
-//         component: UserHomeComponent,
-//         canActivate: [AuthenticationGuard]
-//         // resolve: { pluginLogCol: PluginLogHomeResolverService }
-//     }
-// ]
 
 
 const routes: Routes = [
@@ -79,9 +28,21 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard]
     },
     {
-        path: "admin/user-home",
-        component: UserHomeComponent,
-        canActivate: [AuthenticationGuard]
+        path: "admin/home",
+        component: AdminHomeComponent,
+        canActivate: [AuthenticationGuard, RoleAuthGuard]
+    },
+    {
+        path: "",
+        children: [
+            {
+                path: "admin/user-home", component: UserHomeComponent
+            },
+            {
+                path: "admin/department-home", component: DepartmentHomeComponent
+            }
+        ],
+        canActivate: [AuthenticationGuard, RoleAuthGuard]
     },
     {
         path: "dashbord",

@@ -14,7 +14,6 @@ export class Plugin {
     departmentId: number;
     departmentName: string;
     pluginLogs: Array<PluginLog>;
-    pluginToken : string
     createdBy: number;
     createdDate: Date;
     lastModifiedBy: number;

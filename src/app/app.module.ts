@@ -59,7 +59,7 @@ import { ProductivityChartComponent } from './dashbord/productivity-chart/produc
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgToastModule } from 'ng-angular-popup';
 import { LoginComponent } from './login/login.component';
-import { UserHomeComponent } from './admin/user-home/user-home.component';
+import { UserHomeComponent } from './components/admins/user/user-home/user-home.component';
 import { PluginLogService } from './application/services/plugin-services/plugin-log.service';
 import { LocalStorageService } from './application/services/common-services/local-storage.service';
 import { LoginService } from './application/services/common-services/login.service';
@@ -67,12 +67,15 @@ import { DepartmentService } from './application/services/admin-services/departm
 import { DashbordService } from './application/services/plugin-services/dashbord.service';
 import { AlertifyService } from './application/services/common-services/alertify.service';
 import { LoaderService } from './application/services/common-services/loader.service';
-import { UserUpsertComponent } from './admin/user-upsert/user-upsert.component';
+import { UserUpsertComponent } from './components/admins/user/user-upsert/user-upsert.component';
 import { UserService } from './application/services/admin-services/user.service';
 import { RoleService } from './application/services/admin-services/role.service';
 import { AuthService } from './application/services/common-services/auth.service';
 import { DatePickerComponent } from './common/date-picker/date-picker.component';
 import { PluginKeyComponent } from './components/plugin-key/plugin-key.component';
+import { DepartmentHomeComponent } from './components/admins/department/department-home/department-home.component';
+import { DepartmentUpsertComponent } from './components/admins/department/department-upsert/department-upsert.component';
+import { AdminHomeComponent } from './components/admins/admin-home/admin-home.component';
 
 @NgModule({
     declarations:
@@ -95,7 +98,10 @@ import { PluginKeyComponent } from './components/plugin-key/plugin-key.component
             UserHomeComponent,
             UserUpsertComponent,
             DatePickerComponent,
-            PluginKeyComponent
+            PluginKeyComponent,
+            DepartmentHomeComponent,
+            DepartmentUpsertComponent,
+            AdminHomeComponent
         ],
     imports:
         [
@@ -150,6 +156,7 @@ import { PluginKeyComponent } from './components/plugin-key/plugin-key.component
             UserService,
             RoleService,
             AuthService,
+            
             PluginUpsertCanDeactivateGuardService
         ],
     bootstrap: [AppComponent],

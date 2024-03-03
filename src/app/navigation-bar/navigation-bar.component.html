@@ -17,9 +17,10 @@
   </div>
 
 
+
   <!-- <i class="fa fa-sign-out" aria-hidden="true"></i> -->
-  <h3 style="font-size: 15px;">
-    <i class="fa fa-building" aria-hidden="true"></i>
+  <mat-icon>person</mat-icon>
+  <h3 class="mx-2" style="font-size: 16px;">
     {{userName}}
   </h3>
 
@@ -50,15 +51,15 @@
 
       <mat-divider></mat-divider>
 
-      @if (role === RoleEnum.ADMIN) {
-      <mat-list-item routerLink="/admin/user-home">
+      <!-- @if (role === RoleEnum.ADMIN) { -->
+      <mat-list-item *ngIf="displayAdminMenu" routerLink="/admin/home">
         <mat-icon mat-list-icon class="nav-icon">
           <i class="fa-solid fa-house"></i>
           shield_person
         </mat-icon>
         <span *ngIf="opened" class="menu-item">Admin</span>
       </mat-list-item>
-      }
+      <!-- }    -->
 
       <mat-list-item routerLink="/dashbord">
         <mat-icon mat-list-icon class="nav-icon custom-font">home</mat-icon>
@@ -80,7 +81,7 @@
 
     <div class="main-content">
       <router-outlet *ngIf="departmentId"></router-outlet>
-      <ng-toast></ng-toast>
+      <!-- <ng-toast></ng-toast> -->
     </div>
 
   </mat-sidenav-content>

@@ -29,12 +29,13 @@ export class PluginUpsertComponent implements OnInit {
     private _service: PluginService,
     private _depService: DepartmentService,
     private _alertify: AlertifyService,
-    private readonly _authService : AuthService) {
+    private readonly _authService: AuthService) {
     this._pluginModel = new Plugin();
   }
 
 
   ngOnInit() {
+    console.log("Called");
     this.createForm();
     this.patchObj();
     this.loadDepartment();
@@ -96,10 +97,13 @@ export class PluginUpsertComponent implements OnInit {
   }
 
   add() {
+    console.log("Called");
+
     this._pluginModel.createdBy = this._authService.getEmployeeIdFromToken();
+    console.log(this._pluginModel);
     this._service.add(this._pluginModel).subscribe({
       next: (val: Plugin) => {
-        this._alertify.showSuccess("Plugin added successfully!");
+        this._alertify.success("Plugin added successfully!");
       }
     })
   }
@@ -107,11 +111,16 @@ export class PluginUpsertComponent implements OnInit {
   update() {
 
     this._pluginModel.lastModifiedBy = this._authService.getEmployeeIdFromToken();
+
+    console.log("Called");
+
+    console.log(this._pluginModel);
+
     this._pluginModel.pluginId = this._editData.pluginId;
 
     this._service.update(this._editData.pluginId, this._pluginModel).subscribe({
       next: (val: Plugin) => {
-        this._alertify.showSuccess("Plugin updated successfully!");
+        this._alertify.success("Plugin updated successfully!");
       }
     })
   }

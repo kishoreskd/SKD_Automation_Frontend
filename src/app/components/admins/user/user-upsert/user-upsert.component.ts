@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { RoleService } from '../../application/services/admin-services/role.service';
-import { Role } from '../../domain/model/role.model';
-import { User } from '../../domain/model/user';
-import { AlertifyService } from '../../application/services/common-services/alertify.service';
-import { UserService } from '../../application/services/admin-services/user.service';
+import { RoleService } from '../../../../application/services/admin-services/role.service';
+import { Role } from '../../../../domain/model/role.model';
+import { User } from '../../../../domain/model/user';
+import { AlertifyService } from '../../../../application/services/common-services/alertify.service';
+import { UserService } from '../../../../application/services/admin-services/user.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { UserStoreService } from '../../application/services/common-services/user-store.service';
-import { AuthService } from '../../application/services/common-services/auth.service';
+import { UserStoreService } from '../../../../application/services/common-services/user-store.service';
+import { AuthService } from '../../../../application/services/common-services/auth.service';
 
 @Component({
   selector: 'app-user-upsert',
@@ -95,9 +95,8 @@ export class UserUpsertComponent implements OnInit {
   add() {
 
     this.user.createdBy = this._authService.getEmployeeIdFromToken();
-    console.log(this.user);
     this._userService.add(this.user).subscribe((data: User) => {
-      this._alertify.showSuccess("User added successfully!");
+      this._alertify.success("User added successfully!");
     })
   }
 
@@ -106,10 +105,8 @@ export class UserUpsertComponent implements OnInit {
     this.user.id = this._dialogData.id;
     this.user.lastModifiedBy = this._authService.getEmployeeIdFromToken();
 
-    console.log(this.user);
-
     this._userService.update(this._dialogData.id, this.user).subscribe((data: User) => {
-      this._alertify.showSuccess("User updated successfully!");
+      this._alertify.success("User updated successfully!");
     })
   }
 

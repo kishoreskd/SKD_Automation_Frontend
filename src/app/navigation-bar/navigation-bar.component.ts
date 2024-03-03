@@ -23,6 +23,8 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
   userName: string = "";
   role: string;
 
+  displayAdminMenu: boolean = false;
+
   constructor(private _router: Router,
     public _loaderService: LoaderService,
     private readonly _departmentService: DepartmentService,
@@ -30,7 +32,6 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
     private _cdr: ChangeDetectorRef,
     public _authService: AuthService) {
 
-    this.role = this._authService.getRoleFromToken().toUpperCase();
 
     // this._router.events.subscribe((routerEvent: Event) => {
 
@@ -44,12 +45,20 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
     // })
   }
   ngAfterViewInit(): void {
+    this.role = this._authService.getRoleFromToken().toUpperCase();
+    this.menuSet();
+  }
 
+  menuSet() {
+    if (this.role === RoleEnum.ADMIN) {
+      this.displayAdminMenu = true;
+    }
   }
 
   ngOnInit() {
 
-    
+
+
     this.userName = this._authService.getUserNameFromToken();
 
     this._loaderService.getLoaderVisibility().subscribe((isLoading: boolean) => {
@@ -71,8 +80,6 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
         this._cdr.detectChanges();
       }
     })
-    // this._departmentService.getAll().subscribe((data: Department[]) => {
-    // });
   }
 
   selectionChange() {

@@ -52,7 +52,6 @@ export class DashbordComponent implements OnInit {
     this.loadPluginSelections();
     this.setDefault();
     this.getCounterCardData();
-    this.getCounterCardDataByMonthYear();
   }
 
   setDefault() {
@@ -91,6 +90,8 @@ export class DashbordComponent implements OnInit {
       this.resetChartData();
       this.getProductivityChartData();
       this.getPluginLogChartData();
+      this.getCounterCardDataByMonthYear();
+
     }
   }
 
@@ -105,6 +106,8 @@ export class DashbordComponent implements OnInit {
         this.getPluginChartData();
         this.getProductivityChartData();
         this.getPluginLogChartData();
+        this.getCounterCardDataByMonthYear();
+
       }
 
     })
@@ -139,7 +142,7 @@ export class DashbordComponent implements OnInit {
   }
 
   getCounterCardDataByMonthYear() {
-    this._dashbordService.getByMonthYear(this.selectedDate).subscribe((data: Dashbord) => {
+    this._dashbordService.getByMonthYear(this.pId, this.selectedDate).subscribe((data: Dashbord) => {
       this.dashbordSelectedMonth = data;
       this.manualCardByMnth = data.totalManualMiniutes;
       this.automateCardByMnth = data.totalAutomatedMinutes;

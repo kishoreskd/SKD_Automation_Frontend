@@ -70,6 +70,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
 
+    console.log("TEST");
+
     if (this.loginForm.valid) {
 
       this.map();
@@ -77,9 +79,9 @@ export class LoginComponent implements OnInit {
 
         this._authService.setToken(data.accessToken);
         this._authService.setRefreshToken(data.refreshToken);
-        this._authService.decodeToken();      
+        this._authService.decodeToken();
         this._router.navigate(["/dashbord"]);
-        
+
       }, err => {
         this.isError = true;
         this.ermsg = err.error.errorMessage;

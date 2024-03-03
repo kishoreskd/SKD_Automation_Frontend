@@ -1,0 +1,21 @@
+<div mat-dialog-title>
+  <h1>Department</h1>
+  <hr>
+</div>
+
+<form [formGroup]="registerFrm" (ngSubmit)="onFrmSubmit()">
+  <div mat-dialog-content class="content">
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Department Name</mat-label>
+        <input matInput type="text" placeholder="Department Name" formControlName="departmentName" />
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions class="action">
+      <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+      <button mat-raised-button color="primary" type="submit">{{action}}</button>
+    </div>
+  </div>
+</form>

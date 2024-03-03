@@ -17,8 +17,14 @@ mat-sidenav-content {
 }
 
 mat-sidenav {
-    /* width: 200px; */
+    /* min-width: 200px !important; */
 }
+
+mat-sidenav-content{
+    margin-left: 300px;
+}
+
+
 
 mat-nav-list {
     margin-left: 0px;
