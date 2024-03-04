@@ -125,4 +125,13 @@ export class PluginService {
     return new Date(date.getTime() + (date.getTimezoneOffset() * 60000));
   }
 
+  public getTopPlugin(count: number, date: Date): Observable<Plugin[]> {
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    return this._http.get<Plugin[]>(`Plugin/plugins/${this._lsService.getDepartmentId()}/top/${count}/log/${month}/${year}`);
+  }
+
 }

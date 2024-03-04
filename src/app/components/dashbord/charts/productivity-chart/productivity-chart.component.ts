@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { Chart } from 'chart.js';
-import { Plugin } from '../../domain/model/plugin.model';
+import { Plugin } from '../../../../domain/model/plugin.model';
 import 'chartjs-adapter-moment'
 import { AnyObject } from 'chart.js/dist/types/basic';
 
@@ -56,12 +56,12 @@ export class ProductivityChartComponent implements OnInit, OnChanges, OnDestroy 
           label: 'Taken ',
           data: this.countSet,
           backgroundColor: [
-            'rgba(255, 99, 132, 0.7)',
-            'rgba(54, 162, 235, 0.7)',
+            'rgba(255, 99, 132,1)',
+            'rgba(54, 162, 235,1)',
           ],
           borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
+            'rgba(255, 99, 132, 2)',
+            'rgba(54, 162, 235, 2)',
           ],
           borderWidth: 3,
           borderSkipped: false,
@@ -99,7 +99,7 @@ export class ProductivityChartComponent implements OnInit, OnChanges, OnDestroy 
 
         plugins: {
           legend: {
-            display: false
+            display: true
           },
           tooltip: {
             callbacks: {
@@ -138,7 +138,7 @@ export class ProductivityChartComponent implements OnInit, OnChanges, OnDestroy 
     return `${hours}h : ${minutes}m`
   }
 
-  
+
   ngOnDestroy() {
     // console.log("Destoryed!");
     if (this.chart) {

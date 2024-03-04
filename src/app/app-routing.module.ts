@@ -1,23 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PluginHomeComponent } from './plugin/plugin-home/plugin-home.component';
-import { PluginUpsertComponent } from './plugin/plugin-upsert/plugin-upsert.component';
-import { PluginHomeResolverService } from './application/resolver/plugin-home.resolver';
-import { PluginUpsertCanDeactivateGuardService } from './application/guards/plugin-upsert-canDeactivate.guard';
-import { PluginLogHomeComponent } from './plugin-log/plugin-log-home/plugin-log-home.component';
-import { PluginLogHomeResolverService } from './application/resolver/plugin-log-home.resolver';
-import { PluginLogChartComponent } from './dashbord/plugin-log-chart/plugin-log-chart.component';
-import { PluginChartComponent } from './dashbord/plugin-chart/plugin-chart.component';
-import { DashbordComponent } from './dashbord/dashbord.component';
-import { LoginComponent } from './login/login.component';
+import { PluginHomeComponent } from './components/plugin/plugin-home/plugin-home.component';
+import { PluginLogHomeComponent } from './components/plugin/log-home/plugin-log-home.component';
+import { DashbordComponent } from './components/dashbord/home/dashbord.component';
+import { LoginComponent } from './components/login/login.component';
 import { AuthenticationGuard } from './application/guards/authentication.guard';
 import { UserHomeComponent } from './components/admins/user/user-home/user-home.component';
 import { LoginGuard } from './application/guards/login.guard';
-import { AdminHomeComponent } from './components/admins/admin-home/admin-home.component';
+import { AdminHomeComponent } from './components/admins/home/admin-home.component';
 import { DepartmentHomeComponent } from './components/admins/department/department-home/department-home.component';
 import { RoleAuthGuard } from './application/guards/role-auth.guard';
-
-
 
 
 
@@ -69,7 +61,6 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard]
     }
 ]
-
 
 
 @NgModule({

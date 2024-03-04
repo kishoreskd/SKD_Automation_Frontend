@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, SimpleChanges, input } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-import { Plugin } from '../../domain/model/plugin.model';
-import { PluginService } from '../../application/services/plugin-services/plugin-base.service';
+import { Plugin } from '../../../../domain/model/plugin.model';
+import { PluginService } from '../../../../application/services/plugin-services/plugin-base.service';
 import { ThisReceiver } from '@angular/compiler';
 Chart.register(...registerables);
 

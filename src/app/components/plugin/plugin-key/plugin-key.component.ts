@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { PluginLog } from '../../domain/model/plugin-log.model';
-import { Plugin } from '../../domain/model/plugin.model';
+import { PluginLog } from '../../../domain/model/plugin-log.model';
+import { Plugin } from '../../../domain/model/plugin.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { KeyService } from '../../application/services/key.service';
-import { ApiToken } from '../../domain/model/ApiToken.model';
+import { KeyService } from '../../../application/services/key.service';
+import { ApiToken } from '../../../domain/model/ApiToken.model';
 
 @Component({
   selector: 'app-plugin-key',

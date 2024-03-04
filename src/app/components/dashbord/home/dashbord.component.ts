@@ -2,15 +2,15 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { AlertifyService } from '../application/services/common-services/alertify.service';
-import { PluginLogService } from '../application/services/plugin-services/plugin-log.service';
-import { PluginLog } from '../domain/model/plugin-log.model';
-import { Plugin } from '../domain/model/plugin.model';
-import { PluginService } from '../application/services/plugin-services/plugin-base.service';
-import { DashbordService } from '../application/services/plugin-services/dashbord.service';
-import { Dashbord } from '../domain/model/dashbord.model';
-import { DepartmentService } from '../application/services/admin-services/department.service';
-import { Department } from '../domain/model/department.model';
+import { AlertifyService } from '../../../application/services/common-services/alertify.service';
+import { PluginLogService } from '../../../application/services/plugin-services/plugin-log.service';
+import { PluginLog } from '../../../domain/model/plugin-log.model';
+import { Plugin } from '../../../domain/model/plugin.model';
+import { PluginService } from '../../../application/services/plugin-services/plugin-base.service';
+import { DashbordService } from '../../../application/services/plugin-services/dashbord.service';
+import { Dashbord } from '../../../domain/model/dashbord.model';
+import { DepartmentService } from '../../../application/services/admin-services/department.service';
+import { Department } from '../../../domain/model/department.model';
 
 @Component({
   selector: 'app-dashbord',
@@ -31,6 +31,7 @@ export class DashbordComponent implements OnInit {
   productivityChartData: Plugin = new Plugin();
   pluginLogChartData: Plugin = new Plugin();
   pluginSelections: Plugin[] = new Array<Plugin>();
+  topPlugins: Plugin[] = new Array<Plugin>();
   dashbordSelectedMonth: Dashbord = new Dashbord();
 
   totalPCount: number = 0;
@@ -52,6 +53,8 @@ export class DashbordComponent implements OnInit {
     this.loadPluginSelections();
     this.setDefault();
     this.getCounterCardData();
+    this.getTopPlugins();
+
   }
 
   setDefault() {
@@ -80,6 +83,8 @@ export class DashbordComponent implements OnInit {
       this.getProductivityChartData();
       this.getPluginLogChartData();
       this.getCounterCardDataByMonthYear();
+      this.getTopPlugins();
+
     }
   }
 
@@ -107,6 +112,7 @@ export class DashbordComponent implements OnInit {
         this.getProductivityChartData();
         this.getPluginLogChartData();
         this.getCounterCardDataByMonthYear();
+
 
       }
 
@@ -148,6 +154,13 @@ export class DashbordComponent implements OnInit {
       this.automateCardByMnth = data.totalAutomatedMinutes;
 
     })
+  }
+
+  getTopPlugins() {
+    this._pluginService.getTopPlugin(5, this.selectedDate).subscribe((e: Plugin[]) => {
+      this.topPlugins = e;
+      console.log(this.topPlugins);
+    });
   }
 
 }

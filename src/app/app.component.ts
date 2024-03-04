@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
     private _cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-
     this._loaderService.getLoaderVisibility().subscribe((isLoading: boolean) => {
       this.isLoading = isLoading;
       this._cdr.detectChanges();

@@ -1,9 +1,9 @@
 import { Component, ContentChild, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, input } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-import { PluginLog } from '../../domain/model/plugin-log.model';
-import { PluginLogService } from '../../application/services/plugin-services/plugin-log.service';
-import { Plugin } from '../../domain/model/plugin.model';
-import { PluginService } from '../../application/services/plugin-services/plugin-base.service';
+import { PluginLog } from '../../../../domain/model/plugin-log.model';
+import { PluginLogService } from '../../../../application/services/plugin-services/plugin-log.service';
+import { Plugin } from '../../../../domain/model/plugin.model';
+import { PluginService } from '../../../../application/services/plugin-services/plugin-base.service';
 Chart.register(...registerables);
 
 const MONTHS = [
@@ -58,18 +58,18 @@ export class PluginLogChartComponent implements OnInit, OnChanges, OnDestroy {
           label: 'Utilized',
           data: this.countSet,
           backgroundColor: [
-            'rgba(255, 99, 132, 0.7)',
-            'rgba(54, 162, 235, 0.7)',
-            'rgba(255, 206, 86, 0.7)',
-            'rgba(75, 192, 192, 0.7)',
-            'rgba(153, 102, 255, 0.7)',
-            'rgba(255, 159, 64, 0.7)',
-            'rgba(255, 342, 64, 0.7)',
-            'rgba(255, 235, 64, 0.7)',
-            'rgba(255, 555, 64, 0.7)',
-            'rgba(255, 777, 64, 0.7)',
-            'rgba(255, 999, 64, 0.7)',
-            'rgba(255, 444, 64, 0.7)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 342, 64, 1)',
+            'rgba(255, 235, 64, 1)',
+            'rgba(255, 555, 64, 1)',
+            'rgba(255, 777, 64, 1)',
+            'rgba(255, 999, 64, 1)',
+            'rgba(255, 444, 64, 1)',
 
           ],
           borderColor: [
@@ -77,7 +77,7 @@ export class PluginLogChartComponent implements OnInit, OnChanges, OnDestroy {
             'rgba(54, 162, 235, 1)',
             'rgba(255, 206, 86, 1)',
             'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
+            'rgba(153, 102, 255,1)',
             'rgba(255, 159, 64, 1)',
             'rgba(255, 342, 64, 1)',
             'rgba(255, 235, 64, 1)',

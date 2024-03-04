@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { PluginUpsertComponent } from '../../plugin/plugin-upsert/plugin-upsert.component';
+import { PluginUpsertComponent } from '../../components/plugin/plugin-upsert/plugin-upsert.component';
 import { Observable } from 'rxjs';
 
 @Injectable({

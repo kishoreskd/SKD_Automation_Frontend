@@ -4,11 +4,11 @@ import { MatPaginator } from '@angular/material/paginator'
 import { MatSort } from '@angular/material/sort'
 import { MatDialog } from '@angular/material/dialog';
 import { PluginUpsertComponent } from '../plugin-upsert/plugin-upsert.component';
-import { Plugin } from '../../domain/model/plugin.model';
-import { PluginService } from '../../application/services/plugin-services/plugin-base.service';
+import { Plugin } from '../../../domain/model/plugin.model';
+import { PluginService } from '../../../application/services/plugin-services/plugin-base.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertifyService } from '../../application/services/common-services/alertify.service';
-import { PluginKeyComponent } from '../../components/plugin-key/plugin-key.component';
+import { AlertifyService } from '../../../application/services/common-services/alertify.service';
+import { PluginKeyComponent } from '../plugin-key/plugin-key.component';
 
 
 @Component({

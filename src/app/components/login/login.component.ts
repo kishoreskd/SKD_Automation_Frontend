@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Login } from '../domain/model/login.model';
-import { LoginService } from '../application/services/common-services/login.service';
-import { AuthToken } from '../domain/model/authToken.model';
-import { AuthService } from '../application/services/common-services/auth.service';
-import { LocalStorageService } from '../application/services/common-services/local-storage.service';
+import { Login } from '../../domain/model/login.model';
+import { LoginService } from '../../application/services/common-services/login.service';
+import { AuthToken } from '../../domain/model/authToken.model';
+import { AuthService } from '../../application/services/common-services/auth.service';
+import { LocalStorageService } from '../../application/services/common-services/local-storage.service';
 import { Route, Router } from '@angular/router';
-import ValidateForm from '../application/helpers/validateForm.helper';
-import { UserStoreService } from '../application/services/common-services/user-store.service';
+import ValidateForm from '../../application/helpers/validateForm.helper';
+import { UserStoreService } from '../../application/services/common-services/user-store.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -27,16 +29,13 @@ export class LoginComponent implements OnInit {
   constructor(private _fb: FormBuilder,
     private readonly _loginService: LoginService,
     private _authService: AuthService,
-    private readonly _localStorageService: LocalStorageService,
-    private readonly _router: Router,
-    private readonly _userStoreService: UserStoreService) { }
+    private readonly _router: Router) { }
 
 
   ngOnInit() {
     this.createForm();
     this.loginForm.get('userName').setValue("2701");
     this.loginForm.get('password').setValue("KishIndi@345");
-
   }
 
   get userName(): FormControl {
@@ -70,22 +69,28 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
 
-    console.log("TEST");
-
     if (this.loginForm.valid) {
-
       this.map();
-      this._loginService.authenticate(this.login).subscribe((data: AuthToken) => {
 
-        this._authService.setToken(data.accessToken);
-        this._authService.setRefreshToken(data.refreshToken);
-        this._authService.decodeToken();
-        this._router.navigate(["/dashbord"]);
-
-      }, err => {
-        this.isError = true;
-        this.ermsg = err.error.errorMessage;
-      });
+      this._loginService.authenticate(this.login).subscribe(
+        {
+          next: (data: AuthToken) => {
+            this._authService.setToken(data.accessToken);
+            this._authService.setRefreshToken(data.refreshToken);
+            this._authService.decodeToken();
+            this._router.navigate(["/dashbord"]);
+          },
+          error: (err) => {
+            if (err.status === 0) {
+              this.isError = true;
+              this.ermsg = "Server down, please try again later!"
+            } else {
+              this.isError = true;
+              this.ermsg = err.error.errorMessage;
+            }
+          }
+        }
+      );
 
     } else {
       ValidateForm.validateAllFormFields(this.loginForm);

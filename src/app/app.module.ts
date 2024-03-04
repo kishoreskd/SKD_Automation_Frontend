@@ -7,9 +7,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 //Declarations
 import { AppComponent } from './app.component';
-import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
-import { PluginHomeComponent } from './plugin/plugin-home/plugin-home.component';
-import { PluginUpsertComponent } from './plugin/plugin-upsert/plugin-upsert.component';
+import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
+import { PluginHomeComponent } from './components/plugin/plugin-home/plugin-home.component';
+import { PluginUpsertComponent } from './components/plugin/plugin-upsert/plugin-upsert.component';
 
 
 //Material
@@ -41,23 +41,23 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpInterceptorService } from './application/interceptor/http.interceptor';
-import { PluginLogHomeComponent } from './plugin-log/plugin-log-home/plugin-log-home.component';
-import { PluginLogUpsertComponent } from './plugin-log/plugin-log-upsert/plugin-log-upsert.component';
+import { PluginLogHomeComponent } from './components/plugin/log-home/plugin-log-home.component';
+import { PluginLogUpsertComponent } from './components/plugin/log-upsert/plugin-log-upsert.component';
 import { MatSortModule } from '@angular/material/sort';
 import { PluginHomePipe } from './application/pipes/plugin-home.pipe';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { PluginLogChartComponent } from './dashbord/plugin-log-chart/plugin-log-chart.component';
-import { PluginChartComponent } from './dashbord/plugin-chart/plugin-chart.component';
+import { PluginLogChartComponent } from './components/dashbord/charts/plugin-log-chart/plugin-log-chart.component';
+import { PluginChartComponent } from './components/dashbord/charts/plugin-chart/plugin-chart.component';
 import { MonthPickerComponent } from './common/month-picker/month-picker.component';
-import { DashbordComponent } from './dashbord/dashbord.component';
+import { DashbordComponent } from './components/dashbord/home/dashbord.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { YearPickerComponent } from './common/year-picker/year-picker.component';
 import { MatDivider } from '@angular/material/divider';
 import { MinutesToHoursPipe } from './application/pipes/minutesToHours.pipe';
-import { ProductivityChartComponent } from './dashbord/productivity-chart/productivity-chart.component';
+import { ProductivityChartComponent } from './components/dashbord/charts/productivity-chart/productivity-chart.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgToastModule } from 'ng-angular-popup';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { UserHomeComponent } from './components/admins/user/user-home/user-home.component';
 import { PluginLogService } from './application/services/plugin-services/plugin-log.service';
 import { LocalStorageService } from './application/services/common-services/local-storage.service';
@@ -71,11 +71,11 @@ import { UserService } from './application/services/admin-services/user.service'
 import { RoleService } from './application/services/admin-services/role.service';
 import { AuthService } from './application/services/common-services/auth.service';
 import { DatePickerComponent } from './common/date-picker/date-picker.component';
-import { PluginKeyComponent } from './components/plugin-key/plugin-key.component';
+import { PluginKeyComponent } from './components/plugin/plugin-key/plugin-key.component';
 import { DepartmentHomeComponent } from './components/admins/department/department-home/department-home.component';
 import { DepartmentUpsertComponent } from './components/admins/department/department-upsert/department-upsert.component';
-import { AdminHomeComponent } from './components/admins/admin-home/admin-home.component';
-import { PluginPieChartComponent } from './components/dashbord/plugin-pie-chart/plugin-pie-chart.component';
+import { AdminHomeComponent } from './components/admins/home/admin-home.component';
+import { PluginPieChartComponent } from './components/dashbord/charts/plugin-pie-chart/plugin-pie-chart.component';
 
 @NgModule({
     declarations:

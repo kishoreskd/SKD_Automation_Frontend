@@ -1,13 +1,13 @@
-import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomValidator } from '../../application/Validator/CustomValidator.component';
-import { PluginService } from '../../application/services/plugin-services/plugin-base.service';
+import { CustomValidator } from '../../../application/Validator/CustomValidator.component';
+import { PluginService } from '../../../application/services/plugin-services/plugin-base.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Plugin } from '../../domain/model/plugin.model';
-import { Department } from '../../domain/model/department.model';
-import { DepartmentService } from '../../application/services/admin-services/department.service';
-import { AlertifyService } from '../../application/services/common-services/alertify.service';
-import { AuthService } from '../../application/services/common-services/auth.service';
+import { Plugin } from '../../../domain/model/plugin.model';
+import { Department } from '../../../domain/model/department.model';
+import { DepartmentService } from '../../../application/services/admin-services/department.service';
+import { AlertifyService } from '../../../application/services/common-services/alertify.service';
+import { AuthService } from '../../../application/services/common-services/auth.service';
 
 @Component({
   selector: 'app-plugin-upsert',
@@ -16,7 +16,7 @@ import { AuthService } from '../../application/services/common-services/auth.ser
 })
 export class PluginUpsertComponent implements OnInit {
 
-  _pluginModel: Plugin;
+  plugin: Plugin;
   _pluginFrm: FormGroup;
   _action: string = "Save";
   _pluginId: number;
@@ -30,7 +30,7 @@ export class PluginUpsertComponent implements OnInit {
     private _depService: DepartmentService,
     private _alertify: AlertifyService,
     private readonly _authService: AuthService) {
-    this._pluginModel = new Plugin();
+    this.plugin = new Plugin();
   }
 
 
@@ -96,10 +96,8 @@ export class PluginUpsertComponent implements OnInit {
   }
 
   add() {
-
-    this._pluginModel.createdBy = this._authService.getEmployeeIdFromToken();
-    console.log(this._pluginModel);
-    this._service.add(this._pluginModel).subscribe({
+    this.plugin.createdBy = this._authService.getEmployeeIdFromToken();
+    this._service.add(this.plugin).subscribe({
       next: (val: Plugin) => {
         this._alertify.success("Plugin added successfully!");
       }
@@ -107,13 +105,10 @@ export class PluginUpsertComponent implements OnInit {
   }
 
   update() {
+    this.plugin.lastModifiedBy = this._authService.getEmployeeIdFromToken();
+    this.plugin.pluginId = this._editData.pluginId;
 
-    this._pluginModel.lastModifiedBy = this._authService.getEmployeeIdFromToken();
-    // console.log(this._pluginModel);
-
-    this._pluginModel.pluginId = this._editData.pluginId;
-
-    this._service.update(this._editData.pluginId, this._pluginModel).subscribe({
+    this._service.update(this._editData.pluginId, this.plugin).subscribe({
       next: (val: Plugin) => {
         this._alertify.success("Plugin updated successfully!");
       }
@@ -121,11 +116,10 @@ export class PluginUpsertComponent implements OnInit {
   }
 
   mapProject(): void {
-
-    this._pluginModel.pluginName = this.pluginName.value;
-    this._pluginModel.manualMinutes = this.manualMinutes.value;
-    this._pluginModel.automatedMinutes = this.automatedMinutes.value;
-    this._pluginModel.description = this.description.value;
-    this._pluginModel.departmentId = this.departmentName.value;
+    this.plugin.pluginName = this.pluginName.value;
+    this.plugin.manualMinutes = this.manualMinutes.value;
+    this.plugin.automatedMinutes = this.automatedMinutes.value;
+    this.plugin.description = this.description.value;
+    this.plugin.departmentId = this.departmentName.value;
   }
 }

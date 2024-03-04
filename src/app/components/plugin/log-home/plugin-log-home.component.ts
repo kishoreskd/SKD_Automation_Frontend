@@ -1,16 +1,16 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { PluginLog } from '../../domain/model/plugin-log.model';
+import { PluginLog } from '../../../domain/model/plugin-log.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { PluginLogService } from '../../application/services/plugin-services/plugin-log.service';
+import { PluginLogService } from '../../../application/services/plugin-services/plugin-log.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { AlertifyService } from '../../application/services/common-services/alertify.service';
-import { PluginLogUpsertComponent } from '../plugin-log-upsert/plugin-log-upsert.component';
-import { Plugin } from '../../domain/model/plugin.model';
-import { PluginService } from '../../application/services/plugin-services/plugin-base.service';
-import { PluginKeyComponent } from '../../components/plugin-key/plugin-key.component';
+import { AlertifyService } from '../../../application/services/common-services/alertify.service';
+import { PluginLogUpsertComponent } from '../log-upsert/plugin-log-upsert.component';
+import { Plugin } from '../../../domain/model/plugin.model';
+import { PluginService } from '../../../application/services/plugin-services/plugin-base.service';
+import { PluginKeyComponent } from '../plugin-key/plugin-key.component';
 
 @Component({
   selector: 'app-plugin-log-home',

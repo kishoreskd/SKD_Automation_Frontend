@@ -12,6 +12,7 @@ export class AuthService {
   public payLoad: any;
 
   constructor() {
+    console.log("Auth service called!");
     this.decodeToken();
   }
 

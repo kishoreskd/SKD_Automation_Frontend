@@ -1,3 +1,4 @@
 <mat-progress-bar mode="indeterminate" *ngIf="isLoading && !_authService.isLoggedIn()"></mat-progress-bar>
 <router-outlet *ngIf="!_authService.isLoggedIn()"></router-outlet>
+
 <app-navigation-bar *ngIf="_authService.isLoggedIn()"></app-navigation-bar>

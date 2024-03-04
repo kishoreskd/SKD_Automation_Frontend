@@ -1,5 +1,5 @@
 import { HttpErrorResponse, HttpEvent, HttpEventType, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponseBase, HttpStatusCode } from '@angular/common/http';
-import { ENVIRONMENT_INITIALIZER, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, EMPTY, EmptyError, Observable, catchError, delay, filter, finalize, switchMap, take, tap, throwError } from 'rxjs';
 import { LoaderService } from '../services/common-services/loader.service';
 import { AlertifyService } from '../services/common-services/alertify.service';
@@ -19,7 +19,6 @@ export class HttpInterceptorService implements HttpInterceptor {
     private readonly _authService: AuthService,
     private _loginService: LoginService,
     private readonly _router: Router) {
-
   }
 
   private isRefreshing: boolean = false;
@@ -157,8 +156,6 @@ export class HttpInterceptorService implements HttpInterceptor {
 
         )
     } else {
-      // console.log("Wait block");
-
       return this.refreshTokenObject.pipe(
         filter(token => token !== null),
         take(1),

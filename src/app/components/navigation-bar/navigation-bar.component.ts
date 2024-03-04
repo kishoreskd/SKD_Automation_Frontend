@@ -1,12 +1,12 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, Event, ActivatedRoute } from '@angular/router';
-import { LoaderService } from '../application/services/common-services/loader.service';
-import { DepartmentService } from '../application/services/admin-services/department.service';
-import { Department } from '../domain/model/department.model';
-import { LocalStorageService } from '../application/services/common-services/local-storage.service';
+import { LoaderService } from '../../application/services/common-services/loader.service';
+import { DepartmentService } from '../../application/services/admin-services/department.service';
+import { Department } from '../../domain/model/department.model';
+import { LocalStorageService } from '../../application/services/common-services/local-storage.service';
 import { BehaviorSubject, catchError } from 'rxjs';
-import { AuthService } from '../application/services/common-services/auth.service';
-import { RoleEnum } from '../domain/enums/role.enum';
+import { AuthService } from '../../application/services/common-services/auth.service';
+import { RoleEnum } from '../../domain/enums/role.enum';
 
 @Component({
   selector: 'app-navigation-bar',

@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Chart } from 'chart.js';
-import { Plugin } from '../../../domain/model/plugin.model';
+import { Plugin } from '../../../../domain/model/plugin.model';
 
 @Component({
   selector: 'app-plugin-pie-chart',
@@ -33,7 +33,7 @@ export class PluginPieChartComponent implements OnInit {
     }
   }
 
- 
+
 
   refreshChart() {
 
@@ -74,13 +74,13 @@ export class PluginPieChartComponent implements OnInit {
           label: 'Utilized',
           data: this.dataChart,
           backgroundColor: [
-            'rgba(255, 99, 132, 0.5)',
-            'rgba(54, 162, 235, 0.5)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 342, 64, 0.2)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 342, 64, 1)',
             'rgba(255, 235, 64, 0.2)',
             'rgba(255, 555, 64, 0.2)',
             'rgba(255, 777, 64, 0.2)',
@@ -89,11 +89,11 @@ export class PluginPieChartComponent implements OnInit {
 
           ],
           borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
+            'rgba(255, 99, 132, 2)',
+            'rgba(54, 162, 235, 2)',
+            'rgba(255, 206, 86, 2)',
+            'rgba(75, 192, 192, 2)',
+            'rgba(153, 102, 255, 2)',
             'rgba(255, 159, 64, 1)',
             'rgba(255, 342, 64, 0.2)',
             'rgba(255, 235, 64, 0.2)',
@@ -109,32 +109,12 @@ export class PluginPieChartComponent implements OnInit {
       options: {
         // indexAxis: 'y',
         scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: false,
-              text: 'Count',
-            },
-            ticks: {
-              precision: 0 // Ensure integers are displayed without decimal points
-            },
-            grid: {
-              display: true
-            }
-          },
-          x: {
-            title: {
-              display: false,
-              text: 'Month'
-            },
-            grid: {
-              display: true
-            }
-          }
+         
+        
         },
         plugins: {
           legend: {
-            display: false
+            display: true
           },
           tooltip: {
 

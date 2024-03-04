@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { PluginLog } from '../../domain/model/plugin-log.model';
+import { PluginLog } from '../../../domain/model/plugin-log.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AlertifyService } from '../../application/services/common-services/alertify.service';
-import { PluginService } from '../../application/services/plugin-services/plugin-base.service';
-import { PluginLogService } from '../../application/services/plugin-services/plugin-log.service';
+import { AlertifyService } from '../../../application/services/common-services/alertify.service';
+import { PluginService } from '../../../application/services/plugin-services/plugin-base.service';
+import { PluginLogService } from '../../../application/services/plugin-services/plugin-log.service';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../application/services/common-services/auth.service';
+import { AuthService } from '../../../application/services/common-services/auth.service';
 
 @Component({
   selector: 'app-plugin-log-upsert',

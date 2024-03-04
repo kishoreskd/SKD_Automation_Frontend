@@ -93,44 +93,48 @@
     </div>
 
 
-    <div class="justify-content-center m-3">
+   
 
-      <div class="row d-flex">
-        <div class="col-md-3">
+  </div>
+</div>
 
+<div class="justify-content-center m-3">
+
+  <div class="row d-flex">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-3">
+      <div class="card border-1">
+        <div class="card-body">
+          <h4 class="text-xs font-weight-bold  text-uppercase mb-1 count-name">Manual
+            {{selectedMonth}}/{{selectedYear}}</h4>
+          <p class="count-numbers"><i class="fa fa-clock-o" aria-hidden="true"></i>
+            {{ manualCardByMnth | minutesToHours}}</p>
         </div>
-        <div class="col-md-3">
-          <div class="card border-1">
-            <div class="card-body">
-              <h4 class="text-xs font-weight-bold  text-uppercase mb-1 count-name">Manual
-                {{selectedMonth}}/{{selectedYear}}</h4>
-              <p class="count-numbers"><i class="fa fa-clock-o" aria-hidden="true"></i>
-                {{ manualCardByMnth | minutesToHours}}</p>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="col-md-3">
-          <div class="card border-1">
-            <div class="card-body">
-              <h4 class="text-xs font-weight-bold  text-uppercase mb-1 count-name">Automate
-                {{selectedMonth}}/{{selectedYear}}</h4>
-              <p class="count-numbers"><i class="fa fa-clock-o" aria-hidden="true"></i>
-                {{automateCardByMnth | minutesToHours}}</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-
-        </div>
-
       </div>
+
+    </div>
+
+    <div class="col-md-3">
+      <div class="card border-1">
+        <div class="card-body">
+          <h4 class="text-xs font-weight-bold  text-uppercase mb-1 count-name">Automate
+            {{selectedMonth}}/{{selectedYear}}</h4>
+          <p class="count-numbers"><i class="fa fa-clock-o" aria-hidden="true"></i>
+            {{automateCardByMnth | minutesToHours}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+
     </div>
 
   </div>
 </div>
+
+
 
 <!-- Chart -->
 
@@ -189,21 +193,16 @@
     </div>
   </div>
 
-  <!-- <div class="col-md-6 mt-3">
+  <div class="col-md-6 mt-3">
     <div class="card  rounded-2  border-0">
 
       <div class="card-body">
         <div class="card-title card-header-title">
-          <i class="fa fa-line-chart" aria-hidden="true"></i> Plugins Utilizing Analyzis
-          {{selectedMonth}}/{{selectedYear}}
+          <i class="fa fa-line-chart" aria-hidden="true"></i> Top 5 Effective Plugins {{selectedMonth}}/{{selectedYear}}
         </div>
 
-        <app-plugin-pie-chart [pluginCol]="pluginChartData" *ngIf="pluginChartData"></app-plugin-pie-chart>
-
+        <app-plugin-pie-chart [pluginCol]="topPlugins" *ngIf="topPlugins"></app-plugin-pie-chart>
       </div>
-
-
-    </div>    
-  </div> -->
-
+    </div>
+  </div>
 </div>
