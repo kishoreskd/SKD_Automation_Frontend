@@ -14,7 +14,6 @@ export const RoleAuthGuard: CanActivateFn = (route, state) => {
       return true;
     }
     else {
-      console.log("Called!");
       router.navigate(['/dashbord']);
       return false;
     }

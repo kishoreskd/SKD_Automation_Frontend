@@ -21,7 +21,6 @@ export class AuthService {
     this.payLoad = jwtHelper.decodeToken(token);
   }
 
-
   setToken(token: string) {
     localStorage.setItem("token", token);
     // this.isLoggedIn = true;
@@ -47,9 +46,16 @@ export class AuthService {
     return localStorage.getItem("refreshtoken");
   }
 
-  logOut() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("refreshtoken");
+  getUserNameFromToken(): string {
+    return this.payLoad.unique_name;
+  }
+
+  getEmployeeIdFromToken(): number {
+    return this.payLoad.employeeId;
+  }
+
+  getRoleFromToken(): string {
+    return this.payLoad.role;
   }
 
   isLoggedIn(): boolean {
@@ -63,17 +69,8 @@ export class AuthService {
     return !!localStorage.getItem("token");
   }
 
-
-  getUserNameFromToken(): string {
-    return this.payLoad.unique_name;
-  }
-
-  getEmployeeIdFromToken(): number {
-    console.log(this.payLoad);
-    return this.payLoad.employeeId;
-  }
-
-  getRoleFromToken(): string {
-    return this.payLoad.role;
+  logOut() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshtoken");
   }
 }

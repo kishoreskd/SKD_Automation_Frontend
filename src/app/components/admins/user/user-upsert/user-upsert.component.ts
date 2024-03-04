@@ -8,6 +8,7 @@ import { UserService } from '../../../../application/services/admin-services/use
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserStoreService } from '../../../../application/services/common-services/user-store.service';
 import { AuthService } from '../../../../application/services/common-services/auth.service';
+import { CustomValidator } from '../../../../application/Validator/CustomValidator.component';
 
 @Component({
   selector: 'app-user-upsert',
@@ -64,15 +65,15 @@ export class UserUpsertComponent implements OnInit {
 
   createForm() {
     this.registerFrm = this._fb.group({
-      userName: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      employeeId: [null, [Validators.required]],
-      roleName: [[Validators.required]]
+      userName: [null, [Validators.required, CustomValidator.numeric, Validators.maxLength(4)]],
+      password: [null, [Validators.required, Validators.minLength(8)]],
+      employeeId: [null, [Validators.required, CustomValidator.numeric, Validators.maxLength(4)]],
+      roleName: [null, [Validators.required]]
     });
   }
 
   patchObj() {
-    if (this._dialogData.id !== 0) {
+    if (this._dialogData.id !== 0 ) {
       this.action = "Update";
       this.registerFrm.patchValue(this._dialogData);
       this.password.setValue("");

@@ -7,6 +7,7 @@ export class LocalStorageService {
 
   private readonly departmentKey = "departmentId";
   public departmentId = 0;
+
   constructor() { }
 
   setDepartmentId(departmentId: number) {
@@ -18,9 +19,6 @@ export class LocalStorageService {
   getDepartmentId(): number {
     this.departmentId = +localStorage.getItem(this.departmentKey);
     return this.departmentId;
-    // return +localStorage.getItem(this.departmentKey);
   }
-
-
 
 }

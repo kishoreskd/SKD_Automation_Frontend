@@ -7,6 +7,7 @@ import { AuthService } from '../services/common-services/auth.service';
 import { AuthToken } from '../../domain/model/authToken.model';
 import { LoginService } from '../services/common-services/login.service';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -102,12 +103,14 @@ export class HttpInterceptorService implements HttpInterceptor {
 
         if (error instanceof HttpErrorResponse) {
           if (error.status === 401) {
-            return this.handleUnAuthorizedError(req, next)
+            this._authService.logOut();
+            this._router.navigate(['/login'])
+            // return this.handleUnAuthorizedError(req, next)
           };
           if (error.status === 404) this.CustomeErroShow(error);
           if (error.status === 400) this.CustomeErroShow(error);
           if (error.status === 0) {
-            this._alertify.error("Internet is not connected, please connect and try again!");
+            this._alertify.error("Server down please try again later!");
             this._router.navigate(['/plugin/home']);
           }
         }
@@ -204,15 +207,15 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   private addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
     return req = req.clone({
-      url: "http://localhost:45300/" + req.url, headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-key-lgn': `Bearer ${token}` })
+      url: environment.apiUrl + "/" + req.url, headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-key-lgn': `Bearer ${token}` })
     });
   }
 
   CustomeErroShow(error: HttpErrorResponse) {
     // console.log(error);
     // if (error.error?.error) {
-      const str = error.error.errorCode + "/ " + error.error.errorMessage;
-      this._alertify.error(str);
+    const str = error.error.errorCode + "/ " + error.error.errorMessage;
+    this._alertify.error(str);
     // }
   }
 }

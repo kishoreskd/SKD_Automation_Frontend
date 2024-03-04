@@ -48,7 +48,6 @@ import { PluginHomePipe } from './application/pipes/plugin-home.pipe';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PluginLogChartComponent } from './dashbord/plugin-log-chart/plugin-log-chart.component';
 import { PluginChartComponent } from './dashbord/plugin-chart/plugin-chart.component';
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MonthPickerComponent } from './common/month-picker/month-picker.component';
 import { DashbordComponent } from './dashbord/dashbord.component';
 import { MatMenuModule } from '@angular/material/menu';
@@ -76,6 +75,7 @@ import { PluginKeyComponent } from './components/plugin-key/plugin-key.component
 import { DepartmentHomeComponent } from './components/admins/department/department-home/department-home.component';
 import { DepartmentUpsertComponent } from './components/admins/department/department-upsert/department-upsert.component';
 import { AdminHomeComponent } from './components/admins/admin-home/admin-home.component';
+import { PluginPieChartComponent } from './components/dashbord/plugin-pie-chart/plugin-pie-chart.component';
 
 @NgModule({
     declarations:
@@ -101,7 +101,8 @@ import { AdminHomeComponent } from './components/admins/admin-home/admin-home.co
             PluginKeyComponent,
             DepartmentHomeComponent,
             DepartmentUpsertComponent,
-            AdminHomeComponent
+            AdminHomeComponent,
+            PluginPieChartComponent
         ],
     imports:
         [

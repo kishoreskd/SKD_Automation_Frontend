@@ -67,8 +67,7 @@ const routes: Routes = [
                 { path: "plugin-log/:id", component: PluginLogHomeComponent }
             ],
         canActivate: [AuthenticationGuard]
-    },
-
+    }
 ]
 
 

@@ -35,7 +35,6 @@ export class PluginUpsertComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log("Called");
     this.createForm();
     this.patchObj();
     this.loadDepartment();
@@ -97,7 +96,6 @@ export class PluginUpsertComponent implements OnInit {
   }
 
   add() {
-    console.log("Called");
 
     this._pluginModel.createdBy = this._authService.getEmployeeIdFromToken();
     console.log(this._pluginModel);
@@ -111,10 +109,7 @@ export class PluginUpsertComponent implements OnInit {
   update() {
 
     this._pluginModel.lastModifiedBy = this._authService.getEmployeeIdFromToken();
-
-    console.log("Called");
-
-    console.log(this._pluginModel);
+    // console.log(this._pluginModel);
 
     this._pluginModel.pluginId = this._editData.pluginId;
 

@@ -13,7 +13,7 @@ import { RoleEnum } from '../domain/enums/role.enum';
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['./navigation-bar.component.css']
 })
-export class NavigationBarComponent implements OnInit, AfterViewInit {
+export class NavigationBarComponent implements OnInit {
   RoleEnum = RoleEnum;
   opened = true;
   loaderVisible: boolean = false;
@@ -28,36 +28,14 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
   constructor(private _router: Router,
     public _loaderService: LoaderService,
     private readonly _departmentService: DepartmentService,
-    private readonly _localStorageService: LocalStorageService,
+    private readonly _lsService: LocalStorageService,
     private _cdr: ChangeDetectorRef,
-    public _authService: AuthService) {
-
-
-    // this._router.events.subscribe((routerEvent: Event) => {
-
-    //   if (routerEvent instanceof NavigationStart) {
-    //     this.showLoadingIndicator = true;
-    //   }
-
-    //   if (routerEvent instanceof NavigationEnd) {
-    //     this.showLoadingIndicator = false;
-    //   }
-    // })
-  }
-  ngAfterViewInit(): void {
-    this.role = this._authService.getRoleFromToken().toUpperCase();
-    this.menuSet();
-  }
-
-  menuSet() {
-    if (this.role === RoleEnum.ADMIN) {
-      this.displayAdminMenu = true;
-    }
+    public _authService: AuthService) {   
   }
 
   ngOnInit() {
-
-
+    this.role = this._authService.getRoleFromToken().toUpperCase();
+    this.menuSet();
 
     this.userName = this._authService.getUserNameFromToken();
 
@@ -69,12 +47,18 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
     this.loadDepartmentSelections();
   }
 
+  menuSet() {
+    if (this.role === RoleEnum.ADMIN) {
+      this.displayAdminMenu = true;
+    }
+  }
+
   loadDepartmentSelections() {
 
     this._departmentService.getAll().subscribe({
       next: (data: Department[]) => {
         this.depSelections = data;
-        if (this._localStorageService.getDepartmentId() > 0) this.departmentId = this._localStorageService.getDepartmentId();
+        if (this._lsService.getDepartmentId() > 0) this.departmentId = this._lsService.getDepartmentId();
         else this.departmentId = this.depSelections[0].departmentId;
         this.selectionChange();
         this._cdr.detectChanges();
@@ -84,9 +68,9 @@ export class NavigationBarComponent implements OnInit, AfterViewInit {
 
   selectionChange() {
 
-    if (this._localStorageService.getDepartmentId() != this.departmentId) {
+    if (this._lsService.getDepartmentId() != this.departmentId) {
 
-      this._localStorageService.setDepartmentId(this.departmentId);
+      this._lsService.setDepartmentId(this.departmentId);
 
       if (this._router.navigated === false) {
         this._router.navigateByUrl("/");
