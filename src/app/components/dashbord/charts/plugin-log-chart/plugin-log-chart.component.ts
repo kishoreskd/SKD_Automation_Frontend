@@ -86,7 +86,7 @@ export class PluginLogChartComponent implements OnInit, OnChanges, OnDestroy {
             'rgba(255, 999, 64, 1)',
             'rgba(255, 444, 64, 1)',
           ],
-          borderWidth: 3,
+          borderWidth: 1,
           borderSkipped: false,
           borderRadius: 10,
           barPercentage: 1,

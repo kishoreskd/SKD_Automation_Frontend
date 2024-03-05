@@ -57,6 +57,11 @@ export class UserUpsertComponent implements OnInit {
     return this.getControl("employeeId");
   }
 
+  get email(): FormControl {
+    return this.getControl("email");
+  }
+
+
   getControl(field: string): FormControl {
     return this.registerFrm.get(field) as FormControl;
   }
@@ -68,12 +73,13 @@ export class UserUpsertComponent implements OnInit {
       userName: [null, [Validators.required, CustomValidator.numeric, Validators.maxLength(4)]],
       password: [null, [Validators.required, Validators.minLength(8)]],
       employeeId: [null, [Validators.required, CustomValidator.numeric, Validators.maxLength(4)]],
-      roleName: [null, [Validators.required]]
+      roleName: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email]]
     });
   }
 
   patchObj() {
-    if (this._dialogData.id !== 0 ) {
+    if (this._dialogData.id !== 0) {
       this.action = "Update";
       this.registerFrm.patchValue(this._dialogData);
       this.password.setValue("");
@@ -123,6 +129,8 @@ export class UserUpsertComponent implements OnInit {
     this.user.roleId = +this.roleName.value;
     this.user.password = this.password.value;
     this.user.employeeId = +this.employeeId.value;
+    this.user.email = this.email.value;
+
   }
 
 }

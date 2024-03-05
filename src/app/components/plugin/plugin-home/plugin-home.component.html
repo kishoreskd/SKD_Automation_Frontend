@@ -207,18 +207,18 @@
       </ng-container>
 
 
-      <ng-container matColumnDef="noData">
+      <!-- <ng-container matColumnDef="noData">
         <mat-footer-cell *matFooterCellDef colspan="6">
           No data.
         </mat-footer-cell>
-      </ng-container>
+      </ng-container> -->
 
 
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      <mat-footer-row *matFooterRowDef="['noData']"
-        [ngClass]="{'hide': pluginCol != null && pluginCol.length > 0}"></mat-footer-row>
+      <!-- <mat-footer-row *matFooterRowDef="['noData']"
+        [ngClass]="{'hide': pluginCol != null && pluginCol.length > 0}"></mat-footer-row> -->
     </table>
 
     <mat-paginator [pageSizeOptions]="[20,40,60,80,100]" showFirstLastButtons

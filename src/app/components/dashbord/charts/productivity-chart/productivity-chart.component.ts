@@ -56,14 +56,14 @@ export class ProductivityChartComponent implements OnInit, OnChanges, OnDestroy 
           label: 'Taken ',
           data: this.countSet,
           backgroundColor: [
-            'rgba(255, 99, 132,1)',
-            'rgba(54, 162, 235,1)',
+            'rgba(255, 99, 132,2)',
+            'rgba(54, 162, 235,2)',
           ],
           borderColor: [
             'rgba(255, 99, 132, 2)',
             'rgba(54, 162, 235, 2)',
           ],
-          borderWidth: 3,
+          borderWidth: 1,
           borderSkipped: false,
           borderRadius: 10,
           barPercentage: 1,
@@ -99,7 +99,7 @@ export class ProductivityChartComponent implements OnInit, OnChanges, OnDestroy 
 
         plugins: {
           legend: {
-            display: true
+            display: false
           },
           tooltip: {
             callbacks: {
@@ -114,7 +114,7 @@ export class ProductivityChartComponent implements OnInit, OnChanges, OnDestroy 
       },
 
     });
-  }
+  } 
 
   getChartData() {
     const mMin = this.plgn.manualMinutes * this.plgn.pluginLogs?.length;

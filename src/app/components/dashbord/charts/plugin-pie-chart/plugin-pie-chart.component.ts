@@ -102,7 +102,7 @@ export class PluginPieChartComponent implements OnInit {
             'rgba(255, 999, 64, 0.2)',
             'rgba(255, 444, 64, 0.2)',
           ],
-          borderWidth: 3,
+          borderWidth: 1,
           hoverBorderColor: "#000",
         }]
       },

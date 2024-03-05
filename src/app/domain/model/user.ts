@@ -8,6 +8,7 @@ export class User {
     roleId: number;
     roleName: string;
     employeeId : number;
+    email?: string;
 
     createdBy: number;
     createdDate: Date;
