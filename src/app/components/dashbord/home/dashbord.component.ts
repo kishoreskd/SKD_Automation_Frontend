@@ -159,7 +159,7 @@ export class DashbordComponent implements OnInit {
   getTopPlugins() {
     this._pluginService.getTopPlugin(5, this.selectedDate).subscribe((e: Plugin[]) => {
       this.topPlugins = e;
-      console.log(this.topPlugins);
+      // console.log(this.topPlugins);
     });
   }
 

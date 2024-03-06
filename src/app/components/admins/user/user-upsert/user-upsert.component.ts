@@ -125,12 +125,12 @@ export class UserUpsertComponent implements OnInit {
   }
 
   map() {
+
     this.user.userName = this.userName.value;
     this.user.roleId = +this.roleName.value;
     this.user.password = this.password.value;
     this.user.employeeId = +this.employeeId.value;
     this.user.email = this.email.value;
-
   }
 
 }

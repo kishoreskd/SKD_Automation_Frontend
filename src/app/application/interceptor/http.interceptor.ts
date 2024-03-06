@@ -106,7 +106,7 @@ export class HttpInterceptorService implements HttpInterceptor {
             this._router.navigate(['/login'])
             // return this.handleUnAuthorizedError(req, next)
           };
-          if (error.status === 404) this.CustomeErroShow(error);
+          if (error.status === 404 || error.status === 400 || error.status === 500) this.CustomeErroShow(error);
           if (error.status === 400) this.CustomeErroShow(error);
           if (error.status === 0) {
             this._alertify.error("Server down please try again later!");
@@ -209,11 +209,17 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 
   CustomeErroShow(error: HttpErrorResponse) {
-    // console.log(error);
-    // if (error.error?.error) {
-    const str = error.error.errorCode + "/ " + error.error.errorMessage;
+    console.log(error);
+
+    let str = "";
+    if (error.error.errorCode !== undefined) {
+      str = error.error.errorCode + "/ " + error.error.errorMessage;
+    }
+    if (error.error.ErrorCode !== undefined) {
+      str = error.error.ErrorCode + "/ " + error.error.ErrorMessage;
+    }
+
     this._alertify.error(str);
-    // }
   }
 }
 
