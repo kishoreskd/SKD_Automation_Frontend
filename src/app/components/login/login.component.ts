@@ -10,6 +10,7 @@ import ValidateForm from '../../application/helpers/validateForm.helper';
 import { UserStoreService } from '../../application/services/common-services/user-store.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs';
+import { AccessPermissionService } from '../../application/services/common-services/accessPermission.service';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
   constructor(private _fb: FormBuilder,
     private readonly _loginService: LoginService,
     private _authService: AuthService,
-    private readonly _router: Router) { }
+    private readonly _router: Router,
+    private readonly _permissionAccess : AccessPermissionService) { }
 
 
   ngOnInit() {
@@ -78,6 +80,8 @@ export class LoginComponent implements OnInit {
             this._authService.setToken(data.accessToken);
             this._authService.setRefreshToken(data.refreshToken);
             this._authService.decodeToken();
+            this._permissionAccess.loadPermission();
+
             this._router.navigate(["/dashbord"]);
           },
           error: (err) => {

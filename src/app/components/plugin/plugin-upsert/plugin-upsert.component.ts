@@ -8,6 +8,7 @@ import { Department } from '../../../domain/model/department.model';
 import { DepartmentService } from '../../../application/services/admin-services/department.service';
 import { AlertifyService } from '../../../application/services/common-services/alertify.service';
 import { AuthService } from '../../../application/services/common-services/auth.service';
+import { AccessPermissionService } from '../../../application/services/common-services/accessPermission.service';
 
 @Component({
   selector: 'app-plugin-upsert',

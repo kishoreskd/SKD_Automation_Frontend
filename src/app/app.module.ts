@@ -76,6 +76,7 @@ import { DepartmentHomeComponent } from './components/admins/department/departme
 import { DepartmentUpsertComponent } from './components/admins/department/department-upsert/department-upsert.component';
 import { AdminHomeComponent } from './components/admins/home/admin-home.component';
 import { PluginPieChartComponent } from './components/dashbord/charts/plugin-pie-chart/plugin-pie-chart.component';
+import { AccessPermissionService } from './application/services/common-services/accessPermission.service';
 
 @NgModule({
     declarations:
@@ -157,7 +158,7 @@ import { PluginPieChartComponent } from './components/dashbord/charts/plugin-pie
             UserService,
             RoleService,
             AuthService,
-            
+            AccessPermissionService,
             PluginUpsertCanDeactivateGuardService
         ],
     bootstrap: [AppComponent],

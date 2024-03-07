@@ -9,6 +9,7 @@ import { PluginService } from '../../../application/services/plugin-services/plu
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertifyService } from '../../../application/services/common-services/alertify.service';
 import { PluginKeyComponent } from '../plugin-key/plugin-key.component';
+import { AccessPermissionService } from '../../../application/services/common-services/accessPermission.service';
 
 
 @Component({
@@ -20,6 +21,8 @@ export class PluginHomeComponent implements OnInit {
 
   @ViewChild(MatPaginator) _paginator: MatPaginator;
   @ViewChild(MatSort) _sort: MatSort;
+
+  canWrite: boolean;
 
   pluginCol: Array<Plugin> = new Array<Plugin>();
   displayedColumns: string[] = ['index', 'pluginName', 'manualMinutes', 'automatedMinutes', 'description', 'createdBy', 'createdDate', "action"];
@@ -38,7 +41,8 @@ export class PluginHomeComponent implements OnInit {
     private _router: Router,
     private _activetedRoute: ActivatedRoute,
     private _alertify: AlertifyService,
-    private readonly changeDetectorRef: ChangeDetectorRef) {
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly _permission: AccessPermissionService) {
 
     // this.displayedColumns = ['pluginId', 'index', 'pluginName', 'manualMinutes', 'automatedMinutes', 'description', 'departmentName', 'createdBy', 'createdDate', "action"];
   }
@@ -48,6 +52,8 @@ export class PluginHomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.canWrite = this._permission.canWrite();
+    console.log(this.canWrite);
     this.refreshPlugins();
     this.filterType = this.displayedColumns[1];
   }

@@ -89,7 +89,7 @@
 </mat-toolbar> -->
 
 
-<mat-toolbar class="bg-white rounded-3 border-0">
+<mat-toolbar *ngIf="canWrite" class="bg-white rounded-3 border-0">
   <div class="mx-2">
     <!-- <h1>{{pluginName}}</h1> -->
   </div>
@@ -106,11 +106,7 @@
 
 <div class="card">
   <div class="card-body">
-
-
     <div class="w-100 pt-2"></div>
-
-
     <mat-toolbar class="bg-grey rounded-3">
 
       <input class="form-control bg-grey border-0" type="text" [(ngModel)]='filterText' placeholder="Search"
@@ -188,16 +184,16 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="primary" (click)="onEditPluginDialog(element)">
+          <button *ngIf="canWrite" mat-icon-button color="primary" (click)="onEditPluginDialog(element)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="onOpenKeyGenerator(element)">
+          <button *ngIf="canWrite" mat-icon-button color="warn" (click)="onOpenKeyGenerator(element)">
             <mat-icon>key</mat-icon>
           </button>
           <button mat-icon-button color="primary" routerLink="/plugin-log/{{element.pluginId}}">
             <mat-icon>auto_stories</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="onRemovePlugin(element.pluginId)">
+          <button *ngIf="canWrite" mat-icon-button color="warn" (click)="onRemovePlugin(element.pluginId)">
             <mat-icon>delete</mat-icon>
           </button>
           <!-- <button mat-icon-button color="primary" (click)="onNavigatePluginLogChart(element.pluginId)">

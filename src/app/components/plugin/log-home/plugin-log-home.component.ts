@@ -11,6 +11,7 @@ import { PluginLogUpsertComponent } from '../log-upsert/plugin-log-upsert.compon
 import { Plugin } from '../../../domain/model/plugin.model';
 import { PluginService } from '../../../application/services/plugin-services/plugin-base.service';
 import { PluginKeyComponent } from '../plugin-key/plugin-key.component';
+import { AccessPermissionService } from '../../../application/services/common-services/accessPermission.service';
 
 @Component({
   selector: 'app-plugin-log-home',
@@ -46,17 +47,20 @@ export class PluginLogHomeComponent implements OnInit {
   pluginName: string;
   manualMinutes: number = 0;
   automatedMinutes: number = 0;
+  canWrite : boolean = true;
 
   constructor(private _matDialog: MatDialog,
     private _service: PluginLogService,
     private _activateRoute: ActivatedRoute,
     private _alertify: AlertifyService,
     private _pluginService: PluginService,
-    private _router: Router) {
+    private _router: Router,
+    private readonly _permission: AccessPermissionService) {
   }
 
   ngOnInit() {
-
+    
+    this.canWrite = this._permission.canWrite();
     this.pluginId = +this._activateRoute.snapshot.params['id'];
     this.refreshPluginLog();
 
@@ -178,7 +182,4 @@ export class PluginLogHomeComponent implements OnInit {
   public navigateToPluginHome() {
     this._router.navigate(['plugin/home']);
   }
-
-
-
 }
