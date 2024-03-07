@@ -54,7 +54,6 @@ export class NavigationBarComponent implements OnInit {
   }
 
   loadDepartmentSelections() {
-
     this._departmentService.getAll().subscribe({
       next: (data: Department[]) => {
         this.depSelections = data;
@@ -67,11 +66,8 @@ export class NavigationBarComponent implements OnInit {
   }
 
   selectionChange() {
-
     if (this._lsService.getDepartmentId() != this.departmentId) {
-
       this._lsService.setDepartmentId(this.departmentId);
-
       if (this._router.navigated === false) {
         this._router.navigateByUrl("/");
         this._cdr.detectChanges();
@@ -86,18 +82,18 @@ export class NavigationBarComponent implements OnInit {
   }
 
   onLogout() {
-    // this._loaderService.loaderVisible.next(true);
-    // const timer = setTimeout(() => {
-    //   if (!this.loaderVisible) {
-    //     return;
-    //   }
-    //   this._authService.logOut();
-    //   this._router.navigate(["/login"]);
-    //   this._loaderService.loaderVisible.next(false);
-    // }, 5000)
+    this._loaderService.loaderVisible.next(true);
+    const timer = setTimeout(() => {
+      if (!this.loaderVisible) {
+        return;
+      }
+      this._authService.logOut();
+      this._router.navigate(["/login"]);
+      this._loaderService.loaderVisible.next(false);
+    }, 1000)
 
-    this._authService.logOut();
-    this._router.navigate(["/login"]);
+    // this._authService.logOut();
+    // this._router.navigate(["/login"]);
   }
 
 }

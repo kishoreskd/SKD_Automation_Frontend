@@ -3,9 +3,7 @@ import { PluginLog } from '../../../domain/model/plugin-log.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AlertifyService } from '../../../application/services/common-services/alertify.service';
-import { PluginService } from '../../../application/services/plugin-services/plugin-base.service';
 import { PluginLogService } from '../../../application/services/plugin-services/plugin-log.service';
-import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../application/services/common-services/auth.service';
 
 @Component({
@@ -62,8 +60,6 @@ export class PluginLogUpsertComponent implements OnInit {
 
   onFormSubmit() {
 
-
-
     if (this._pluginLogFrm.valid) {
 
       this.mapProject();
@@ -79,7 +75,6 @@ export class PluginLogUpsertComponent implements OnInit {
   }
 
   add() {
-
     this._pluginLogModel.createdBy = this._authService.getEmployeeIdFromToken();
     this._service.add(this._pluginLogModel).subscribe(data => {
       this._alertify.success("Log added successfully!");
@@ -87,7 +82,6 @@ export class PluginLogUpsertComponent implements OnInit {
   }
 
   update() {
-
     this._pluginLogModel.pluginLogId = this._dialogData.pluginLogId;
     this._pluginLogModel.lastModifiedBy = this._authService.getEmployeeIdFromToken();
 

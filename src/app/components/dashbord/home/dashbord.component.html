@@ -1,5 +1,8 @@
 <!-- <app-month-picker (dateTimeSelected)="onSelectedMonth($event)"></app-month-picker> -->
 
+
+<!-- <h4>Dashbord</h4> -->
+
 <div class="container-fluid px-4">
   <div class="row g-3 my-2">
     <div class="col-md-4">
@@ -58,141 +61,151 @@
   </div>
 </div>
 
-<!-- Menu Bar -->
 
-<div class="d-flex justify-content-center mt-5">
-  <div class="card border-1 rounded-4">
-    <div class="card-body">
 
-      <div class="flex-row row">
+<div class="card  border-0 rounded-2 mt-5">
+  <div class="card-body ">
 
-        <div class="col-md-6">
+    <!-- Menu Bar -->
 
-          <mat-form-field class="material-resize mx-2" appearance="outline">
-            <!-- <mat-label>Plugin</mat-label> -->
-            <mat-select [(ngModel)]="pId" (selectionChange)="onPluginSelectionChange($event)">
-              <mat-option *ngFor="let val of pluginSelections" [value]="val.pluginId">
-                {{val.pluginName}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <div class="col-md-6">
-          <app-month-picker (dateTimeSelected)="onSelectedMonth($event)"></app-month-picker>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<div class="justify-content-center m-2">
-
-  <div class="row d-flex">
-    <div class="col-md-3">
-
-    </div>
-    <div class="col-md-3">
-      <div class="card border-1">
+    <div class="d-flex justify-content-center">
+      <div class="card border-1 rounded-4 shadow-lg">
         <div class="card-body">
-          <h4 class="text-xs font-weight-bold  text-uppercase mb-1 count-name">Manual
-            {{selectedMonth}}/{{selectedYear}}</h4>
-          <p class="count-numbers"><i class="fa fa-clock-o" aria-hidden="true"></i>
-            {{ manualCardByMnth | minutesToHours}}</p>
+
+          <div class="flex-row row">
+
+            <div class="col-md-6">
+
+              <mat-form-field class="material-resize mx-2" appearance="outline">
+                <!-- <mat-label>Plugin</mat-label> -->
+                <mat-select [(ngModel)]="pId" (selectionChange)="onPluginSelectionChange($event)">
+                  <mat-option *ngFor="let val of pluginSelections" [value]="val.pluginId">
+                    {{val.pluginName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+              <app-month-picker (dateTimeSelected)="onSelectedMonth($event)"></app-month-picker>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="justify-content-center m-2 ">
+
+      <div class="row d-flex">
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-3">
+          <div class="card border-0 shadow-lg">
+            <div class="card-body">
+              <h4 class="text-xs font-weight-bold  text-uppercase mb-1 count-name">Manual
+                {{selectedMonth}}/{{selectedYear}}</h4>
+              <p class="count-numbers"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                {{ manualCardByMnth | minutesToHours}}</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-3">
+          <div class="card border-0 shadow-lg">
+            <div class="card-body">
+              <h4 class="text-xs font-weight-bold  text-uppercase mb-1 count-name">Automate
+                {{selectedMonth}}/{{selectedYear}}</h4>
+              <p class="count-numbers"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                {{automateCardByMnth | minutesToHours}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+
+        </div>
+
+      </div>
+    </div>
+
+
+
+    <!-- Chart -->
+
+    <div class="flex-row row mt-2">
+
+      <div class="col-md-6">
+        <div class="card rounded-2  border-0 shadow-lg">
+
+          <div class="card-body">
+            <div class="card-title card-header-title">
+              <span><i class="fa fa-bar-chart" aria-hidden="true"></i> {{pluginName}}</span> Productivity Analyzis
+              {{selectedMonth}}/{{selectedYear}}
+            </div>
+
+            <app-productivity-chart [plgn]="productivityChartData"
+              *ngIf="productivityChartData"></app-productivity-chart>
+
+          </div>
         </div>
       </div>
 
-    </div>
 
-    <div class="col-md-3">
-      <div class="card border-1">
-        <div class="card-body">
-          <h4 class="text-xs font-weight-bold  text-uppercase mb-1 count-name">Automate
-            {{selectedMonth}}/{{selectedYear}}</h4>
-          <p class="count-numbers"><i class="fa fa-clock-o" aria-hidden="true"></i>
-            {{automateCardByMnth | minutesToHours}}</p>
+      <div class="col-md-6 ">
+        <div class="card  rounded-2  border-0 shadow-lg">
+          <div class="card-body">
+            <div class="card-title card-header-title">
+              <i class="fa fa-bar-chart" aria-hidden="true"></i> {{pluginName}} Utilizing Analyzis
+              {{selectedMonth}}/{{selectedYear}}
+            </div>
+            <!--  -->
+            <app-plugin-log-chart [plugin]="pluginLogChartData" *ngIf="pluginLogChartData"></app-plugin-log-chart>
+            <!--  -->
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="col-md-3">
-
-    </div>
-
-  </div>
-</div>
 
 
+    <div class="flex-row row mt-2">
+      <div class="col-md-6 mt-2">
+        <div class="card  rounded-2  border-0 shadow-lg">
 
-<!-- Chart -->
+          <div class="card-body">
+            <div class="card-title card-header-title">
+              <i class="fa fa-line-chart" aria-hidden="true"></i> Plugins Utilizing Analyzis
+              {{selectedMonth}}/{{selectedYear}}
+            </div>
 
-<div class="flex-row row mt-2">
+            <!--  -->
+            <app-plugin-chart [pluginCol]="pluginChartData" *ngIf="pluginChartData"></app-plugin-chart>
+            <!--  -->
 
-  <div class="col-md-6">
-    <div class="card rounded-2  border-0">
+          </div>
 
-      <div class="card-body">
-        <div class="card-title card-header-title">
-          <span><i class="fa fa-bar-chart" aria-hidden="true"></i> {{pluginName}}</span> Productivity Analyzis
-          {{selectedMonth}}/{{selectedYear}}
+
         </div>
-
-        <app-productivity-chart [plgn]="productivityChartData" *ngIf="productivityChartData"></app-productivity-chart>
-
-      </div>
-    </div>
-  </div>
-
-
-  <div class="col-md-6 ">
-    <div class="card  rounded-2  border-0">
-      <div class="card-body">
-        <div class="card-title card-header-title">
-          <i class="fa fa-bar-chart" aria-hidden="true"></i> {{pluginName}} Utilizing Analyzis
-          {{selectedMonth}}/{{selectedYear}}
-        </div>
-        <!--  -->
-        <app-plugin-log-chart [plugin]="pluginLogChartData" *ngIf="pluginLogChartData"></app-plugin-log-chart>
-        <!--  -->
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<div class="flex-row row mt-2">
-  <div class="col-md-6 mt-2">
-    <div class="card  rounded-2  border-0">
-
-      <div class="card-body">
-        <div class="card-title card-header-title">
-          <i class="fa fa-line-chart" aria-hidden="true"></i> Plugins Utilizing Analyzis
-          {{selectedMonth}}/{{selectedYear}}
-        </div>
-
-        <!--  -->
-        <app-plugin-chart [pluginCol]="pluginChartData" *ngIf="pluginChartData"></app-plugin-chart>
-        <!--  -->
-
       </div>
 
+      <div class="col-md-6 mt-2">
+        <div class="card  rounded-2  border-0 shadow-lg">
 
-    </div>
-  </div>
+          <div class="card-body">
+            <div class="card-title card-header-title">
+              <i class="fa fa-pie-chart" aria-hidden="true"></i> Top 5 Effective Plugins
+              {{selectedMonth}}/{{selectedYear}}
+            </div>
 
-  <div class="col-md-6 mt-2">
-    <div class="card  rounded-2  border-0">
-
-      <div class="card-body">
-        <div class="card-title card-header-title">
-          <i class="fa fa-pie-chart" aria-hidden="true"></i> Top 5 Effective Plugins {{selectedMonth}}/{{selectedYear}}
+            <app-plugin-pie-chart [pluginCol]="topPlugins" *ngIf="topPlugins"></app-plugin-pie-chart>
+          </div>
         </div>
-
-        <app-plugin-pie-chart [pluginCol]="topPlugins" *ngIf="topPlugins"></app-plugin-pie-chart>
       </div>
     </div>
+
   </div>
 </div>

@@ -54,14 +54,12 @@ export class DashbordComponent implements OnInit {
     this.setDefault();
     this.getCounterCardData();
     this.getTopPlugins();
-
   }
 
   setDefault() {
     const today = new Date();
     this.selectedMonth = today.getMonth() + 1;
     this.selectedYear = today.getFullYear();
-
   }
 
   resetChartData() {
@@ -144,7 +142,7 @@ export class DashbordComponent implements OnInit {
       this.totalPCount = data.totalPlugins;
       this.totalMminute = data.totalManualMiniutes;
       this.totalAminute = data.totalAutomatedMinutes;
-    })
+    });
   }
 
   getCounterCardDataByMonthYear() {
@@ -152,8 +150,7 @@ export class DashbordComponent implements OnInit {
       this.dashbordSelectedMonth = data;
       this.manualCardByMnth = data.totalManualMiniutes;
       this.automateCardByMnth = data.totalAutomatedMinutes;
-
-    })
+    });
   }
 
   getTopPlugins() {

@@ -270,7 +270,10 @@ export class PluginPieChartComponent implements OnInit {
   }
 
   calculatePercentage() {
-    const total = this.dataChart.reduce((acc, val) => acc + val);
+    if (this.dataChart.length <= 0) return;
+
+    const initialValue = 0;
+    const total = this.dataChart.reduce((acc, val) => acc + val, initialValue);
     let remainPercent = 100;
     this.dataChart = this.dataChart.map((value) => {
       const percent = Math.round((value / total) * 100)
@@ -281,7 +284,6 @@ export class PluginPieChartComponent implements OnInit {
     for (let i = 0; i < remainPercent; i++) {
       const index = this.dataChart.indexOf(Math.min(...this.dataChart));
       this.dataChart[index]++;
-      console.log(this.dataChart);
     }
   }
 }
