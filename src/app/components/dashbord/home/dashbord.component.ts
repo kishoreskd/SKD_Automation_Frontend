@@ -1,16 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
-import { AlertifyService } from '../../../application/services/common-services/alertify.service';
 import { PluginLogService } from '../../../application/services/plugin-services/plugin-log.service';
-import { PluginLog } from '../../../domain/model/plugin-log.model';
 import { Plugin } from '../../../domain/model/plugin.model';
 import { PluginService } from '../../../application/services/plugin-services/plugin-base.service';
 import { DashbordService } from '../../../application/services/plugin-services/dashbord.service';
 import { Dashbord } from '../../../domain/model/dashbord.model';
 import { DepartmentService } from '../../../application/services/admin-services/department.service';
-import { Department } from '../../../domain/model/department.model';
 
 @Component({
   selector: 'app-dashbord',
@@ -19,12 +13,10 @@ import { Department } from '../../../domain/model/department.model';
 })
 export class DashbordComponent implements OnInit {
 
-
   pId: number;
   selectedMonth: number;
   selectedYear: number;
   selectedDate: Date = new Date();
-
   pluginName: string;
 
   pluginChartData: Plugin[] = new Array<Plugin>();
@@ -62,15 +54,11 @@ export class DashbordComponent implements OnInit {
     this.selectedYear = today.getFullYear();
   }
 
-  resetChartData() {
-  }
-
+  
   onSelectedMonth(date: Date) {
 
     this.productivityChartData = new Plugin();
     this.pluginLogChartData = new Plugin();
-
-    // console.log(this.pluginChartData);
 
     this.selectedMonth = date.getMonth() + 1;
     this.selectedYear = date.getFullYear();
@@ -82,7 +70,6 @@ export class DashbordComponent implements OnInit {
       this.getPluginLogChartData();
       this.getCounterCardDataByMonthYear();
       this.getTopPlugins();
-
     }
   }
 
@@ -90,17 +77,14 @@ export class DashbordComponent implements OnInit {
 
     if (this.pId > 0) {
 
-      this.resetChartData();
       this.getProductivityChartData();
       this.getPluginLogChartData();
       this.getCounterCardDataByMonthYear();
-
     }
   }
 
   loadPluginSelections() {
     this._pluginService.getByDepartment().subscribe((data: Plugin[]) => {
-      // console.log(data[0]);
 
       if (data.length > 0) {
         this.pluginSelections = data;
@@ -110,11 +94,8 @@ export class DashbordComponent implements OnInit {
         this.getProductivityChartData();
         this.getPluginLogChartData();
         this.getCounterCardDataByMonthYear();
-
-
       }
-
-    })
+    });
   }
 
   getProductivityChartData() {

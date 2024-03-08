@@ -156,7 +156,7 @@
         <td mat-cell *matCellDef="let element"> {{element.manualMinutes}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="automatedMinutes">
+      <ng-container  matColumnDef="automatedMinutes">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Automated Minutes </th>
         <td mat-cell *matCellDef="let element"> {{element.automatedMinutes}} </td>
       </ng-container>
@@ -181,7 +181,7 @@
         <td mat-cell *matCellDef="let element"> {{element.createdDate | date : 'MMM d, y, h:mm:ss a'}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="action">
+      <ng-container  matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
           <button *ngIf="canWrite" mat-icon-button color="primary" (click)="onEditPluginDialog(element)">

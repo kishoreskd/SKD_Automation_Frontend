@@ -77,6 +77,7 @@ import { DepartmentUpsertComponent } from './components/admins/department/depart
 import { AdminHomeComponent } from './components/admins/home/admin-home.component';
 import { PluginPieChartComponent } from './components/dashbord/charts/plugin-pie-chart/plugin-pie-chart.component';
 import { AccessPermissionService } from './application/services/common-services/accessPermission.service';
+import { HasPermissionDirective } from './application/directives/has-permission.directive';
 
 @NgModule({
     declarations:
@@ -103,7 +104,8 @@ import { AccessPermissionService } from './application/services/common-services/
             DepartmentHomeComponent,
             DepartmentUpsertComponent,
             AdminHomeComponent,
-            PluginPieChartComponent
+            PluginPieChartComponent, 
+            HasPermissionDirective
         ],
     imports:
         [

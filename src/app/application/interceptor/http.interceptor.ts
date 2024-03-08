@@ -204,7 +204,10 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   private addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
     return req = req.clone({
-      url: environment.apiUrl + "/" + req.url, headers: new HttpHeaders({ 'Content-Type': 'application/json', 'auth-key-lgn': `Bearer ${token}` })
+      url: environment.apiUrl + "/" + req.url, headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth-key-lgn': `Bearer ${token}`       
+      })
     });
   }
 
