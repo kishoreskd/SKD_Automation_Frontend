@@ -78,6 +78,8 @@ import { AdminHomeComponent } from './components/admins/home/admin-home.componen
 import { PluginPieChartComponent } from './components/dashbord/charts/plugin-pie-chart/plugin-pie-chart.component';
 import { AccessPermissionService } from './application/services/common-services/accessPermission.service';
 import { HasPermissionDirective } from './application/directives/has-permission.directive';
+import { PermissionMasterComponent } from './components/admins/master/permission-master/permission-master.component';
+
 
 @NgModule({
     declarations:
@@ -104,8 +106,9 @@ import { HasPermissionDirective } from './application/directives/has-permission.
             DepartmentHomeComponent,
             DepartmentUpsertComponent,
             AdminHomeComponent,
-            PluginPieChartComponent, 
-            HasPermissionDirective
+            PluginPieChartComponent,
+            HasPermissionDirective,
+            PermissionMasterComponent
         ],
     imports:
         [
@@ -161,7 +164,7 @@ import { HasPermissionDirective } from './application/directives/has-permission.
             RoleService,
             AuthService,
             AccessPermissionService,
-            PluginUpsertCanDeactivateGuardService
+            PluginUpsertCanDeactivateGuardService,
         ],
     bootstrap: [AppComponent],
     exports: [],

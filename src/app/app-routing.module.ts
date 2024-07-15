@@ -10,8 +10,7 @@ import { LoginGuard } from './application/guards/login.guard';
 import { AdminHomeComponent } from './components/admins/home/admin-home.component';
 import { DepartmentHomeComponent } from './components/admins/department/department-home/department-home.component';
 import { RoleAuthGuard } from './application/guards/role-auth.guard';
-
-
+import { PermissionMasterComponent } from './components/admins/master/permission-master/permission-master.component';
 
 const routes: Routes = [
     {
@@ -32,6 +31,9 @@ const routes: Routes = [
             },
             {
                 path: "admin/department-home", component: DepartmentHomeComponent
+            },
+            {
+                path:"admin/permission-master", component: PermissionMasterComponent
             }
         ],
         canActivate: [AuthenticationGuard, RoleAuthGuard]
