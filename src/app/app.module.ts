@@ -78,6 +78,7 @@ import { AdminHomeComponent } from './components/admins/home/admin-home.componen
 import { PluginPieChartComponent } from './components/dashbord/charts/plugin-pie-chart/plugin-pie-chart.component';
 import { AccessPermissionService } from './application/services/common-services/accessPermission.service';
 import { HasPermissionDirective } from './application/directives/has-permission.directive';
+import { ModuleMasterComponent } from './components/admins/master/module-master/module-master.component';
 import { PermissionMasterComponent } from './components/admins/master/permission-master/permission-master.component';
 
 
@@ -108,6 +109,7 @@ import { PermissionMasterComponent } from './components/admins/master/permission
             AdminHomeComponent,
             PluginPieChartComponent,
             HasPermissionDirective,
+            ModuleMasterComponent,
             PermissionMasterComponent
         ],
     imports:

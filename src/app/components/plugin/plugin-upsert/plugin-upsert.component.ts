@@ -5,10 +5,10 @@ import { PluginService } from '../../../application/services/plugin-services/plu
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Plugin } from '../../../domain/model/plugin.model';
 import { Department } from '../../../domain/model/department.model';
-import { DepartmentService } from '../../../application/services/admin-services/department.service';
 import { AlertifyService } from '../../../application/services/common-services/alertify.service';
 import { AuthService } from '../../../application/services/common-services/auth.service';
 import { AccessPermissionService } from '../../../application/services/common-services/accessPermission.service';
+import { DepartmentService } from '../../../application/services/admin-services/department.service';
 
 @Component({
   selector: 'app-plugin-upsert',
